@@ -26,7 +26,7 @@ pipeline {
     }
 
     environment {
-        RazrabPath="Q:\\CF_UPDATE_TEST_КА\\razrab.cf"
+        RazrabPath=".\\razrab.cf"
     
         SOLUTION = "AUDIT_Import_ALL\\AUDIT_Import_ALL.dtproj"
 }
