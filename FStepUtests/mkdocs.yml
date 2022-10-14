@@ -1,0 +1,6 @@
+site_name: Юнит тестирование в 1С:Предприятии 
+
+nav:
+    - Home: index.md
+    - Контакты: about.md
+theme: readthedocs

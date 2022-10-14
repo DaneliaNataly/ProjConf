@@ -1,0 +1,38 @@
+{
+    "uuid": "52c741ac-7a88-434e-9965-12b09999fa6b",
+    "historyId": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "name": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "fullName": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "start": 1661426371894,
+    "stop": 1661426393605,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "HTTPСервис.softphoneWebModuleApi.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Не обнаружено ссылок на функцию"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Не обнаружено ссылок на функцию: \"ResultCallHangUpPOST\""
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:test-suite xmlns:ns2="urn:model.allure.qatools.yandex.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<name xmlns="">Тесты проверка макетов СКД - &lt;Администратор&gt;</name>
+	<labels xmlns="" xmlns:d2p1="urn:model.allure.qatools.yandex.ru">
+		<label name="framework" value="xUnitFor1C"/>
+		<label name="language" value="1С"/>
+	</labels>
+	<test-cases xmlns="" xmlns:d2p1="urn:model.allure.qatools.yandex.ru">
+		<test-case start="1659948327920" stop="1659948327920" status="failed">
+			<name>Валидация корректности запроса СКД в Отчет1: ОсновнаяСхемаКомпоновкиДанных - &lt;Администратор&gt;</name>
+			<title>Валидация корректности запроса СКД в Отчет1: ОсновнаяСхемаКомпоновкиДанных - &lt;Администратор&gt;</title>
+			<failure>
+				<message>{(3, 2)}: Синтаксическая ошибка "Справочник1.Код"
+&lt;&lt;?&gt;&gt;Справочник1.Код КАК Код,</message>
+			</failure>
+			<parameters>
+				<parameter name="Параметр 1" value="ОТЧЕТЫ(Строка)" kind="environment-variable"/>
+				<parameter name="Параметр 2" value="Отчет1(Строка)" kind="environment-variable"/>
+				<parameter name="Параметр 3" value="ОсновнаяСхемаКомпоновкиДанных(Строка)" kind="environment-variable"/>
+			</parameters>
+		</test-case>
+	</test-cases>
+</ns2:test-suite>

@@ -1,0 +1,38 @@
+{
+    "uuid": "bad5e6c3-bc7f-4fe7-aac7-b1bf21ea8c27",
+    "historyId": "ОбщийМодуль.toledo_API.Модуль. Не обнаружено ссылок на процедуру",
+    "name": "ОбщийМодуль.toledo_API.Модуль. Не обнаружено ссылок на процедуру",
+    "fullName": "ОбщийМодуль.toledo_API.Модуль. Не обнаружено ссылок на процедуру",
+    "start": 1661413063051,
+    "stop": 1661413084762,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "ОбщийМодуль.toledo_API.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Не обнаружено ссылок на процедуру"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Не обнаружено ссылок на процедуру: \"ПолучитьТочкуДоставки\""
+}

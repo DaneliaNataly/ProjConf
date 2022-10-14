@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.13">
+	<ConfigVersions>
+		<Metadata name="Catalog.Справочник1" id="db55fb28-4731-474e-8c8b-2f31140e12c7" configVersion="5e58c83111541c4181e671caa7869f9300000000">
+			<Metadata name="Catalog.Справочник1.Attribute.Реквизит1" id="86592e30-46dd-473f-9175-1d5032179e8a"/>
+		</Metadata>
+		<Metadata name="Catalog.Справочник1.ObjectModule" id="db55fb28-4731-474e-8c8b-2f31140e12c7.0" configVersion="82fea25f12a2f747addb5a4a4932155400000000"/>
+		<Metadata name="Catalog.Справочник2" id="ffd8bc9c-645c-4908-8ea3-2928de43fee2" configVersion="7ce36371a46a614580049e48e4481fc000000000">
+			<Metadata name="Catalog.Справочник2.Attribute.Реквизит1" id="6d1fa395-ebbb-4f78-9789-3f1d57877736"/>
+		</Metadata>
+		<Metadata name="Catalog.Справочник2.ObjectModule" id="ffd8bc9c-645c-4908-8ea3-2928de43fee2.0" configVersion="b6d6e60d97b4344c9a1ed3a1839469f700000000"/>
+		<Metadata name="Catalog.Справочник3" id="6fd87506-82b5-4316-a7a2-500a3e470a93" configVersion="0a785c9de9098c479e8a930b54feafea00000000"/>
+		<Metadata name="Catalog.Справочник3.ObjectModule" id="6fd87506-82b5-4316-a7a2-500a3e470a93.0" configVersion="12a23790cccbd84385882eeaa151a08300000000"/>
+		<Metadata name="CommonModule.ОбщийМодуль1" id="d800cfb6-af17-4671-abf5-ceaa3490dae0" configVersion="ba759e6a877b114f835cfff81e6e973d00000000"/>
+		<Metadata name="CommonModule.ОбщийМодуль1.Module" id="d800cfb6-af17-4671-abf5-ceaa3490dae0.0" configVersion="c83e835041e006498e6f2c1786cc3cac00000000"/>
+		<Metadata name="Configuration.Конфигурация" id="98e758a1-0868-4551-b85c-8d18874fa531" configVersion="1553de7ab1c4b74fa0999d58b1b0498e00000000"/>
+		<Metadata name="Document.Документ1" id="216a1770-7ceb-49b8-a437-34091182fb46" configVersion="42f7caf1e70e9545bc774cda2d4f83fb00000000"/>
+		<Metadata name="Document.Документ2" id="bd4804ec-979a-4f0c-a2d2-ba5e2ccef147" configVersion="ed5009d9841cf14f8894e247f1b9f5d700000000"/>
+		<Metadata name="Document.Документ2.ObjectModule" id="bd4804ec-979a-4f0c-a2d2-ba5e2ccef147.0" configVersion="448c1b23c51fff4a98e61148b17827ab00000000"/>
+		<Metadata name="Language.Русский" id="f189c5b9-4e1d-4739-be12-23951dda0a49" configVersion="21b9aa1fc3d4c84da1bfeea0adadd10d00000000"/>
+		<Metadata name="Report.Отчет1" id="1b11316d-f511-4324-b495-cc436477fbf1" configVersion="c8b2a1b19adcfa47bf7b4b60fb1da24900000000"/>
+		<Metadata name="Report.Отчет1.Template.ОсновнаяСхемаКомпоновкиДанных" id="cd42e4ff-90a1-4a56-bca2-ebcd01ad1e62" configVersion="ab4c040e44ae4b409197cfe07207e3a000000000"/>
+		<Metadata name="Report.Отчет1.Template.ОсновнаяСхемаКомпоновкиДанных.Template" id="cd42e4ff-90a1-4a56-bca2-ebcd01ad1e62.0" configVersion="5ed4dadb7cf8ee4cb713bfb0e4352cf500000000"/>
+		<Metadata name="Role.Администратор" id="9265eccd-320e-4229-845d-f7f9be83efe0" configVersion="90b0d1be2f98f14fba5d350651e964ca00000000"/>
+		<Metadata name="Role.Администратор.Rights" id="9265eccd-320e-4229-845d-f7f9be83efe0.0" configVersion="406651635278174b9091c7aaab0f27d100000000"/>
+	</ConfigVersions>
+</ConfigDumpInfo>

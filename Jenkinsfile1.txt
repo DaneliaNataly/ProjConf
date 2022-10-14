@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    environment {
+        OWNER_NAME="Natalia Danelia mmmmmm"
+    }
+    
+
+    stages {
+        stage('1. Hello! This is my PipeLine') {
+            steps {
+                echo "Hello ${OWNER_NAME}"
+            }
+             
+        }
+        stage('2. Hello! This is my PipeLine') {
+            steps {
+                echo 'Hello World2'
+            }
+        }
+    }
+}

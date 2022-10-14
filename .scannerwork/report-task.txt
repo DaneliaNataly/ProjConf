@@ -1,0 +1,6 @@
+projectKey=ProjConf
+serverUrl=http://localhost:9000
+serverVersion=9.6.0.59041
+dashboardUrl=http://localhost:9000/dashboard?id=ProjConf
+ceTaskId=AYLzaewHiA1Kixqg1b6W
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYLzaewHiA1Kixqg1b6W

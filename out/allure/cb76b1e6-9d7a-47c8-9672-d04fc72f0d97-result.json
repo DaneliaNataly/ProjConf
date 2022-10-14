@@ -1,0 +1,38 @@
+{
+    "uuid": "cb76b1e6-9d7a-47c8-9672-d04fc72f0d97",
+    "historyId": "ОбщийМодуль.toledo_ОбменForecastNow.Модуль. Не обнаружено ссылок на функцию",
+    "name": "ОбщийМодуль.toledo_ОбменForecastNow.Модуль. Не обнаружено ссылок на функцию",
+    "fullName": "ОбщийМодуль.toledo_ОбменForecastNow.Модуль. Не обнаружено ссылок на функцию",
+    "start": 1661413193317,
+    "stop": 1661413215028,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "ОбщийМодуль.toledo_ОбменForecastNow.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Не обнаружено ссылок на функцию"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Не обнаружено ссылок на функцию: \"ВыгрузитьИсториюПродаж_ТекстЗапроса_РезервыОстатки_backup_2021_03_26\""
+}

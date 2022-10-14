@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:test-suite xmlns:ns2="urn:model.allure.qatools.yandex.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<name xmlns="">Тесты "Проверка периодичности нумерации документов" - &lt;Администратор&gt;</name>
+	<labels xmlns="" xmlns:d2p1="urn:model.allure.qatools.yandex.ru">
+		<label name="framework" value="xUnitFor1C"/>
+		<label name="language" value="1С"/>
+	</labels>
+	<test-cases xmlns="" xmlns:d2p1="urn:model.allure.qatools.yandex.ru">
+		<test-case start="1659948327951" stop="1659948327951" status="broken">
+			<name>Документ.Документ2 [Проверка периодичности нумерации документа] - &lt;Администратор&gt;</name>
+			<title>Документ.Документ2 [Проверка периодичности нумерации документа] - &lt;Администратор&gt;</title>
+			<failure>
+				<message>[Failed] Переданный параметр (ложь) не является Истиной, а хотели, чтобы являлся.
+У объекта "Документ.Документ2" непериодическая нумерация.</message>
+			</failure>
+			<parameters>
+				<parameter name="Параметр 1" value="Документ.Документ2(Строка)" kind="environment-variable"/>
+			</parameters>
+		</test-case>
+		<test-case start="1659948327951" stop="1659948327951" status="canceled">
+			<name>Документ.Документ1 [Проверка периодичности нумерации документа] - &lt;Администратор&gt;</name>
+			<title>Документ.Документ1 [Проверка периодичности нумерации документа] - &lt;Администратор&gt;</title>
+		</test-case>
+	</test-cases>
+</ns2:test-suite>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:test-suite xmlns:ns2="urn:model.allure.qatools.yandex.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<name xmlns="">Дымовые тесты общих модулей - &lt;Администратор&gt;</name>
+	<labels xmlns="" xmlns:d2p1="urn:model.allure.qatools.yandex.ru">
+		<label name="framework" value="xUnitFor1C"/>
+		<label name="language" value="1С"/>
+	</labels>
+	<test-cases xmlns="" xmlns:d2p1="urn:model.allure.qatools.yandex.ru">
+		<test-case start="1659948355093" stop="1659948355109" status="broken">
+			<name>Общий модуль : ОбщийМодуль1 {} - &lt;Администратор&gt;</name>
+			<title>Общий модуль : ОбщийМодуль1 {} - &lt;Администратор&gt;</title>
+			<failure>
+				<message>[Failed] Переданный параметр (ложь) не является Истиной, а хотели, чтобы являлся.
+Использование во внешнем соединении {ОбщийМодуль1}</message>
+			</failure>
+			<parameters>
+				<parameter name="Параметр 1" value="ОбщийМодуль1(Строка)" kind="environment-variable"/>
+				<parameter name="Параметр 2" value="Нет(Булево)" kind="environment-variable"/>
+			</parameters>
+		</test-case>
+	</test-cases>
+</ns2:test-suite>

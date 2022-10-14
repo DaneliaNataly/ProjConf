@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuites name="CheckConfig.base" tests="4" failures="4" skipped="0" time="10803.189727">
+    <testsuite name="CheckConfig.base">
+        <properties/>
+        <testcase classname="CheckConfig.base.Ошибка" name="Ошибка">
+            <failure type="ERROR" message="блокировки информационной базы для конфигурирования."/>
+        </testcase>
+        <testcase classname="CheckConfig.base.Ошибка" name="Возможно,">
+            <failure type="ERROR" message="информационная база уже открыта Конфигуратором."/>
+        </testcase>
+        <testcase classname="CheckConfig.base.Ошибка" name="С">
+            <failure type="ERROR" message="этой информационной базой уже работает конфигуратор:"/>
+        </testcase>
+        <testcase classname="CheckConfig.base.Ошибка" name="компьютер:">
+            <failure type="ERROR" message="IT-1C-16, пользователь: Данелия_Наталья , сеанс: 1, начат: 27.09.2022 в 10:34:15, приложение: Конфигуратор"/>
+        </testcase>
+    </testsuite>
+</testsuites>

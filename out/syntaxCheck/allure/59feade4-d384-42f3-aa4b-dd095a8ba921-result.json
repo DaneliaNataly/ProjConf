@@ -1,0 +1,38 @@
+{
+    "uuid": "59feade4-d384-42f3-aa4b-dd095a8ba921",
+    "historyId": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "name": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "fullName": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "start": 1660153692367,
+    "stop": 1660153713653,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "HTTPСервис.softphoneWebModuleApi.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Не обнаружено ссылок на функцию"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Не обнаружено ссылок на функцию: \"ResultCallbackPOST\""
+}

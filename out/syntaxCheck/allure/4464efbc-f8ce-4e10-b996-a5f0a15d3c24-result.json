@@ -1,0 +1,38 @@
+{
+    "uuid": "4464efbc-f8ce-4e10-b996-a5f0a15d3c24",
+    "historyId": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "name": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "fullName": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "start": 1660153649795,
+    "stop": 1660153671081,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "WebСервис.toledo_ITS.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Пустой обработчик"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Пустой обработчик: \"ResourceCommercialProposal\""
+}

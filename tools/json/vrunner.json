@@ -1,0 +1,116 @@
+{
+    "$schema": "https://raw.githubusercontent.com/vanessa-opensource/vanessa-runner/develop/vanessa-runner-schema.json",
+    "default": {
+        "--ibconnection":"/Sdb\\ka25",//"/Snn-1cdev-01:3541\\ka_danelia",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--db-user": "Данелия_Наталья", //"Администратор",
+        "--db-pwd": "", //"2",
+        "--v8version": "8.3.20"
+    },
+    "syntax-check": {
+        "--groupbymetadata": true,
+        "--exception-file": "./tools/syntax_check_exception.txt",
+        "--junitpath": "out/syntaxCheck/junit",
+        "--allure-results2": "out/allure",//"out/syntaxCheck/allure",
+        "--ibconnection": "/Snn-1cdev-01:3541\\ka_danelia",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--db-user": "Данелия_Наталья",//"Администратор",
+        "--db-pwd": "2",
+        "--v8version": "8.3.20",
+        "--storage-name": "tcp://nn-sql-01/ka_razrab",//"C:/Users/daneliya.n/ProjConf/StageTest",
+        "--debuglogfile": false,
+        "--storage-user": "Данелия_Наталья",//"Администратор",
+        "--storage-pwd": "223",
+        "--mode": [
+            "-ExtendedModulesCheck",
+            "-ThinClient",
+            "-WebClient",
+            "-Server",
+            "-ExternalConnection",
+            "-ThickClientOrdinaryApplication",
+            "-EmptyHandlers",
+            "-UnreferenceProcedures",
+            "-ExtendedModulesCheck",
+            "-HandlersExistence"
+        ]
+    },
+    "xunit": {
+        "--xddConfig": "./tools/json/xUnitParams.json",
+        "--reportsxunit": "ГенераторОтчетаAllureXML{out/allure}",//"ГенераторОтчетаAllureXML{out/smoke/allure.json}",
+        "--workspace": ".",
+        "--db-user": "Данелия_Наталья",//"Администратор", 
+        "--db-pwd": "2",
+        "--testclient":  "/Snn-1cdev-01:3541\\ka_danelia Данелия_Наталья:2:",  //"/C:/Users/daneliya.n/Documents/InfoBase1 Администратор::48001", 
+        "--pathxunit": "$addRoot/xddTestRunner.epf",
+        "testsPath": "./tests/smoke"
+    },
+    "updatedb": {
+        "--ibconnection":  "/Sdb\\ka25",//"/Snn-1cdev-01:3541\\ka_danelia","/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--db-user": "Данелия_Наталья",//"Администратор",
+        "--uccode": "godModeOn"
+    },
+    "compile": {
+        "inputPath": "./src",
+        "outputPath": "./build/1Cv8.cf"
+    },
+    "designer": {
+        "--ibconnection": "/Snn-1cdev-01:3541\\ka_danelia", //"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--storage-name": "tcp://nn-sql-01/ka_razrab",//"C:/Users/daneliya.n/ProjConf/StageTest",
+        "--storage-user": "Данелия_Наталья", //"Администратор" ,
+        "--storage-pwd": "223",
+        "--db-user": "Данелия_Наталья", //"Администратор",
+        "--db-pwd": "K*/7Vr9v7pdr"
+        
+    },
+    "vanessa": {
+        "--vanessasettings": "tools/json/VBParams.json",
+        "--workspace": ".",
+        "--pathvanessa": "$addRoot/bddRunner.epf",
+        "--additional": "/DisplayAllFunctions /L ru"
+    },
+    "lockrepo":{
+        "--revised": false,
+        "--ibconnection":  "/Sdb\\ka25",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--storage-name": "tcp://nn-sql-01/ka_proverka",//"C:/Users/daneliya.n/ProjConf/StageTest",
+        "--storage-user": "Данелия_Наталья",//"Администратор" ,
+        "--storage-pwd": "223",
+        "--db-user": "Данелия_Наталья", //"Администратор",
+        "--db-pwd": "",
+        "--debuglogfile" :"C:/Users/daneliya.n/ProjConf/logs/lockrepo/logs_lockrepo.log"
+
+    },
+    "unloadcfrepo":{
+        "--ibconnection": "/Sdb\\ka25",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--storage-name": "tcp://nn-sql-01/ka_proverka",//"C:/Users/daneliya.n/ProjConf/StageTest",
+        "--storage-user": "Данелия_Наталья",//"Администратор" ,
+        "--storage-pwd": "223",
+        "--db-user": "Данелия_Наталья", //"Администратор", 
+        "--db-pwd": "",
+        "--out": "Q:/CF_update_prod_ka/update.cf",//"C:/Users/daneliya.n/ProjConf/update.cf" ,
+        "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/unloadrepo/logs_unloadrepo.log"
+
+    }, 
+    "merge":{
+        "--ibconnection": "/Sdb\\ka25",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--storage-name": "tcp://nn-sql-01/ka_proverka",//"C:/Users/daneliya.n/ProjConf/StageTest",
+        "--storage-user": "Данелия_Наталья",//"Администратор" ,
+        "--storage-pwd": "223",
+        "--db-user": "Данелия_Наталья", //"Администратор", 
+        "--db-pwd": "",
+        "--src": "Q:/CF_UPDATE_TEST_КА/razrab.cf" ,
+        "--merge-settings": "C:/Users/daneliya.n/ProjConf/MergeSettingsKA.xml",
+        "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/merge/logs_merge.log"
+        
+
+    },
+    "commit":{
+        "--ibconnection": "/Sdb\\ka25",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--storage-name": "tcp://nn-sql-01/ka_proverka",//"C:/Users/daneliya.n/ProjConf/StageTest",
+        "--storage-user": "Данелия_Наталья",//"Администратор" ,
+        "--storage-pwd": "223",
+        "--db-user": "Данелия_Наталья", //"Администратор", 
+        "--db-pwd": "",       
+        "--comment": "New version",
+        "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/merge/logs_merge.log"
+        
+
+    }
+}

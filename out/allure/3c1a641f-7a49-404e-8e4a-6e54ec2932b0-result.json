@@ -1,0 +1,38 @@
+{
+    "uuid": "3c1a641f-7a49-404e-8e4a-6e54ec2932b0",
+    "historyId": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма. Не обнаружено ссылок на процедуру",
+    "name": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма. Не обнаружено ссылок на процедуру",
+    "fullName": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма. Не обнаружено ссылок на процедуру",
+    "start": 1661453076424,
+    "stop": 1661453098135,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма"
+        },
+        {
+            "name": "story",
+            "value": "Не обнаружено ссылок на процедуру"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Не обнаружено ссылок на процедуру: \"ОбработчикOnPenData\""
+}

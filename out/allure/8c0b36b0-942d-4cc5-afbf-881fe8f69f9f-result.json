@@ -1,0 +1,38 @@
+{
+    "uuid": "8c0b36b0-942d-4cc5-afbf-881fe8f69f9f",
+    "historyId": "ОбщийМодуль.CRM_DropboxКлиент.Модуль. Возможно ошибочный метод",
+    "name": "ОбщийМодуль.CRM_DropboxКлиент.Модуль. Возможно ошибочный метод",
+    "fullName": "ОбщийМодуль.CRM_DropboxКлиент.Модуль. Возможно ошибочный метод",
+    "start": 1661408872828,
+    "stop": 1661408894539,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "ОбщийМодуль.CRM_DropboxКлиент.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Возможно ошибочный метод"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Возможно ошибочный метод: \"СохранитьПараметрыАвторизации\""
+}

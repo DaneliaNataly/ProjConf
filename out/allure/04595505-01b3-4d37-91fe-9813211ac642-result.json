@@ -1,0 +1,38 @@
+{
+    "uuid": "04595505-01b3-4d37-91fe-9813211ac642",
+    "historyId": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма. Возможно ошибочный параметр",
+    "name": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма. Возможно ошибочный параметр",
+    "fullName": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма. Возможно ошибочный параметр",
+    "start": 1661453098135,
+    "stop": 1661453119846,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "Обработка.toledo_РаботаCWacomSTU.Форма.РаботаСWacomSTUКлиент.Форма"
+        },
+        {
+            "name": "story",
+            "value": "Возможно ошибочный параметр"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Возможно ошибочный параметр: \"toledo_pdftopng32\""
+}

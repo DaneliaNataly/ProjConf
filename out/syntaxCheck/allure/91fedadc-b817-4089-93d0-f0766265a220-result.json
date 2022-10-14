@@ -1,0 +1,38 @@
+{
+    "uuid": "91fedadc-b817-4089-93d0-f0766265a220",
+    "historyId": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль. Возможно ошибочный метод",
+    "name": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль. Возможно ошибочный метод",
+    "fullName": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль. Возможно ошибочный метод",
+    "start": 1660137131859,
+    "stop": 1660137153145,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Возможно ошибочный метод"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Возможно ошибочный метод: \"UpdateItemЭтоПолеДляУдаления\""
+}

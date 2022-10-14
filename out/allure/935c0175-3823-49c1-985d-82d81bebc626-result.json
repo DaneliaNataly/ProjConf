@@ -1,0 +1,38 @@
+{
+    "uuid": "935c0175-3823-49c1-985d-82d81bebc626",
+    "historyId": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль. Возможно ошибочный метод",
+    "name": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль. Возможно ошибочный метод",
+    "fullName": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль. Возможно ошибочный метод",
+    "start": 1661409611002,
+    "stop": 1661409632713,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "ОбщийМодуль.CRM_MSExchangeСерверЭкспортныеМетоды.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Возможно ошибочный метод"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Возможно ошибочный метод: \"ОбновитьChangeKeyВСоответствииОбъектовMSExchange\""
+}

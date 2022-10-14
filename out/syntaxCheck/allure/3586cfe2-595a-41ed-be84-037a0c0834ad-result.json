@@ -1,0 +1,38 @@
+{
+    "uuid": "3586cfe2-595a-41ed-be84-037a0c0834ad",
+    "historyId": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "name": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "fullName": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "start": 1660153564651,
+    "stop": 1660153585937,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "WebСервис.toledo_ITS.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Пустой обработчик"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Пустой обработчик: \"EditClientDeliveryPoint\""
+}

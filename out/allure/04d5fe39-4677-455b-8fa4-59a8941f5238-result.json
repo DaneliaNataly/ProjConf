@@ -1,0 +1,38 @@
+{
+    "uuid": "04d5fe39-4677-455b-8fa4-59a8941f5238",
+    "historyId": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "name": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "fullName": "WebСервис.toledo_ITS.Модуль. Пустой обработчик",
+    "start": 1661426241628,
+    "stop": 1661426263339,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "WebСервис.toledo_ITS.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Пустой обработчик"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Пустой обработчик: \"ForthcomingIndebtedness\""
+}

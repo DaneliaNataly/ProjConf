@@ -1,0 +1,38 @@
+{
+    "uuid": "28cdf9e8-5b1f-410b-96fe-6dd38b5164c7",
+    "historyId": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "name": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "fullName": "HTTPСервис.softphoneWebModuleApi.Модуль. Не обнаружено ссылок на функцию",
+    "start": 1660153756225,
+    "stop": 1660153777511,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "HTTPСервис.softphoneWebModuleApi.Модуль"
+        },
+        {
+            "name": "story",
+            "value": "Не обнаружено ссылок на функцию"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Не обнаружено ссылок на функцию: \"ResultStatsPOST\""
+}

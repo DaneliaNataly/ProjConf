@@ -1,0 +1,38 @@
+{
+    "uuid": "fc3a0bf5-cced-4167-a77d-2efd43358cf4",
+    "historyId": "Обработка.toledo_ЗагрузкаДанныхИзExcel.МодульОбъекта. Пустой обработчик",
+    "name": "Обработка.toledo_ЗагрузкаДанныхИзExcel.МодульОбъекта. Пустой обработчик",
+    "fullName": "Обработка.toledo_ЗагрузкаДанныхИзExcel.МодульОбъекта. Пустой обработчик",
+    "start": 1661451838897,
+    "stop": 1661451860608,
+    "statusDetails": {
+        "known": false,
+        "muted": false,
+        "flaky": false
+    },
+    "status": "failed",
+    "stage": "finished",
+    "steps": [],
+    "parameters": [],
+    "labels": [
+        {
+            "name": "package",
+            "value": "Обработка.toledo_ЗагрузкаДанныхИзExcel.МодульОбъекта"
+        },
+        {
+            "name": "story",
+            "value": "Пустой обработчик"
+        },
+        {
+            "name": "feature",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        },
+        {
+            "name": "host",
+            "value": "Синтаксическая проверка конфигурации. Конфигуратор"
+        }
+    ],
+    "links": [],
+    "attachments": [],
+    "description": "Пустой обработчик: \"ОбработкаПроверкиЗаполнения\""
+}
