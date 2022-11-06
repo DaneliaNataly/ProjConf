@@ -4,7 +4,7 @@
         "--ibconnection":"/Snn-1cdev-01:3541\\ka_danelia",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
         "--db-user": "Данелия_Наталья", //"Администратор",
         "--db-pwd": "K*/7Vr9v7pdr", //"2",
-        "--v8version": "8.3.20"
+        "--v8version": "8.3.22"
     },
     "syntax-check": {
         "--groupbymetadata": true,
@@ -14,7 +14,7 @@
         "--ibconnection": "/Snn-1cdev-01:3541\\ka_danelia",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
         "--db-user": "Данелия_Наталья",//"Администратор",
         "--db-pwd": "2",
-        "--v8version": "8.3.20",
+        "--v8version": "8.3.22",
         "--storage-name": "tcp://nn-sql-01/ka_razrab",//"C:/Users/daneliya.n/ProjConf/StageTest",
         "--debuglogfile": false,
         "--storage-user": "Данелия_Наталья",//"Администратор",

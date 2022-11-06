@@ -23,12 +23,13 @@ pipeline {
         string(defaultValue: "${env.storageUser}", description: 'Необязательный. Администратор хранилищ  1C. Должен быть одинаковым для всех хранилищ', name: 'storageUser')
         string(defaultValue: "${env.storagePwd}", description: 'Необязательный. Пароль администратора хранилищ 1c', name: 'storagePwd')
         string(defaultValue: "${env.agent1cPort}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort')
+        string(defaultValue: "${env.pathforrazrab}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrazrab')
     }
 
     environment {
-        RazrabPath=".\\razrab.cf"
+        RazrabPath="\\nn-fs-01\Obmen_1c\CF_UPDATE_TEST_КА\razrab.cf"  //.\razrab.cf 
     
-        SOLUTION = "AUDIT_Import_ALL\\AUDIT_Import_ALL.dtproj"
+        
 }
 
     agent {
@@ -114,7 +115,7 @@ pipeline {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
                         }
                         // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
-                        returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner_razrab.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${RazrabPath}")
+                        returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner_razrab.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrazrab}")
                          }
                 }
             } 
