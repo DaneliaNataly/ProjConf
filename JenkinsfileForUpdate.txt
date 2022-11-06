@@ -27,7 +27,7 @@ pipeline {
     }
 
     environment {
-        RazrabPath="\\nn-fs-01\Obmen_1c\CF_UPDATE_TEST_КА\razrab.cf"  //.\razrab.cf 
+        RazrabPath="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/razrab.cf"  
     
         
 }
