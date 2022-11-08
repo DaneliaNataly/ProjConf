@@ -3,7 +3,7 @@
     "default": {
         "--ibconnection":"/Sdb\\ka25",//"/Snn-1cdev-01:3541\\ka_danelia",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
         "--db-user": "Данелия_Наталья", //"Администратор",
-        "--db-pwd": "", //"2",
+        "--db-pwd": "K*/7Vr9v7pdr", //"2",
         "--v8version": "8.3.22"
     },
     "syntax-check": {
@@ -13,7 +13,7 @@
         "--allure-results2": "out/allure",//"out/syntaxCheck/allure",
         "--ibconnection": "/Snn-1cdev-01:3541\\ka_danelia",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
         "--db-user": "Данелия_Наталья",//"Администратор",
-        "--db-pwd": "2",
+        "--db-pwd": "K*/7Vr9v7pdr",
         "--v8version": "8.3.22",
         "--storage-name": "tcp://nn-sql-01/ka_razrab",//"C:/Users/daneliya.n/ProjConf/StageTest",
         "--debuglogfile": false,
@@ -73,7 +73,7 @@
         "--storage-user": "Данелия_Наталья",//"Администратор" ,
         "--storage-pwd": "223",
         "--db-user": "Данелия_Наталья", //"Администратор",
-        "--db-pwd": "",
+        "--db-pwd": "K*/7Vr9v7pdr",
         "--debuglogfile" :"C:/Users/daneliya.n/ProjConf/logs/lockrepo/logs_lockrepo.log"
 
     },
@@ -83,7 +83,7 @@
         "--storage-user": "Данелия_Наталья",//"Администратор" ,
         "--storage-pwd": "223",
         "--db-user": "Данелия_Наталья", //"Администратор", 
-        "--db-pwd": "",
+        "--db-pwd": "K*/7Vr9v7pdr",
         "--out": "Q:/CF_update_prod_ka/update.cf",//"C:/Users/daneliya.n/ProjConf/update.cf" ,
         "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/unloadrepo/logs_unloadrepo.log"
 
@@ -94,7 +94,7 @@
         "--storage-user": "Данелия_Наталья",//"Администратор" ,
         "--storage-pwd": "223",
         "--db-user": "Данелия_Наталья", //"Администратор", 
-        "--db-pwd": "",
+        "--db-pwd": "K*/7Vr9v7pdr",
         "--src": "Q:/CF_UPDATE_TEST_КА/razrab.cf" ,
         "--merge-settings": "C:/Users/daneliya.n/ProjConf/MergeSettingsKA.xml",
         "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/merge/logs_merge.log"
@@ -107,7 +107,7 @@
         "--storage-user": "Данелия_Наталья",//"Администратор" ,
         "--storage-pwd": "223",
         "--db-user": "Данелия_Наталья", //"Администратор", 
-        "--db-pwd": "",       
+        "--db-pwd": "K*/7Vr9v7pdr",       
         "--comment": "New version",
         "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/merge/logs_merge.log"
         

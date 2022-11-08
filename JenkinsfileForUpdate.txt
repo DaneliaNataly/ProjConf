@@ -135,7 +135,7 @@ pipeline {
                            admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
                         }
                         // Захват объектов из релизного хранилища , путь к базе в переменной testbaseConnString_release                        
-                        returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine}")
+                        returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release}")
                         // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
                         //returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --out ${pathforrelease}")
                          }
