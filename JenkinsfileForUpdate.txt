@@ -14,7 +14,7 @@ pipeline {
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
         string(defaultValue: "${env.server1c}", description: 'Имя сервера 1с, по умолчанию localhost', name: 'server1c')
-        string(defaultValue: "${env.server1cPort}", description: 'Порт рабочего сервера 1с. По умолчанию 1540. Не путать с портом агента кластера (1541)', name: 'server1cPort')
+        string(defaultValue: "${env.server1cPort}", description: 'Порт рабочего сервера 1с. По умолчанию 1540. Не путать с портом агента кластера (1541)', name: 'server1cPort')        
         string(defaultValue: "${env.platform1c}", description: 'Версия платформы 1с, например 8.3.20.1674. По умолчанию будет использована последня версия среди установленных', name: 'platform1c')
         string(defaultValue: "${env.admin1cUser}", description: 'Имя администратора с правом открытия вншних обработок (!) для базы тестирования 1с Должен быть одинаковым для всех баз', name: 'admin1cUser')
         string(defaultValue: "${env.admin1cPwd}", description: 'Пароль администратора базы тестирования 1C. Должен быть одинаковым для всех баз', name: 'admin1cPwd')
@@ -24,13 +24,21 @@ pipeline {
         string(defaultValue: "${env.storagePwd}", description: 'Необязательный. Пароль администратора хранилищ 1c', name: 'storagePwd')
         string(defaultValue: "${env.agent1cPort}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort')
         string(defaultValue: "${env.pathforrazrab}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrazrab')
+
+        string(defaultValue: "${env.server1c_release}", description: 'Имя сервера 1с для релизов, по умолчанию localhost', name: 'server1c_release')
+        string(defaultValue: "${env.templatebases_release}", description: 'Список баз для тестирования через запятую. Например work_erp,work_upp', name: 'templatebases_release')
+        string(defaultValue: "${env.storages1cPath_release}", description: 'Необязательный. Пути к хранилищам 1С для обновления копий баз тестирования через запятую. Число хранилищ (если указаны), должно соответствовать числу баз тестирования. Например D:/temp/storage1c/erp,D:/temp/storage1c/upp', name: 'storages1cPath_release')
+        string(defaultValue: "${env.admin1cPwd_release}", description: 'Пароль администратора базы тестирования 1C для релизных баз. Должен быть одинаковым для всех релизных баз', name: 'admin1cPwd_release')
+        string(defaultValue: "${env.agent1cPort_release}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort_release')
+        string(defaultValue: "${env.pathforrelease}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrelease')
+
     }
 
     environment {
         RazrabPath="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/razrab.cf"  
     
         
-}
+      }
 
     agent {
         label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
@@ -38,7 +46,7 @@ pipeline {
     options {
          timeout(time: 8, unit: 'HOURS') 
          buildDiscarder(logRotator(numToKeepStr:'10'))
-    }
+     }
     stages {
         stage("Подготовка") {
             steps {
@@ -56,13 +64,85 @@ pipeline {
                         agent1cPort = agent1cPort.isEmpty() ? "1541" : agent1cPort
                        
                         testbase = null
+                        // работа с релизными базами +
+                        templatebasesList_release = utils.lineToArray(templatebases_release.toLowerCase())
+                        storages1cPathList_release = utils.lineToArray(storages1cPath_release.toLowerCase())
+
+                        if (storages1cPathList_release.size() != 0) {
+                            assert storages1cPathList_release.size() == templatebasesList_release.size()
+                        }
+                        server1c_release = server1c_release.isEmpty() ? "localhost" : server1c_release 
+                        agent1cPort_release = agent1cPort_release.isEmpty() ? "1541" : agent1cPort_release
+                       
+                        testbase_release = null
+                        // работа с релизными базами -
 
                         
                     }
                 }
             }
         }
-        stage("Обновление базы из релизного хранилища") {
+        stage("Обновление базы данных из релизного хранилища") {
+            steps {
+                timestamps {
+                    script {
+
+                        for (i = 0;  i < templatebasesList_release.size(); i++) {
+                            templateDb_release = templatebasesList_release[i]
+                            storage1cPath_release = storages1cPathList_release[i]
+                            testbase_release = "${templateDb_release}"
+                            testbaseConnString_release = projectHelpers.getConnString(server1c_release, testbase_release, agent1cPort_release)                   
+                             // 1. Обновляем тестовую базу из релизного хранилища 1С 
+                            updateDbTasks["${testbase_release}"] = updateDbTask(
+                                platform1c,
+                                testbase_release, 
+                                storage1cPath_release, 
+                                storageUser, 
+                                storagePwd, 
+                                testbaseConnString_release, 
+                                admin1cUser, 
+                                admin1cPwd_release
+                            )
+                         
+                         }
+                         parallel updateDbTasks             
+                    }   
+                 }                              
+            }       
+        }
+        
+        stage("Захват объектов в релизном хранилище") {
+            steps {
+                timestamps {
+                    script {
+
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine_release = ""
+                        if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
+                           admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
+                        }
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
+                        //returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrelease}")
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
+                        returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --out ${pathforrelease}")
+                         }
+                }
+            } 
+        }
+        stage("Обновление базы из хранилища разработки") {
             steps {
                 timestamps {
                     script {
