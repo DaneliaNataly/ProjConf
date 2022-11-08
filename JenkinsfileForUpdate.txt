@@ -82,8 +82,8 @@ pipeline {
                 }
             }
         }
-        stage("Обновление базы данных из релизного хранилища") {
-            steps {
+        stage("Подготовка данных (продолжение)- релизное хранилище") {
+           steps {
                 timestamps {
                     script {
 
@@ -92,22 +92,22 @@ pipeline {
                             storage1cPath_release = storages1cPathList_release[i]
                             testbase_release = "${templateDb_release}"
                             testbaseConnString_release = projectHelpers.getConnString(server1c_release, testbase_release, agent1cPort_release)                   
-                             // 1. Обновляем тестовую базу из релизного хранилища 1С 
-                            updateDbTasks["${testbase_release}"] = updateDbTask(
-                                platform1c,
-                                testbase_release, 
-                                storage1cPath_release, 
-                                storageUser, 
-                                storagePwd, 
-                                testbaseConnString_release, 
-                                admin1cUser, 
-                                admin1cPwd_release
-                            )
+      //                       // 1. Обновляем тестовую базу из релизного хранилища 1С 
+      //                      updateDbTasks["${testbase_release}"] = updateDbTask(
+      //                          platform1c,
+      //                          testbase_release, 
+      //                          storage1cPath_release, 
+      //                          storageUser, 
+       //                         storagePwd, 
+       //                         testbaseConnString_release, 
+       //                         admin1cUser, 
+        //                        admin1cPwd_release
+        //                    )
                          
                          }
-                         parallel updateDbTasks             
-                    }   
-                 }                              
+       //                  parallel updateDbTasks             
+                   }   
+                }                              
             }       
         }
         
@@ -115,7 +115,42 @@ pipeline {
             steps {
                 timestamps {
                     script {
+                       
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
 
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine_release = ""
+                        if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
+                           admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
+                        }
+                        // Захват объектов из релизного хранилища , путь к базе в переменной testbaseConnString_release                        
+                        returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine}")
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
+                        //returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --out ${pathforrelease}")
+                         }
+                }
+            } 
+        }
+        
+
+
+
+         stage("Выгрузка последней версии конфигурации из релизного хранилища") {
+            steps {
+                timestamps {
+                    script {
+                       
                         if (templatebasesList_release.size() == 0) {
                             return
                         }
