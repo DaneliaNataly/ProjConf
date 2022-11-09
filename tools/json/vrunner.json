@@ -37,8 +37,8 @@
         "--reportsxunit": "ГенераторОтчетаAllureXML{out/allure}",//"ГенераторОтчетаAllureXML{out/smoke/allure.json}",
         "--workspace": ".",
         "--db-user": "Данелия_Наталья",//"Администратор", 
-        "--db-pwd": "2",
-        "--testclient":  "/Snn-1cdev-01:3541\\ka_danelia Данелия_Наталья:2:",  //"/C:/Users/daneliya.n/Documents/InfoBase1 Администратор::48001", 
+        "--db-pwd": "K*/7Vr9v7pdr",
+        "--testclient":  "/Snn-1cdev-01:3541\\ka_danelia Данелия_Наталья:K*/7Vr9v7pdr:",  //"/C:/Users/daneliya.n/Documents/InfoBase1 Администратор::48001", 
         "--pathxunit": "$addRoot/xddTestRunner.epf",
         "testsPath": "./tests/smoke"
     },
