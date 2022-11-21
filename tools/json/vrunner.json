@@ -96,7 +96,7 @@
         "--db-user": "Данелия_Наталья", //"Администратор", 
         "--db-pwd": "K*/7Vr9v7pdr",
         "--src": "Q:/CF_UPDATE_TEST_КА/razrab.cf" ,
-        "--merge-settings": "C:/Users/daneliya.n/ProjConf/MergeSettingsKA.xml",
+        "--merge-settings": "./MergeSettingsKA.xml",
         "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/merge/logs_merge.log"
         
 

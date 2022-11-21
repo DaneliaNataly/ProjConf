@@ -31,7 +31,7 @@ pipeline {
         string(defaultValue: "${env.admin1cPwd_release}", description: 'Пароль администратора базы тестирования 1C для релизных баз. Должен быть одинаковым для всех релизных баз', name: 'admin1cPwd_release')
         string(defaultValue: "${env.agent1cPort_release}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort_release')
         string(defaultValue: "${env.pathforrelease}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrelease')
-
+        string(defaultValue: "${NewVersion}", description: 'Комментарий в хранилище релизов после помещения объектов', name: 'NewVersion')
     }
 
     environment {
@@ -194,8 +194,7 @@ pipeline {
                     }   
                  }                              
             }       
-        }
-        
+        }        
            stage("Выгрузка последней версии из хранилища разработки") {
             steps {
                 timestamps {
@@ -224,9 +223,70 @@ pipeline {
                          }
                 }
             } 
-        }       
+        } 
+            stage("Сравнение и объединение конфигурации разработки с конфигурацией релиза ") {
+            steps {
+                timestamps {
+                    script {
+
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine = ""
+                        if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
+                            admin1cPwdLine = "--db-pwd ${admin1cPwd}"
+                        }
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
+                        returnCode = utils.cmd("runner merge --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --src ${pathforrazrab}")
+                    }
+                }
+            } 
+        } 
+           stage("Помещение объектов после сравнения и объединения в релизное хранилище") {
+            steps {
+                timestamps {
+                    script {
+
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine = ""
+                        if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
+                            admin1cPwdLine = "--db-pwd ${admin1cPwd}"
+                        }
+                        NewVersionLine = ""
+                        if (NewVersion != null && !NewVersion.isEmpty()) {
+                            NewVersionLine = "--comment ${NewVersion}"
+                        }
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
+                        returnCode = utils.cmd("runner commit --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} ${NewVersionLine}")
+                    }
+                }
+            } 
+        }      
     }   
-    
 }
 def updateDbTask(platform1c, infobase, storage1cPath, storageUser, storagePwd, connString, admin1cUser, admin1cPwd) {
     return {
