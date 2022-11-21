@@ -31,7 +31,7 @@ pipeline {
         string(defaultValue: "${env.admin1cPwd_release}", description: 'Пароль администратора базы тестирования 1C для релизных баз. Должен быть одинаковым для всех релизных баз', name: 'admin1cPwd_release')
         string(defaultValue: "${env.agent1cPort_release}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort_release')
         string(defaultValue: "${env.pathforrelease}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrelease')
-        string(defaultValue: "${NewVersion}", description: 'Комментарий в хранилище релизов после помещения объектов', name: 'NewVersion')
+        string(defaultValue: "${env.NewVersion}", description: 'Комментарий в хранилище релизов после помещения объектов', name: 'NewVersion')
     }
 
     environment {
