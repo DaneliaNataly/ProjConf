@@ -40,7 +40,7 @@ pipeline {
                     steps {
                           timestamps {
                             script {
-                            echo "${rasConnectionString}"
+                            //echo "${rasConnectionString}"
                             cmd("runner session lock ${rasConnectionString}")
                             cmd("runner session kill ${rasConnectionString}")
                             //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
