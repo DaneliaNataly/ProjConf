@@ -41,10 +41,10 @@ pipeline {
                           timestamps {
                             script {
                             echo "${rasConnectionString}"
-                            cmd("vrunner session lock ${rasConnectionString}")
-                            cmd("vrunner session kill ${rasConnectionString}")
+                            cmd("runner session lock ${rasConnectionString}")
+                            cmd("runner session kill ${rasConnectionString}")
                             //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
-                            cmd("vrunner session unlock ${rasConnectionString}")
+                            cmd("runner session unlock ${rasConnectionString}")
                             }
                          }
                     }
