@@ -1,7 +1,17 @@
+@Library("shared-libraries")
+import io.libs.SqlUtils
+import io.libs.ProjectHelpers
+import io.libs.Utils
 
+def sqlUtils = new SqlUtils()
+def utils = new Utils()
+def projectHelpers = new ProjectHelpers()
+
+def updateDbTasks = [:]
 pipeline {
     parameters {
         string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
+        string(defaultValue: "${env.ServerPort}", description: 'Порт сервера 1С', name: 'ServerPort')
         string(defaultValue: "${env.BaseName}", description: 'Имя базы данных', name: 'BaseName')
         string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
         string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
@@ -12,7 +22,7 @@ pipeline {
     }
 
     environment {
-       baseconnection ="/S${env.Server}\\${env.BaseName}"
+       baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
        uccodeString ="--uccode ${env.Uccode}"
        path = "${env.PathRAC}"//"C://Program Files//1cv8//8.3.22.1704//bin//rac.exe"
        rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString} --rac \"${path}\""        
@@ -31,10 +41,12 @@ pipeline {
                     steps {
                           timestamps {
                             script {
-                            //echo "${rasConnectionString}"
+                                ConnString = projectHelpers.getConnString(Server, BaseName, ServerPort) 
+                                echo "${ConnString}"
+                                returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass} --out ${env.PathRAC}")
                             //cmd("vrunner session lock ${rasConnectionString}")
                             //cmd("runner session kill ${rasConnectionString}")
-                            c_s("--settings tools/json/vrunner.json --ibconnection ${baseConnection} ${uccodeString}")
+                            //c_s("--settings tools/json/vrunner.json --ibconnection ${baseConnection}")
                             //returnCode=utils.cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
                             // returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
                             //bat "chcp 65001\n vrunner updatedb --settings tools/json/vrunner.json --ibconnection ${baseConnection}"
