@@ -54,7 +54,7 @@ pipeline {
 def cmd(command) {
     stage("Команда ${command}") {
         timestamps {
-            bat "chcp 65001\n ${command}"
+             bat script:"chcp 65001\n${command}"
             }
     }
 }        
