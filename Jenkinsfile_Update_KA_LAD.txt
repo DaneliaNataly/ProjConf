@@ -47,10 +47,10 @@ pipeline {
 def c_s(command) {
     stage("Команда ${command}") {
         timestamps {
-            script{
+            //script{
             //echo "${command}"
             bat "chcp 65001\n ${command}"
-            }
+           // }
         }
     }
 }        
