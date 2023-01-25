@@ -16,14 +16,15 @@ pipeline {
         string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
         string(defaultValue: "${env.Uccode}", description: 'Код разблокировки', name: 'Uccode')        
         string(defaultValue: "${env.RasPort}", description: 'RAS', name: 'RasPort')
+        string(defaultValue: "${env.PathRAC}", description: 'RAC', name: 'PathRAC')
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
     }
 
     environment {
-       baseconnection="/S${env.Server}\\${env.BaseName}"
-       uccodeString="--uccode ${env.Uccode}"
-       path="C://Program Files//1cv8//8.3.22.1704//bin//rac.exe"
-       rasConnectionString="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString} --rac "${path}""        
+       baseconnection ="/S${env.Server}\\${env.BaseName}"
+       uccodeString ="--uccode ${env.Uccode}"
+       path = "--rac ${env.PathRAC}"//"C://Program Files//1cv8//8.3.22.1704//bin//rac.exe"
+       rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString} ${path}"        
       }
 
     agent {
