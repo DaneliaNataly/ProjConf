@@ -44,13 +44,12 @@ pipeline {
                                 ConnString = projectHelpers.getConnString(Server, BaseName, ServerPort) 
                                 echo "${ConnString}"
                                 returnCode = utils.cmd("runner updatedb --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
-                               returnCode = utils.cmd("runner session lock ${rasConnectionString}")
+                               //returnCode = utils.cmd("runner session lock ${rasConnectionString}")
                                // cmd_m("vrunner session lock ${rasConnectionString}")
-                            //cmd("runner session kill ${rasConnectionString}")
-                            //c_s("--settings tools/json/vrunner.json --ibconnection ${baseConnection}")
+                            //cmd("runner session kill ${rasConnectionString}")                           
                             //returnCode=utils.cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
                             // returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
-                            //bat "chcp 65001\n vrunner updatedb --settings tools/json/vrunner.json --ibconnection ${baseConnection}"
+                           
                             }
                          }
                     }
