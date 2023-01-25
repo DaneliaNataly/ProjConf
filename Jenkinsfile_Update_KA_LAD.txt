@@ -7,7 +7,7 @@ def sqlUtils = new SqlUtils()
 def utils = new Utils()
 def projectHelpers = new ProjectHelpers()
 
-def cmd=[:]
+
 pipeline {
     parameters {
         string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
