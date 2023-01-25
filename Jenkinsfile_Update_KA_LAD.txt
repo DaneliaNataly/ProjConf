@@ -7,7 +7,7 @@ def sqlUtils = new SqlUtils()
 def utils = new Utils()
 def projectHelpers = new ProjectHelpers()
 
-
+def cmd=[:]
 pipeline {
     parameters {
         string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
@@ -41,7 +41,7 @@ pipeline {
                           timestamps {
                             script {
                             echo "${rasConnectionString}"
-                            returnCode=utils.cmd("runner session lock ${rasConnectionString}")
+                            cmd("runner session lock ${rasConnectionString}")
                             //cmd("runner session kill ${rasConnectionString}")
                             //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
                             returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
@@ -54,7 +54,10 @@ pipeline {
 def cmd(command) {
     stage("Команда ${command}") {
         timestamps {
-             bat script:"chcp 65001\n${command}"
+            script{
+            echo "${command}"
+            bat "chcp 65001\n${command}"
             }
+        }
     }
 }        
