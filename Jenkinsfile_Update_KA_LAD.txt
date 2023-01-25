@@ -41,10 +41,10 @@ pipeline {
                           timestamps {
                             script {
                             echo "${rasConnectionString}"
-                            cmd("vrunner session lock ${rasConnectionString}")
-                            cmd("vrunner session kill ${rasConnectionString}")
-                            //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
-                            cmd("vrunner session unlock ${rasConnectionString}")
+                            cmd("runner session lock ${rasConnectionString}")
+                            cmd("runner session kill ${rasConnectionString}")
+                            //cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
+                            cmd("runner session unlock ${rasConnectionString}")
                             }
                          }
                     }
@@ -52,5 +52,9 @@ pipeline {
     }
 }
 def cmd(command) {
-    bat "chcp 65001\n ${command}"
+    stage("Команда ${command}") {
+        timestamps {
+            bat "chcp 65001\n ${command}"
+            }
+    }
 }        
