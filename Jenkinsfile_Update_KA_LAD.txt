@@ -33,16 +33,17 @@ pipeline {
          buildDiscarder(logRotator(numToKeepStr:'10'))
          }
    
-
-    stage ('Принятие изменений') {
-            steps {
-                timestamps {
-                 cmd("vrunner session lock ${rasConnectionString}")
-                 cmd("vrunner session kill ${rasConnectionString}")
-                 //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
-                 cmd("vrunner session unlock ${rasConnectionString}")
-                }
-           }
+    stages {
+            stage ('Принятие изменений') {
+                    steps {
+                          timestamps {
+                            cmd("vrunner session lock ${rasConnectionString}")
+                            cmd("vrunner session kill ${rasConnectionString}")
+                            //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
+                            cmd("vrunner session unlock ${rasConnectionString}")
+                         }
+                    }
+            }
     }
 }
 def cmd(command) {
