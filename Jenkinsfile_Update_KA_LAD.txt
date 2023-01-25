@@ -6,9 +6,9 @@ import io.libs.Utils
 def sqlUtils = new SqlUtils()
 def utils = new Utils()
 def projectHelpers = new ProjectHelpers()
+def cmd
 
 pipeline {
-
     parameters {
         string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
         string(defaultValue: "${env.BaseName}", description: 'Имя базы данных', name: 'BaseName')
@@ -22,8 +22,7 @@ pipeline {
        baseconnection="/S${env.Server}\\${env.BaseName}"
        uccodeString="--uccode ${env.Uccode}"
        path="C:/Program Files/1cv8/8.3.22.1704/bin/rac.exe"
-       rasConnectionString="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString} --rac ${path}" 
-        
+       rasConnectionString="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString} --rac ${path}"        
       }
 
     agent {
@@ -32,22 +31,20 @@ pipeline {
     options {
          timeout(time: 8, unit: 'HOURS') 
          buildDiscarder(logRotator(numToKeepStr:'10'))
-     }
+         }
    
 
-        stage ('Принятие изменений') {
+    stage ('Принятие изменений') {
             steps {
                 timestamps {
                  cmd("vrunner session lock ${rasConnectionString}")
                  cmd("vrunner session kill ${rasConnectionString}")
                  //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
                  cmd("vrunner session unlock ${rasConnectionString}")
-        }
+                }
+           }
     }
-
-
 }
 def cmd(command) {
     bat "chcp 65001\n ${command}"
-}   
-       
+}        
