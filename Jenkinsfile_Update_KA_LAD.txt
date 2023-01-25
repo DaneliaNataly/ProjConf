@@ -34,9 +34,10 @@ pipeline {
                             echo "${rasConnectionString}"
                             //cmd("vrunner session lock ${rasConnectionString}")
                             //cmd("runner session kill ${rasConnectionString}")
-                            c_s("vrunner updatedb --settings tools/json/vrunner.json --ibconnection ${baseConnection} ${uccodeString}")
+                            //c_s("vrunner updatedb --settings tools/json/vrunner.json --ibconnection ${baseConnection} ${uccodeString}")
                             //returnCode=utils.cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
                             // returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
+                            bat "chcp 65001\n vrunner updatedb --settings tools/json/vrunner.json --ibconnection ${baseConnection}"
                             }
                          }
                     }
@@ -48,7 +49,7 @@ def c_s(command) {
         timestamps {
             script{
             //echo "${command}"
-            bat "chcp 65001\n${command}"
+            bat "chcp 65001\n ${command}"
             }
         }
     }
