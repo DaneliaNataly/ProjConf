@@ -16,6 +16,7 @@ pipeline {
         string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
         string(defaultValue: "${env.Uccode}", description: 'Код разблокировки', name: 'Uccode')        
         string(defaultValue: "${env.RasPort}", description: 'RAS', name: 'RasPort')
+        string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
     }
 
     environment {
