@@ -30,7 +30,7 @@ pipeline {
             stage ('Принятие изменений') {
                     steps {
                           timestamps {
-                            //script {
+                            script {
                             //echo "${rasConnectionString}"
                             //cmd("vrunner session lock ${rasConnectionString}")
                             //cmd("runner session kill ${rasConnectionString}")
@@ -38,7 +38,7 @@ pipeline {
                             //returnCode=utils.cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
                             // returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
                             //bat "chcp 65001\n vrunner updatedb --settings tools/json/vrunner.json --ibconnection ${baseConnection}"
-                          //  }
+                            }
                          }
                     }
             }
@@ -47,10 +47,10 @@ pipeline {
 def c_s(command) {
     stage("Команда ${command}") {
         timestamps {
-            //script{
-            //echo "${command}"
-            bat "chcp 65001\n ${command}"
-           // }
+            script{
+                echo "${command}"
+            //bat "chcp 65001\n ${command}"
+            }
         }
     }
 }        
