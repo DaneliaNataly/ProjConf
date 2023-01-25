@@ -43,7 +43,7 @@ pipeline {
                             script {
                                 ConnString = projectHelpers.getConnString(Server, BaseName, ServerPort) 
                                 echo "${ConnString}"
-                                returnCode = utils.cmd("runner designer --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
+                                returnCode = utils.cmd("runner updatedb --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
                             //cmd("vrunner session lock ${rasConnectionString}")
                             //cmd("runner session kill ${rasConnectionString}")
                             //c_s("--settings tools/json/vrunner.json --ibconnection ${baseConnection}")
