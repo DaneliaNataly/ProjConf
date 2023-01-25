@@ -1,0 +1,68 @@
+@Library("shared-libraries")
+import io.libs.SqlUtils
+import io.libs.ProjectHelpers
+import io.libs.Utils
+
+def sqlUtils = new SqlUtils()
+def utils = new Utils()
+def projectHelpers = new ProjectHelpers()
+
+def updateDbTasks = [:]
+pipeline {
+    parameters {
+        string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
+        string(defaultValue: "${env.ServerPort}", description: 'Порт сервера 1С', name: 'ServerPort')
+        string(defaultValue: "${env.BaseName}", description: 'Имя базы данных', name: 'BaseName')
+        string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
+        string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
+        string(defaultValue: "${env.Uccode}", description: 'Код разблокировки', name: 'Uccode')        
+        string(defaultValue: "${env.RasPort}", description: 'RAS', name: 'RasPort')
+        string(defaultValue: "${env.PathRAC}", description: 'RAC', name: 'PathRAC')
+        string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
+    }
+
+    environment {
+       baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
+       uccodeString ="--uccode ${env.Uccode}"
+       path = "${env.PathRAC}"//"C://Program Files//1cv8//8.3.22.1704//bin//rac.exe"
+       rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString} --rac \"${path}\""        
+      }
+
+    agent {
+        label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
+    }
+    options {
+         timeout(time: 8, unit: 'HOURS') 
+         buildDiscarder(logRotator(numToKeepStr:'10'))
+         }
+   
+    stages {
+            stage ('Принятие изменений') {
+                    steps {
+                          timestamps {
+                            script {
+                                ConnString = projectHelpers.getConnString(Server, BaseName, ServerPort) 
+                                echo "${ConnString}"
+                                //returnCode = utils.cmd("runner updatedb --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
+                                returnCode = utils.cmd("runner session lock ${rasConnectionString}")
+                               // cmd_m("vrunner session lock ${rasConnectionString}")
+                            //cmd("runner session kill ${rasConnectionString}")                           
+                            //returnCode=utils.cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
+                            // returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
+                           
+                            }
+                         }
+                    }
+            }
+    }
+}
+def cmd_m(command) {
+    stage("Команда") {
+        timestamps {
+            script{
+                //echo "${command}"
+                bat "chcp 65001\n ${command}"
+            }
+        }
+    }
+}        
