@@ -43,8 +43,9 @@ pipeline {
                             echo "${rasConnectionString}"
                             //cmd("vrunner session lock ${rasConnectionString}")
                             //cmd("runner session kill ${rasConnectionString}")
-                            cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
-                            returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
+                            //cmd("vrunner updatedb --ibconnection ${baseConnection} ${uccodeString}")
+                            returnCode=utils.cmd(runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
+                            // returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
                             }
                          }
                     }
