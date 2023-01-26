@@ -113,13 +113,14 @@
         
 
     },
-    "kill": {
+    "session kill": {
         "--ras": "nn-1cdev-01:1545",
-        "--rac": "C:/Program Files/1cv8/8.3.22.1704/bin",
+        "--rac": "C:/Program Files/1cv8/8.3.22.1704/bin/rac.exe",
         "--ibconnection": "/Snn-1cdev-01:3541\\ka_danelia",
         "--db": "ka_danelia",
         "--db-user": "Данелия_Наталья", 
         "--db-pwd": "K*/7Vr9v7pdr",
-        "--lockmessage": "Обновление базы КА_ЛАД"   
+        "--lockmessage": "Обновление базы КА_ЛАД" ,
+        "--debuglogfile": "./logs/kill/logs_kill.log"  
     }
 }
