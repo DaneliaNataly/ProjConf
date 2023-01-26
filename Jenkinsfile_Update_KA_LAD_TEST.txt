@@ -60,6 +60,8 @@ def cmd_m(command) {
     stage("Команда") {
         timestamps {
             script{
+                echo "gfdwgf"
+                echo "рпарвпп"
                 echo "${command}"
                 bat "${command}"
             }
