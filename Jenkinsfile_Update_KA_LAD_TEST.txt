@@ -45,8 +45,8 @@ pipeline {
                                 //echo "${ConnString}"
                                 //returnCode = utils.cmd("runner updatedb --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
                                 //returnCode = utils.cmd("runner session lock ${rasConnectionString}")
-                                //cmd_m("vrunner session lock ${rasConnectionString}")   
-                                returnCode = utils.cmd("dsgedged")                             
+                                cmd_m("vrunner session lock ${rasConnectionString}")   
+                                //returnCode = utils.cmd("dsgedged")                             
                             //cmd("runner session kill ${rasConnectionString}")                           
                             //returnCode=utils.cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
                             // returnCode=utils.cmd("runner session unlock ${rasConnectionString}")
@@ -57,7 +57,8 @@ pipeline {
             }
     }
 }
-def cmd_m(command) {    
+def cmd_m(command) {  
+    def utils = new Utils()  
     stage("Команда") {
         timestamps {
             script{
