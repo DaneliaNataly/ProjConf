@@ -56,7 +56,7 @@ pipeline {
             }
     }
 }
-def cmd_m(command) {    
+def cmd_m(command, utils) {    
     stage("Команда") {
         timestamps {
             script{
