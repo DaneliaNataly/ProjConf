@@ -56,12 +56,13 @@ pipeline {
             }
     }
 }
-def cmd_m(command) {
+def cmd_m(command) {    
     stage("Команда") {
         timestamps {
             script{
                 echo "gfdwgf"                               
-                echo utils.cmd("рпарвпп")
+                res= utils.cmd("рпарвпп")
+                echo ${res}
                 echo "${command}"
                 bat "${command}"
             }
