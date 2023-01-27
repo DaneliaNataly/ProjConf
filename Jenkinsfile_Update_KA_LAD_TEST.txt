@@ -44,7 +44,6 @@ pipeline {
                           timestamps {
                             script {
                                // ConnString = projectHelpers.getConnString(Server, BaseName, ServerPort) 
-                                echo "${teststring}"
                                 //returnCode = utils.cmd("runner updatedb --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
                                 //returnCode = utils.cmd("runner session kill --settings tools/json/vrunner.json")
                                 cmd_m("vrunner session lock ${rasConnectionString}")   
