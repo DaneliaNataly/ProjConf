@@ -291,3 +291,203 @@ client-ip                        : 172.16.110.11
 ОТЛАДКА - "C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe" session list --cluster="608513d2-e074-463f-91ca-e4a98f28718e" --infobase="b5e45e1f-ab01-4291-8d56-f025030660ba" nn-1cdev-01:1545
 ОТЛАДКА - Цикл ПотокаВывода 
 ОТЛАДКА - 
+ОТЛАДКА - Подключил вывод отладочного лога в отдельный файл ./logs/kill/logs_kill.log
+ОТЛАДКА - --with-nolock = Нет
+ОТЛАДКА - --lockendclear = Нет
+ОТЛАДКА - --nocacheuse = Нет
+ОТЛАДКА - --debuglog = Нет
+ОТЛАДКА - Действие = kill
+ОТЛАДКА - --settings = ./tools/json/vrunner.json
+ОТЛАДКА - --ras = nn-1cdev-01:1545
+ОТЛАДКА - --rac = C:/Program Files/1cv8/8.3.22.1704/bin/rac.exe
+ОТЛАДКА - --ibconnection = /Snn-1cdev-01:3541\ka_danelia
+ОТЛАДКА - --db = ka_danelia
+ОТЛАДКА - --db-user = Данелия_Наталья
+ОТЛАДКА - --db-pwd = K*/7Vr9v7pdr
+ОТЛАДКА - --lockmessage = Обновление базы КА_ЛАД
+ОТЛАДКА - --debuglogfile = ./logs/kill/logs_kill.log
+ОТЛАДКА - --v8version = 8.3.22
+ОТЛАДКА - --ibname = /IBName "КА_новая (тестовая)" 
+ОТЛАДКА - ДанныеПодключения = ФиксированнаяСтруктура
+ОТЛАДКА - Текущая версия rac C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe
+ИНФОРМАЦИЯ - Получаю список кластеров
+ОТЛАДКА - "C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe" cluster list nn-1cdev-01:1545
+ОТЛАДКА - Цикл ПотокаВывода 
+ОТЛАДКА - cluster                       : 608513d2-e074-463f-91ca-e4a98f28718e
+host                          : nn-1cdev-01
+port                          : 3541
+name                          : "Второй кластер"
+expiration-timeout            : 300
+lifetime-limit                : 86400
+max-memory-size               : 0
+max-memory-time-limit         : 0
+security-level                : 0
+session-fault-tolerance-level : 0
+load-balancing-mode           : performance
+errors-count-threshold        : 0
+kill-problem-processes        : 1
+kill-by-memory-with-dump      : 1
+
+cluster                       : 6f9aa264-e2f5-4d00-92ce-e4db8f8b3b17
+host                          : nn-1cdev-01
+port                          : 1541
+name                          : "Локальный кластер"
+expiration-timeout            : 60
+lifetime-limit                : 0
+max-memory-size               : 0
+max-memory-time-limit         : 0
+security-level                : 0
+session-fault-tolerance-level : 0
+load-balancing-mode           : performance
+errors-count-threshold        : 0
+kill-problem-processes        : 1
+kill-by-memory-with-dump      : 0
+
+ОТЛАДКА - Использую найденный кластер. Хост nn-1cdev-01:3541, Идентификатор 608513d2-e074-463f-91ca-e4a98f28718e, Имя "Второй кластер"
+ОТЛАДКА - Найден идентификатор кластера 608513d2-e074-463f-91ca-e4a98f28718e
+ОТЛАДКА - Найден идентификатор кластера 608513d2-e074-463f-91ca-e4a98f28718e
+ИНФОРМАЦИЯ - Получаю список баз кластера
+ОТЛАДКА - "C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe" infobase summary list --cluster="608513d2-e074-463f-91ca-e4a98f28718e" nn-1cdev-01:1545
+ОТЛАДКА - Цикл ПотокаВывода 
+ОТЛАДКА - infobase : 7b718d65-a1c1-4535-b942-198f3d4cf3be
+name     : ka_behilev
+descr    : 
+
+infobase : 56d82d5a-7669-4f68-8839-4ad1c24192cd
+name     : ka_svirezhev
+descr    : 
+
+infobase : 3b9d1535-454c-43b7-b7af-374317e45900
+name     : ka_petrovskaya_pr
+descr    : 
+
+infobase : daddf5d2-1df0-4239-9dd5-607be60e7f4c
+name     : ka_behilev2
+descr    : 
+
+infobase : 68aaad46-facd-497c-bb5a-5bd49c2a3416
+name     : ka_ivankov2
+descr    : 
+
+infobase : 27926a3a-c0b0-4eeb-8905-dec6bea7acbf
+name     : ka_titov
+descr    : 
+
+infobase : 56639003-e597-45ff-8fe5-7abe72e0eb5f
+name     : ka_andriyashkin
+descr    : 
+
+infobase : bc6a9599-44f9-4da5-a600-e61cb7cc5726
+name     : ka_andriyashkin_pr
+descr    : 
+
+infobase : 2d91fec9-f920-4064-8e1f-01bd90fe5b38
+name     : ka_suhov_pr
+descr    : 
+
+infobase : 643b943e-97fd-4f0a-94b7-85286648b746
+name     : ka18
+descr    : 
+
+infobase : 13bbe3cc-4684-45d1-85d5-409c38e93f26
+name     : zuptd3_1308
+descr    : "zuptd3_1308"
+
+infobase : 1481e6b1-2ba8-4aeb-8e8b-7452cccc19b8
+name     : ka_titov_pr
+descr    : 
+
+infobase : 87297728-bd89-42fc-bdd5-76545bbe87c2
+name     : itm_0211
+descr    : "itm_0211"
+
+infobase : 599b529e-738a-459d-a7f1-c16112eb9653
+name     : ka_sharov
+descr    : 
+
+infobase : e889cf31-9d70-4f5c-9c46-3071f3f80745
+name     : test
+descr    : 
+
+infobase : 2c7e9f74-72c5-4428-b69a-099daf4f015d
+name     : ka60
+descr    : "Кизименко"
+
+infobase : 0fd88c94-9f5b-4bd3-9db2-50f0663e55c3
+name     : ka63
+descr    : 
+
+infobase : 7ca955c7-a184-4f9c-ae8e-9e60262fa5b5
+name     : ka_suhov2
+descr    : 
+
+infobase : da0d8c7d-dc75-446a-a1cd-32946921ecf5
+name     : ka13
+descr    : 
+
+infobase : 84735ccc-f6ce-40f0-b608-4e81e6c8c2c2
+name     : itm_copy
+descr    : 
+
+infobase : 199de73a-de04-4bcf-9480-c94e31cee819
+name     : its_ka_copy
+descr    : 
+
+infobase : f6e22d31-14f3-4ac6-b494-6835b6d72a38
+name     : ka_test
+descr    : 
+
+infobase : cefd792b-9982-4d77-a83a-e9b6c60adabb
+name     : integr_test
+descr    : 
+
+infobase : 124829eb-b9d0-4f8d-94a3-d06718339c57
+name     : ka62
+descr    : 
+
+infobase : 875ccb2e-1a5c-469b-a96f-2d87ac3a3ad0
+name     : ka_210322
+descr    : 
+
+infobase : b5e45e1f-ab01-4291-8d56-f025030660ba
+name     : ka_danelia
+descr    : 
+
+infobase : 31249a77-9485-4cac-b3fa-c9385c830203
+name     : zupcorp_copy
+descr    : 
+
+infobase : 5b1bbb7f-0edf-40f2-beb0-7acf34f45dce
+name     : ka_lad
+descr    : 
+
+infobase : e42ba0d1-249e-4c80-a735-48fbdad39609
+name     : test1
+descr    : 
+
+infobase : ebfb69ea-d0af-4b07-aa51-03b99bec13ee
+name     : test2
+descr    : 
+
+infobase : 75deea99-7e33-4c7f-acc9-628c64488df5
+name     : ka61
+descr    : 
+
+ОТЛАДКА - Найден идентификатор базы b5e45e1f-ab01-4291-8d56-f025030660ba
+ОТЛАДКА - "C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe" infobase update --infobase="b5e45e1f-ab01-4291-8d56-f025030660ba" --infobase-user="Данелия_Наталья" --infobase-pwd="K*/7Vr9v7pdr" --cluster="608513d2-e074-463f-91ca-e4a98f28718e" --sessions-deny=on --denied-message="Обновление базы КА_ЛАД" --denied-from="" --permission-code="b5e45e1f-ab01-4291-8d56-f025030660ba" nn-1cdev-01:1545
+ОТЛАДКА - Цикл ПотокаВывода 
+ОТЛАДКА - 
+ИНФОРМАЦИЯ - Сеансы запрещены
+ИНФОРМАЦИЯ - Отключаю существующие сеансы
+ОТЛАДКА - Найден идентификатор кластера 608513d2-e074-463f-91ca-e4a98f28718e
+ОТЛАДКА - "C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe" session list --cluster="608513d2-e074-463f-91ca-e4a98f28718e" --infobase="b5e45e1f-ab01-4291-8d56-f025030660ba" nn-1cdev-01:1545
+ОТЛАДКА - Цикл ПотокаВывода 
+ОТЛАДКА - 
+ОТЛАДКА - Найден идентификатор кластера 608513d2-e074-463f-91ca-e4a98f28718e
+ОТЛАДКА - "C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe" session list --cluster="608513d2-e074-463f-91ca-e4a98f28718e" --infobase="b5e45e1f-ab01-4291-8d56-f025030660ba" nn-1cdev-01:1545
+ОТЛАДКА - Цикл ПотокаВывода 
+ОТЛАДКА - 
+ОТЛАДКА - Найден идентификатор кластера 608513d2-e074-463f-91ca-e4a98f28718e
+ОТЛАДКА - "C:\Program Files\1cv8\8.3.22.1704\bin\rac.exe" session list --cluster="608513d2-e074-463f-91ca-e4a98f28718e" --infobase="b5e45e1f-ab01-4291-8d56-f025030660ba" nn-1cdev-01:1545
+ОТЛАДКА - Цикл ПотокаВывода 
+ОТЛАДКА - 

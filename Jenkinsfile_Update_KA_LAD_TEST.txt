@@ -45,11 +45,11 @@ pipeline {
                             script {
                                // ConnString = projectHelpers.getConnString(Server, BaseName, ServerPort) 
                                 //returnCode = utils.cmd("runner updatedb --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
-                                //returnCode = utils.cmd("runner session kill --settings tools/json/vrunner.json")
+                                returnCode = utils.cmd("runner session kill --settings tools/json/vrunner.json --ibconnection ${baseconnection} --db-user ${env.UserName} --db-pwd ${env.Pass}")
                                 cmd_m("vrunner session lock ${rasConnectionString}")   
-                                //returnCode = utils.cmd("dsgedged")                             
+                                                           
                             //cmd("runner session kill ${rasConnectionString}")                           
-                            //returnCode=utils.cmd("runner updatedb --ibconnection ${baseConnection} ${uccodeString}")
+                            
                             
                            
                             }
@@ -58,8 +58,7 @@ pipeline {
             }
     }
 }
-def cmd_m(command) {  
-    def utils = new Utils()  
+def cmd_m(command) {   
     stage("Команда") {
         timestamps {
             script{
