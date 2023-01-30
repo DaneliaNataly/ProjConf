@@ -45,7 +45,8 @@ pipeline {
                             script {
                                // ConnString = projectHelpers.getConnString(Server, BaseName, ServerPort) 
                                 //returnCode = utils.cmd("runner updatedb --settings tools/json/vrunner.json --ibconnection \"${ConnString}\" --db-user ${env.UserName} --db-pwd ${env.Pass}")
-                                 env.PathRAC=env.PathRAC +"\"\\%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""
+                                 //env.PathRAC=env.PathRAC +""\\%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe""
+                                 env.PathRAC=env.PathRAC +"С:\\Program Files\\1cv8\\8.3.22.1704\\bin\\rac.exe"
                                  echo "${env.PathRAC}"
                                  bat """chcp 65001
                                  call vrunner session kill --settings tools/json/vrunner.json --rac ${env.PathRAC}"""
