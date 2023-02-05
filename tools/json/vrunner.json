@@ -114,13 +114,14 @@
 
     },
     "session": {
-        "Действие": "kill",
+        "Действие": "kill, lock, unlock", 
         "--ras": "nn-1cdev-01:1545",
         "--rac": "",//"C:/Program Files/1cv8/8.3.22.1704/bin/rac.exe",
         "--ibconnection": "/Snn-1cdev-01:3541\\ka_danelia",
         "--db": "ka_danelia",
         "--db-user": "Данелия_Наталья", 
         "--db-pwd": "K*/7Vr9v7pdr",
+        "--uccode": "b5e45e1f-ab01-4291-8d56-f025030660ba",
         "--lockmessage": "Обновление базы КА_ЛАД" ,
         "--debuglogfile": "./logs/kill/logs_kill.log"  
     }

@@ -1,0 +1,36 @@
+{
+    "$schema": "https://raw.githubusercontent.com/vanessa-opensource/vanessa-runner/develop/vanessa-runner-schema.json",
+    "default": {
+        "--ibconnection":"/Snn-1cdev-01:3541\\ka_lad",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--db-user": "Данелия_Наталья", //"Администратор",
+        "--db-pwd": "K*/7Vr9v7pdr", //"2",
+        "--v8version": "8.3.22"
+    }, 
+    "loadrepo":{
+        "--ibconnection": "/Snn-1cdev-01:3541\\ka_lad",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--storage-name": "tcp://nn-sql-01/ka_proverka",//"C:/Users/daneliya.n/ProjConf/StageTest",
+        "--storage-user": "Данелия_Наталья",//"Администратор" ,
+        "--storage-pwd": "223",
+        "--db-user": "Данелия_Наталья", //"Администратор", 
+        "--db-pwd": "K*/7Vr9v7pdr",
+        "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/loadrepo/logs_loadrepo.log"
+    } ,    
+    "updatedb": {
+        "--ibconnection":  "/Snn-1cdev-01:3541\\ka_lad",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--db-user": "Данелия_Наталья",        
+        "--db-pwd": "K*/7Vr9v7pdr",//"Администратор",
+        "--uccode": ""
+    },    
+    "session": {
+        "Действие": "kill, lock, unlock", 
+        "--ras": "nn-1cdev-01:1545",
+        "--rac": "",//"C:/Program Files/1cv8/8.3.22.1704/bin/rac.exe",
+        "--ibconnection": "/Snn-1cdev-01:3541\\ka_lad",
+        "--db": "ka_danelia",
+        "--db-user": "Данелия_Наталья", 
+        "--db-pwd": "K*/7Vr9v7pdr",
+        "--uccode": "",
+        "--lockmessage": "Обновление базы КА_ЛАД" ,
+        "--debuglogfile": "./logs/kill/logs_kill.log"  
+    }  
+}
