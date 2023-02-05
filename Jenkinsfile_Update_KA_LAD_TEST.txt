@@ -47,8 +47,8 @@ pipeline {
                                  echo "${env.PathRAC}"
                                  utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")                               
                                  utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")
-                                 utils.cmd("runner loadrepo --settings tools/json/vrunner_KA_LAD.json--ibconnection ${baseConnection} ${uccodeString}")
-                                 utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json--ibconnection ${baseConnection} ${uccodeString}") 
+                                 utils.cmd("runner loadrepo --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")
+                                 utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}") 
                                  utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")          
                                 //cmd_m("vrunner session lock ${rasConnectionString}")                                                     
                                              
