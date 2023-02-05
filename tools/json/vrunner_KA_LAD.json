@@ -13,13 +13,14 @@
         "--storage-pwd": "223",
         "--db-user": "Данелия_Наталья", //"Администратор", 
         "--db-pwd": "K*/7Vr9v7pdr",
+        "--uccode": "123",
         "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/loadrepo/logs_loadrepo.log"
     } ,    
     "updatedb": {
         "--ibconnection":  "/Snn-1cdev-01:3541\\ka_lad",//"/FC:/Users/daneliya.n/Documents/InfoBase1",
         "--db-user": "Данелия_Наталья",        
         "--db-pwd": "K*/7Vr9v7pdr",//"Администратор",
-        "--uccode": ""
+        "--uccode": "123"
     },    
     "session": {
         "Действие": "kill, lock, unlock", 
@@ -29,7 +30,7 @@
         "--db": "ka_danelia",
         "--db-user": "Данелия_Наталья", 
         "--db-pwd": "K*/7Vr9v7pdr",
-        "--uccode": "",
+        "--uccode": "123",
         "--lockmessage": "Обновление базы КА_ЛАД" ,
         "--debuglogfile": "./logs/kill/logs_kill.log"  
     }  
