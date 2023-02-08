@@ -41,7 +41,7 @@ pipeline {
         string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
         string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
         string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
-        string(defaultValue: "${env.StorageUser}", description: 'Пользователь хранилища', name: 'StorageUser') 
+        string(defaultValue: "${env.StorageUserKALAD}", description: 'Пользователь хранилища', name: 'StorageUser') 
         string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass') 
         string(defaultValue: "${env.Path1C}", description: 'Путь к 1С', name: 'Path1C')       
         
@@ -57,7 +57,7 @@ pipeline {
         user ="/N${env.UserName}"
         pass = "/P${env.Pass}"   
         storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
-        storageuser = "/ConfigurationRepositoryN${env.StorageUser}"
+        storageuserKALAD = "/ConfigurationRepositoryN${env.StorageUserKALAD}"
         storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
         //переменные для работы с сеансами базы КА_ЛАД
         uccodeString ="--uccode ${env.Uccode}" 
@@ -82,7 +82,7 @@ pipeline {
                                  //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
                                  env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
                                  echo "${env.Path1C}"                                  
-                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
+                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuserKALAD} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
                                   if (returnCode != 0) {
                                       utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
                                   }                       
