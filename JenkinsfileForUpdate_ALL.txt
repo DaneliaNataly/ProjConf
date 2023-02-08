@@ -1,0 +1,365 @@
+@Library("shared-libraries")
+import io.libs.SqlUtils
+import io.libs.ProjectHelpers
+import io.libs.Utils
+
+def sqlUtils = new SqlUtils()
+def utils = new Utils()
+def projectHelpers = new ProjectHelpers()
+
+def updateDbTasks = [:]
+
+pipeline {
+
+    parameters {
+        //параметры для работы с хранилищем разработки
+        string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
+        string(defaultValue: "${env.server1c}", description: 'Имя сервера 1с, по умолчанию localhost', name: 'server1c')
+        string(defaultValue: "${env.server1cPort}", description: 'Порт рабочего сервера 1с. По умолчанию 1540. Не путать с портом агента кластера (1541)', name: 'server1cPort')        
+        string(defaultValue: "${env.platform1c}", description: 'Версия платформы 1с, например 8.3.20.1674. По умолчанию будет использована последня версия среди установленных', name: 'platform1c')
+        string(defaultValue: "${env.admin1cUser}", description: 'Имя администратора с правом открытия вншних обработок (!) для базы тестирования 1с Должен быть одинаковым для всех баз', name: 'admin1cUser')
+        string(defaultValue: "${env.admin1cPwd}", description: 'Пароль администратора базы тестирования 1C. Должен быть одинаковым для всех баз', name: 'admin1cPwd')
+        string(defaultValue: "${env.templatebases}", description: 'Список баз для тестирования через запятую. Например work_erp,work_upp', name: 'templatebases')
+        string(defaultValue: "${env.storages1cPath}", description: 'Необязательный. Пути к хранилищам 1С для обновления копий баз тестирования через запятую. Число хранилищ (если указаны), должно соответствовать числу баз тестирования. Например D:/temp/storage1c/erp,D:/temp/storage1c/upp', name: 'storages1cPath')
+        string(defaultValue: "${env.storageUser}", description: 'Необязательный. Администратор хранилищ  1C. Должен быть одинаковым для всех хранилищ', name: 'storageUser')
+        string(defaultValue: "${env.storagePwd}", description: 'Необязательный. Пароль администратора хранилищ 1c', name: 'storagePwd')
+        string(defaultValue: "${env.agent1cPort}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort')
+        string(defaultValue: "${env.pathforrazrab}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrazrab')
+        //параметры для работы с релизным хранилищем
+        string(defaultValue: "${env.server1c_release}", description: 'Имя сервера 1с для релизов, по умолчанию localhost', name: 'server1c_release')
+        string(defaultValue: "${env.templatebases_release}", description: 'Список баз для тестирования через запятую. Например work_erp,work_upp', name: 'templatebases_release')
+        string(defaultValue: "${env.storages1cPath_release}", description: 'Необязательный. Пути к хранилищам 1С для обновления копий баз тестирования через запятую. Число хранилищ (если указаны), должно соответствовать числу баз тестирования. Например D:/temp/storage1c/erp,D:/temp/storage1c/upp', name: 'storages1cPath_release')
+        string(defaultValue: "${env.admin1cPwd_release}", description: 'Пароль администратора базы тестирования 1C для релизных баз. Должен быть одинаковым для всех релизных баз', name: 'admin1cPwd_release')
+        string(defaultValue: "${env.agent1cPort_release}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort_release')
+        string(defaultValue: "${env.pathforrelease}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrelease')
+        string(defaultValue: "${env.NewVersion}", description: 'Комментарий в хранилище релизов после помещения объектов', name: 'NewVersion')
+
+        //параметры для работы с сеансами базы КА_ЛАД 
+        string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
+        string(defaultValue: "${env.ServerPort}", description: 'Порт сервера 1С', name: 'ServerPort')
+        string(defaultValue: "${env.BaseName}", description: 'Имя базы данных', name: 'BaseName')
+        string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
+        string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
+        string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
+        string(defaultValue: "${env.StorageUser}", description: 'Пользователь хранилища', name: 'StorageUser') 
+        string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass') 
+        string(defaultValue: "${env.Path1C}", description: 'Путь к 1С', name: 'Path1C')       
+        
+        string(defaultValue: "${env.PathRAC}", description: 'RAC', name: 'PathRAC')
+        string(defaultValue: "${env.Uccode}", description: 'Код разблокировки', name: 'Uccode')        
+        string(defaultValue: "${env.RasPort}", description: 'RAS', name: 'RasPort')
+    }
+
+    environment {
+        //RazrabPath="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/razrab.cf" 
+        baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
+        //переменные для отмены захвата объектов в КА_ЛАД под Сборкой
+        user ="/N${env.UserName}"
+        pass = "/P${env.Pass}"   
+        storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
+        storageuser = "/ConfigurationRepositoryN${env.StorageUser}"
+        storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
+        //переменные для работы с сеансами базы КА_ЛАД
+        uccodeString ="--uccode ${env.Uccode}" 
+        rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString}"
+      }
+
+    agent {
+        label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
+    }
+    options {
+         timeout(time: 8, unit: 'HOURS') 
+         buildDiscarder(logRotator(numToKeepStr:'10'))
+     }
+    stages {
+         stage ('Отмена захвата в КА_ЛАД под Сборка ') {
+                    steps {
+                          timestamps {
+                            script {
+                                 env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
+                                 echo "${env.PathRAC}"
+                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer --with-nolock")
+                                 //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
+                                 env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
+                                 echo "${env.Path1C}"                                  
+                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
+                                  if (returnCode != 0) {
+                                      utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
+                                  }                       
+                        
+                            }
+                         }
+                    }
+        }
+        stage("Подготовка") {
+            steps {
+                timestamps {
+                    script {
+                        templatebasesList = utils.lineToArray(templatebases.toLowerCase())
+                        storages1cPathList = utils.lineToArray(storages1cPath.toLowerCase())
+
+                        if (storages1cPathList.size() != 0) {
+                            assert storages1cPathList.size() == templatebasesList.size()
+                        }
+
+                        server1c = server1c.isEmpty() ? "localhost" : server1c                       
+                        server1cPort = server1cPort.isEmpty() ? "1540" : server1cPort
+                        agent1cPort = agent1cPort.isEmpty() ? "1541" : agent1cPort
+                       
+                        testbase = null
+                        // работа с релизными базами +
+                        templatebasesList_release = utils.lineToArray(templatebases_release.toLowerCase())
+                        storages1cPathList_release = utils.lineToArray(storages1cPath_release.toLowerCase())
+
+                        if (storages1cPathList_release.size() != 0) {
+                            assert storages1cPathList_release.size() == templatebasesList_release.size()
+                        }
+                        server1c_release = server1c_release.isEmpty() ? "localhost" : server1c_release 
+                        agent1cPort_release = agent1cPort_release.isEmpty() ? "1541" : agent1cPort_release
+                       
+                        testbase_release = null
+                        // работа с релизными базами -
+
+                        
+                    }
+                }
+            }
+        }
+        stage("Подготовка данных (продолжение)- релизное хранилище") {
+           steps {
+                timestamps {
+                    script {
+
+                        for (i = 0;  i < templatebasesList_release.size(); i++) {
+                            templateDb_release = templatebasesList_release[i]
+                            storage1cPath_release = storages1cPathList_release[i]
+                            testbase_release = "${templateDb_release}"
+                            testbaseConnString_release = projectHelpers.getConnString(server1c_release, testbase_release, agent1cPort_release)          
+    
+                         
+                         }                  
+                   }   
+                }                              
+            }       
+        }
+        
+        stage("Захват объектов в релизном хранилище") {
+            steps {
+                timestamps {
+                    script {
+                       
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine_release = ""
+                        if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
+                           admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
+                        }
+                        // Захват объектов из релизного хранилища , путь к базе в переменной testbaseConnString_release                        
+                        returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release}")
+                        if (returnCode != 0) {
+                            utils.raiseError("Ошибка при захвате объектов на сервере ${server1c_release} в базе ${testbase_release}")
+                        }
+                     }
+                }
+            } 
+        }
+        
+
+
+
+         stage("Выгрузка последней версии конфигурации из релизного хранилища") {
+            steps {
+                timestamps {
+                    script {
+                       
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine_release = ""
+                        if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
+                           admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
+                        }
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
+                        //returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrelease}")
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
+                        returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --out ${pathforrelease}")
+                         }
+                }
+            } 
+        }
+        stage("Обновление базы из хранилища разработки") {
+            steps {
+                timestamps {
+                    script {
+
+                        for (i = 0;  i < templatebasesList.size(); i++) {
+                            templateDb = templatebasesList[i]
+                            storage1cPath = storages1cPathList[i]
+                            testbase = "${templateDb}"
+                            testbaseConnString = projectHelpers.getConnString(server1c, testbase, agent1cPort)                   
+                             // 1. Обновляем тестовую базу из хранилища 1С 
+                            updateDbTasks["${testbase}"] = updateDbTask(
+                                platform1c,
+                                testbase, 
+                                storage1cPath, 
+                                storageUser, 
+                                storagePwd, 
+                                testbaseConnString, 
+                                admin1cUser, 
+                                admin1cPwd
+                            )
+                         
+                         }
+                         parallel updateDbTasks             
+                    }   
+                 }                              
+            }       
+        }        
+           stage("Выгрузка последней версии из хранилища разработки") {
+            steps {
+                timestamps {
+                    script {
+
+                        if (templatebasesList.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine = ""
+                        if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
+                            admin1cPwdLine = "--db-pwd ${admin1cPwd}"
+                        }
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
+                        returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner_razrab.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrazrab}")
+                         }
+                }
+            } 
+        } 
+            stage("Сравнение и объединение конфигурации разработки с конфигурацией релиза ") {
+            steps {
+                timestamps {
+                    script {
+
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine = ""
+                        if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
+                            admin1cPwdLine = "--db-pwd ${admin1cPwd}"
+                        }
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
+                        returnCode = utils.cmd("runner merge --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --src ${pathforrazrab}")
+                    }
+                }
+            } 
+        } 
+           stage("Помещение объектов после сравнения и объединения в релизное хранилище") {
+            steps {
+                timestamps {
+                    script {
+
+                        if (templatebasesList_release.size() == 0) {
+                            return
+                        }
+
+                        platform1cLine = ""
+                        if (platform1c != null && !platform1c.isEmpty()) {
+                            platform1cLine = "--v8version ${platform1c}"
+                        }
+
+                        admin1cUsrLine = ""
+                        if (admin1cUser != null && !admin1cUser.isEmpty()) {
+                            admin1cUsrLine = "--db-user ${admin1cUser}"
+                        }
+
+                        admin1cPwdLine = ""
+                        if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
+                            admin1cPwdLine = "--db-pwd ${admin1cPwd}"
+                        }
+                        NewVersionLine = ""
+                        if (NewVersion != null && !NewVersion.isEmpty()) {
+                            NewVersionLine = "--comment ${NewVersion}"
+                        }
+                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
+                        returnCode = utils.cmd("runner commit --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} ${NewVersionLine}")
+                    }
+                }
+            } 
+        }  
+         stage ('Принятие изменений в КА_ЛАД') {
+                    steps {
+                          timestamps {
+                            script {
+                                 env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
+                                 echo "${env.PathRAC}"
+                                 utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")                               
+                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")
+                                 utils.cmd("runner loadrepo --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")
+                                 utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}") 
+                                 utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")        
+           
+                            }
+                         }
+                    }
+            }    
+    }   
+}
+def updateDbTask(platform1c, infobase, storage1cPath, storageUser, storagePwd, connString, admin1cUser, admin1cPwd) {
+    return {
+        stage("Загрузка из хранилища ${infobase}") {
+            timestamps {
+                prHelpers = new ProjectHelpers()
+
+                if (storage1cPath == null || storage1cPath.isEmpty()) {
+                    return
+                }
+
+                prHelpers.loadCfgFrom1CStorage(storage1cPath, storageUser, storagePwd, connString, admin1cUser, admin1cPwd, platform1c)
+                prHelpers.updateInfobase(connString, admin1cUser, admin1cPwd, platform1c)
+            }
+        }
+    }
+}

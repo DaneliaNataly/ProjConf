@@ -25,7 +25,7 @@ pipeline {
        baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
        uccodeString ="--uccode ${env.Uccode}"       
        pathtolog = "\\logs\\kill\\logs_kill.log"
-       rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString}"// --rac ${path} --debuglogfile ${WORKSPACE}${pathtolog}"        
+       rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString}"      
       
       }
 
