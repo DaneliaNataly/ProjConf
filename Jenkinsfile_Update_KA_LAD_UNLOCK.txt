@@ -45,7 +45,7 @@ pipeline {
                           timestamps {
                             script {
                                  //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
-                                 env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\common\\1cestart.exe\""                                 
+                                 env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
                                  echo "${env.Path1C}"                                  
                                  utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
                                          
