@@ -16,7 +16,8 @@ pipeline {
         string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
         string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
         string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
-       
+        string(defaultValue: "${env.StorageUser}", description: 'Пользователь хранилища', name: 'StorageUser') 
+        string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass') 
         string(defaultValue: "${env.Path1C}", description: 'RAC', name: 'PathRAC')
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
     }
@@ -26,6 +27,8 @@ pipeline {
        user ="/N"${env.UserName}""
        pass = "/P"${env.Pass}""   
        storagepath ="/ConfigurationRepositoryF"${env.StoragePath}""
+       storageuser = "/ConfigurationRepositoryN"${env.StorageUser}""
+       storageuserpass ="/ConfigurationRepositoryP"${env.StorageUserPass}""
       }
 
     agent {
@@ -37,14 +40,14 @@ pipeline {
          }
    
     stages {
-            stage ('Принятие изменений') {
+            stage ('Отмена захвата в КА_ЛАД под Сборка ') {
                     steps {
                           timestamps {
                             script {
                                  //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
                                  env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\common\\1cestart.exe\""                                 
                                  echo "${env.Path1C}"                                  
-                                 utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP"" /ConfigurationRepositoryUnLock -force true\"")                               
+                                 utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
                                          
                                                                              
                                              
