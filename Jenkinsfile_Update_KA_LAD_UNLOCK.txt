@@ -15,19 +15,17 @@ pipeline {
         string(defaultValue: "${env.BaseName}", description: 'Имя базы данных', name: 'BaseName')
         string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
         string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
-        string(defaultValue: "${env.Uccode}", description: 'Код разблокировки', name: 'Uccode')        
-        string(defaultValue: "${env.RasPort}", description: 'RAS', name: 'RasPort')
+        string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
+       
         string(defaultValue: "${env.Path1C}", description: 'RAC', name: 'PathRAC')
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
     }
 
     environment {
        baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
-       uccodeString ="--uccode ${env.Uccode}"
-       //path = "C:\\Program Files\\1cv8\\8.3.22.1704\\bin\\rac.exe"//"${env.PathRAC}"//
-       pathtolog = "\\logs\\kill\\logs_kill.log"
-       //rasConnectionString ="/S"nn-1cdev-01:3541\ka_lad""        
-      
+       user ="/N"${env.UserName}""
+       pass = "/P"${env.Pass}""   
+       storagepath ="/ConfigurationRepositoryF"${env.StoragePath}""
       }
 
     agent {
@@ -46,7 +44,7 @@ pipeline {
                                  //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
                                  env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\common\\1cestart.exe\""                                 
                                  echo "${env.Path1C}"                                  
-                                 utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"\"tcp://nn-sql-01/ka_proverka\"" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP"" /ConfigurationRepositoryUnLock -force true\"")                               
+                                 utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP"" /ConfigurationRepositoryUnLock -force true\"")                               
                                          
                                                                              
                                              
