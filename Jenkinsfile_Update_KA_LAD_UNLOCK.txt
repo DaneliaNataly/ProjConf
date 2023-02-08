@@ -26,7 +26,7 @@ pipeline {
        uccodeString ="--uccode ${env.Uccode}"
        //path = "C:\\Program Files\\1cv8\\8.3.22.1704\\bin\\rac.exe"//"${env.PathRAC}"//
        pathtolog = "\\logs\\kill\\logs_kill.log"
-       rasConnectionString ="/S"nn-1cdev-01:3541\ka_lad""        
+       rasConnectionString ="/S""\nn-1cdev-01:3541\ka_lad"\""        
       
       }
 
