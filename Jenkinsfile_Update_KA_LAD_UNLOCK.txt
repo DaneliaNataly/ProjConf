@@ -26,7 +26,7 @@ pipeline {
        uccodeString ="--uccode ${env.Uccode}"
        //path = "C:\\Program Files\\1cv8\\8.3.22.1704\\bin\\rac.exe"//"${env.PathRAC}"//
        pathtolog = "\\logs\\kill\\logs_kill.log"
-       rasConnectionString =""\/S"nn-1cdev-01:3541\\ka_lad"\""        
+       //rasConnectionString ="/S"nn-1cdev-01:3541\ka_lad""        
       
       }
 
@@ -46,7 +46,7 @@ pipeline {
                                  //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
                                  env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\common\\1cestart.exe\""                                 
                                  echo "${env.Path1C}"                                  
-                                 utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${rasConnectionString} /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"\"tcp://nn-sql-01/ka_proverka\"" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP"" /ConfigurationRepositoryUnLock -force true\"")                               
+                                 utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"\"tcp://nn-sql-01/ka_proverka\"" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP"" /ConfigurationRepositoryUnLock -force true\"")                               
                                          
                                                                              
                                              
