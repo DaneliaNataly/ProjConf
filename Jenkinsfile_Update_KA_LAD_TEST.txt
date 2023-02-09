@@ -50,13 +50,13 @@ pipeline {
                                //  utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}") 
                                //  utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")          
                                 ////cmd_m("vrunner session lock ${rasConnectionString}")                                                     
-                                final String url = ".\\src\\cf\\VERSION"
-
-                                final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+                                final String url = "$WORKSPACE\\src\\cf\\VERSION"
+                                echo "url"
+                               // final String response = sh(script: "curl -s $url", returnStdout: true).trim()
                                 firstWord = "<VERSION>"
                                 secondWord = "</VERSION>"
 
-                                echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord));              
+                                //echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord));              
                             
                             
                            
