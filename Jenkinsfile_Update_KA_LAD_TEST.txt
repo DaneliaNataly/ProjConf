@@ -56,7 +56,9 @@ pipeline {
                                 final String response = utils.cmd("curl -s $url")//sh(script: "curl -s $url", returnStdout: true).trim()
                                 firstWord = "<VERSION>"
                                 secondWord = "</VERSION>"
-
+                                echo response.indexOf(firstWord)
+                                echo firstWord.length()
+                                echo response.indexOf(secondWord)
                                 echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord));              
                             
                             
