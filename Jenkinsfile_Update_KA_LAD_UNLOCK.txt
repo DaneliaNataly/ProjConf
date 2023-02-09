@@ -56,7 +56,7 @@ pipeline {
                                 //      utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
                                                                          
                                 //метка в хранилище
-                                final String url = "https://github.com/DaneliaNataly/TestProj/blob/89dc775750aa36ac5c3ed74407a61dcabea7455c/src/cf/VERSION"//"https://github.com/DaneliaNataly/TestProj/blob/master/src/cf/VERSION"//"https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION" //https://github.com/DaneliaNataly/TestProj/blob/master/src/cf/VERSION
+                                final String url = "https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
                                 final String response = bat(script:"curl -s $url", returnStdout:true).trim()
                                 echo "${response}"
                                 firstWord = "<VERSION>"
