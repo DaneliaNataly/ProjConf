@@ -52,7 +52,8 @@ pipeline {
                                 ////cmd_m("vrunner session lock ${rasConnectionString}")                                                     
                                 final String url = "https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"//"$WORKSPACE\\src\\cf\\VERSION"
                                // echo "${url}"
-                                final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+                               result=utils.cmd("curl -s $url")
+                                final String response = result.trim()//sh(script: "curl -s $url", returnStdout: true).trim()
                                 firstWord = "<VERSION>"
                                 secondWord = "</VERSION>"
 
