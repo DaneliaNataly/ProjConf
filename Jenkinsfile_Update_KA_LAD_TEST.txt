@@ -53,7 +53,7 @@ pipeline {
                                 final String url = "https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"//"$WORKSPACE\\src\\cf\\VERSION"
                                // echo "${url}"
                               
-                                final String response = utils.cmd("curl -s $url")//sh(script: "curl -s $url", returnStdout: true).trim()
+                                final String response = utils.cmd("curl -s $url").trim()//sh(script: "curl -s $url", returnStdout: true).trim()
                                 firstWord = "<VERSION>"
                                 secondWord = "</VERSION>"
 
