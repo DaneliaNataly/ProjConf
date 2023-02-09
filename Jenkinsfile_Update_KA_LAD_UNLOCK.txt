@@ -66,14 +66,13 @@ pipeline {
                                 label_text = "Актуализация версией разработки " + "${version_number}"                              
                                                                
                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositorySetLabel -name ${label_text}")             
-                                  }
-                            
+                            }                           
                            
-                            }
-                         }
+                        }
                     }
-            }
-    }
+                
+                 }
+        }
 }
 def cmd_m(command) {   
     stage("Команда") {
