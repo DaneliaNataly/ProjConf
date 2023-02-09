@@ -50,7 +50,7 @@ pipeline {
                                //  utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}") 
                                //  utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")          
                                 ////cmd_m("vrunner session lock ${rasConnectionString}")                                                     
-                               final String url = "https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
+                                final String url = "https:\\raw.githubusercontent.com\\DaneliaNataly\\TestProj\\master\\src\\cf\\VERSION"
 
                                 final String response = sh(script: "curl -s $url", returnStdout: true).trim()
                                 firstWord = "<VERSION>"
