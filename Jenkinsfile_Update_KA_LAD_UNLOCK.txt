@@ -57,7 +57,7 @@ pipeline {
                                                                          
                                 //метка в хранилище
                                 final String url = "https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
-                                final String response = Utils.cmdOut("curl -s $url")//bat(script:"curl -s $url", returnStdout:true).trim()
+                                final String response = utils.cmdOut("curl -s $url")//bat(script:"curl -s $url", returnStdout:true).trim()
                                 echo "${response}"
                                 firstWord = "<VERSION>"
                                 secondWord = "</VERSION>"                   
