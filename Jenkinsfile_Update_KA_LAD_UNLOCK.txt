@@ -63,7 +63,7 @@ pipeline {
                                 secondWord = "</VERSION>"                   
                                 echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))              
                                 version_number=response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))                          
-                                label_text = "'Актуализация версией разработки " + "${version_number}" + "'"                              
+                                label_text = '"Актуализация версией разработки ' + "${version_number}" + '"'                            
                                                              
                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositorySetLabel -name ${label_text}")             
                             }                           
