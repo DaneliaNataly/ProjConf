@@ -33,5 +33,12 @@
         "--uccode": "123",
         "--lockmessage": "Обновление базы КА_ЛАД" ,
         "--debuglogfile": "./logs/kill/logs_kill.log"  
-    }  
+    } ,
+    "bindrepo": {            
+        "--ibconnection": "/Snn-1cdev-01:3541\\ka_lad",        
+        "--db-user": "Данелия_Наталья", 
+        "--db-pwd": "K*/7Vr9v7pdr",
+        "--uccode": "123"         
+    }   
+
 }
