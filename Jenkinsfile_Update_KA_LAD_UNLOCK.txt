@@ -29,7 +29,7 @@ pipeline {
        pass = "/P${env.Pass}"   
        //storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
        storageuser = "/ConfigurationRepositoryN${env.StorageUser}"
-       storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
+       //storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
       }
 
     agent {
