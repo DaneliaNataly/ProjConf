@@ -27,7 +27,7 @@ pipeline {
        baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
        user ="/N${env.UserName}"
        pass = "/P${env.Pass}"   
-       storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
+       //storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
        storageuser = "/ConfigurationRepositoryN${env.StorageUser}"
        storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
       }
