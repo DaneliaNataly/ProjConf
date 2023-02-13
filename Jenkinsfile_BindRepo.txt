@@ -1,0 +1,58 @@
+@Library("shared-libraries")
+import io.libs.SqlUtils
+import io.libs.ProjectHelpers
+import io.libs.Utils
+
+def sqlUtils = new SqlUtils()
+def utils = new Utils()
+def projectHelpers = new ProjectHelpers()
+
+def updateDbTasks = [:]
+pipeline {
+    parameters {    
+        
+        string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
+        string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
+        string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')    
+       
+        string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
+        
+    }
+
+    environment {
+      
+      }
+
+    agent {
+        label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
+    }
+    options {
+         timeout(time: 8, unit: 'HOURS') 
+         buildDiscarder(logRotator(numToKeepStr:'10'))
+         }
+   
+    stages {
+            stage ('Подключение базы КА_ЛАД к хранилищу ') {
+                    steps {
+                          timestamps {
+                            script {
+                                      
+                                 utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
+                                             
+                            }                           
+                           
+                        }
+                    }
+                
+                 }
+        }
+}
+def cmd_m(command) {   
+    stage("Команда") {
+        timestamps {
+            script{
+                bat "chcp 65001\n ${command}"
+            }
+        }
+    }
+}        
