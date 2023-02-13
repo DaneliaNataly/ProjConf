@@ -41,7 +41,7 @@ pipeline {
         string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
         string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
         string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
-        string(defaultValue: "${env.StorageUserKALAD}", description: 'Пользователь хранилища', name: 'StorageUser') 
+        string(defaultValue: "${env.StorageUserKALAD}", description: 'Пользователь хранилища', name: 'StorageUserKALAD') 
         string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass') 
         string(defaultValue: "${env.Path1C}", description: 'Путь к 1С', name: 'Path1C')       
         
