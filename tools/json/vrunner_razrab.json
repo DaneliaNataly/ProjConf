@@ -49,7 +49,7 @@
         "--storage-pwd": "223",
         "--db-user": "Данелия_Наталья", //"Администратор", 
         "--db-pwd": "K*/7Vr9v7pdr",
-        "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/loadrepo/logs_loadrepo.log"
+        "--debuglogfile": "./logs/loadrepo/logs_loadrepo.log"
 
     } ,  
     "updatedb": {
@@ -82,7 +82,7 @@
         "--db-user": "Данелия_Наталья", //"Администратор", 
         "--db-pwd": "K*/7Vr9v7pdr",
         "--out": "Q:/CF_UPDATE_TEST_КА/razrab.cf",//"C:/Users/daneliya.n/ProjConf/update.cf" ,
-        "--debuglogfile": "C:/Users/daneliya.n/ProjConf/logs/unloadrepo/logs_unloadrepo.log"
+        "--debuglogfile": "./logs/unloadrepo/logs_unloadrepo.log"
 
     }    
 }
