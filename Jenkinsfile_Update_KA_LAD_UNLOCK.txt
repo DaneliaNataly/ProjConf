@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            //bat "echo always"
+            bat "echo always"
            
         }
         failure {
