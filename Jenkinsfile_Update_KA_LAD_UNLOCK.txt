@@ -56,7 +56,7 @@ pipeline {
                                   //    utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
                                 // utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
                                 //метка в хранилище
-                                final String url = "http://gitlab.toledo.ru/daneliya.n/testing_ka/-/raw/main/src/cf/VERSION"
+                                final String url = "http://ci-bot:12345678@gitlab.toledo.ru/daneliya.n/testing_ka/-/raw/main/src/cf/VERSION"
                                 final String response = utils.cmdOut("curl -s $url")//bat(script:"curl -s $url", returnStdout:true).trim()
                                 echo "${response}"
                                 firstWord = "<VERSION>"
