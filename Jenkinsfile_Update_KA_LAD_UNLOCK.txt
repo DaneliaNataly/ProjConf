@@ -54,14 +54,14 @@ pipeline {
                                  //returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
                                  // if (returnCode != 0) {
                                   //    utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
-                                 utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
+                                // utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
                                 //метка в хранилище
-                                //final String url = "https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
-                                //final String response = utils.cmdOut("curl -s $url")//bat(script:"curl -s $url", returnStdout:true).trim()
-                                //echo "${response}"
-                                //firstWord = "<VERSION>"
-                                //secondWord = "</VERSION>"                   
-                                //echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))              
+                                final String url = "http://ci-bot:12345678@gitlab.toledo.ru/daneliya.n/testing_ka/-/raw/main/src/cf/VERSION"
+                                final String response = utils.cmdOut("curl -s $url")//bat(script:"curl -s $url", returnStdout:true).trim()
+                                echo "${response}"
+                                firstWord = "<VERSION>"
+                                secondWord = "</VERSION>"                   
+                                echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))              
                                 //version_number=response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))                          
                                 //label_text = '"Актуализация версией разработки ' + "${version_number}" + '"'                            
                                                              
