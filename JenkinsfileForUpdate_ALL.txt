@@ -285,7 +285,7 @@ pipeline {
                         }
 
                         //получения номера версии хранилища разработки
-                        final String url = '"https://gitlab.toledo.ru/api/v4/projects/3/repository/files/src%%2Fcf%%2FVERSION/raw?ref=main"'//"https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
+                        final String url = '"http://gitlab.toledo.ru/api/v4/projects/3/repository/files/src%%2Fcf%%2FVERSION/raw?ref=main"'//"https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
                         final String response = withCredentials([string(credentialsId: 'token_for_VERSION', variable: 'token_version')]) {
                                     script{
                                         utils.cmdOut("""curl -s -H "PRIVATE-TOKEN: ${token_version}" ${url}""")                                 
