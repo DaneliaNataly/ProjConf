@@ -72,7 +72,8 @@ pipeline {
                                   //    utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
                                 // utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
                                 //метка в хранилище
-                                final String url = '"http://gitlab.toledo.ru/api/v4/projects/3/repository/files/src%2Fcf%2FVERSION/raw?ref=main"'//"http://gitlab.toledo.ru/daneliya.n/testing_ka/-/raw/main/src/cf/VERSION"
+                                
+                                final String url = '"http://gitlab.toledo.ru/api/v4/projects/3/repository/files/src%%2Fcf%%2FVERSION/raw?ref=main"'//"http://gitlab.toledo.ru/daneliya.n/testing_ka/-/raw/main/src/cf/VERSION"
                                 final String response = withCredentials([string(credentialsId: 'token_for_VERSION', variable: 'token_version')]) {
                                     script{
                                         utils.cmdOut("""curl -s -H "PRIVATE-TOKEN: ${token_version}" ${url}""")                                 
