@@ -40,7 +40,7 @@ pipeline {
            // bat "echo failure"
            withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
             script{
-            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='\"*Build* : not OK *Published* = no"\'""")
+            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_FAILURE*""")
             }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
             //bat "echo success"
             withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
             script{
-            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*Update_is_SUCCESS*'""")
+            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_SUCCESS*""")
             }
             }
         }
@@ -78,7 +78,7 @@ pipeline {
                                 // utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
                                 //метка в хранилище
                                 
-                                final String url = '"http://gitlab.toledo.ru/api/v4/projects/3/repository/files/src%%2Fcf%%2FVERSION/raw?ref=main"'//"http://gitlab.toledo.ru/daneliya.n/testing_ka/-/raw/main/src/cf/VERSION"
+                                final String url = '"https://gitlab.toledo.ru/api/v4/projects/3/repository/files/src%%2Fcf%%2FVERSION/raw?ref=main"'//"http://gitlab.toledo.ru/daneliya.n/testing_ka/-/raw/main/src/cf/VERSION"
                                 final String response = withCredentials([string(credentialsId: 'token_for_VERSION', variable: 'token_version')]) {
                                     script{
                                         utils.cmdOut("""curl -s -H "PRIVATE-TOKEN: ${token_version}" ${url}""")                                 
