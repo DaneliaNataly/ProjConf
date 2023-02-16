@@ -62,8 +62,31 @@ pipeline {
         //переменные для работы с сеансами базы КА_ЛАД
         uccodeString ="--uccode ${env.Uccode}" 
         rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString}"
+        //номер версии для метки в хранилище
+        version_number=""
       }
-
+    post {
+        always {
+            bat "echo finished"
+           
+        }
+        failure {
+           bat "echo failure"
+           withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
+            script{
+            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_FAILURE*""")
+            }
+            }
+        }
+        success {
+            bat "echo success"
+            withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
+            script{
+            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_SUCCESS*""")
+            }
+            }
+        }
+    }
     agent {
         label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
     }
@@ -202,8 +225,7 @@ pipeline {
                         if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
                            admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
                         }
-                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
-                        //returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrelease}")
+                        
                         // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
                         returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --out ${pathforrelease}")
                          }
@@ -261,6 +283,19 @@ pipeline {
                         if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
                         }
+
+                        //получения номера версии хранилища разработки
+                        final String url = '"https://gitlab.toledo.ru/api/v4/projects/3/repository/files/src%%2Fcf%%2FVERSION/raw?ref=main"'//"https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
+                        final String response = withCredentials([string(credentialsId: 'token_for_VERSION', variable: 'token_version')]) {
+                                    script{
+                                        utils.cmdOut("""curl -s -H "PRIVATE-TOKEN: ${token_version}" ${url}""")                                 
+                                    }
+                        }         //utils.cmdOut("curl -s $url")
+                        echo "${response}"
+                        firstWord = "<VERSION>"
+                        secondWord = "</VERSION>"                   
+                        echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))              
+                        version_number=response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord)) 
                         // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
                         returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner_razrab.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrazrab}")
                          }
@@ -290,7 +325,7 @@ pipeline {
                         if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
                         }
-                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
+                        // Сравнение и объединение конфигураций                       
                         returnCode = utils.cmd("runner merge --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --src ${pathforrazrab}")
                     }
                 }
@@ -323,7 +358,7 @@ pipeline {
                         if (NewVersion != null && !NewVersion.isEmpty()) {
                             NewVersionLine = "--comment ${NewVersion}"
                         }
-                        // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
+                        // Помещение в хранилище, путь к базе в переменной testbaseConnString_release                        
                         returnCode = utils.cmd("runner commit --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} ${NewVersionLine}")
                     }
                 }
@@ -341,13 +376,7 @@ pipeline {
                                  utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")                
                                  utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}") 
                                  //метка в хранилище
-                                 final String url = "https://raw.githubusercontent.com/DaneliaNataly/TestProj/master/src/cf/VERSION"
-                                 final String response = utils.cmdOut("curl -s $url")//bat(script:"curl -s $url", returnStdout:true).trim()
-                                 echo "${response}"
-                                 firstWord = "<VERSION>"
-                                 secondWord = "</VERSION>"                   
-                                 echo response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))              
-                                 version_number=response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord))                          
+                                                        
                                  label_text = '"Актуализация версией разработки ' + "${version_number}" + '"'                           
                                                              
                                  returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuserKALAD} ${storageuserpass} /ConfigurationRepositorySetLabel -name ${label_text}")        
