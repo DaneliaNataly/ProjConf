@@ -81,7 +81,7 @@
         "--storage-pwd": "223",
         "--db-user": "Данелия_Наталья", //"Администратор", 
         "--db-pwd": "K*/7Vr9v7pdr",
-        "--out": "Q:/CF_UPDATE_TEST_КА/razrab.cf",//"C:/Users/daneliya.n/ProjConf/update.cf" ,
+        "--out": "Q:/CF_UPDATE_TEST_КА/razrab.cf",
         "--debuglogfile": "./logs/unloadrepo/logs_unloadrepo.log"
 
     }    
