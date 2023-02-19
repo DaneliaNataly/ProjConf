@@ -19,9 +19,7 @@ pipeline {
         string(defaultValue: "${env.PathRAC}", description: 'RAC', name: 'PathRAC')
     }
 
-    environment {
-      
-    }
+    
     post {
         always {
             bat "echo finished"
