@@ -29,7 +29,7 @@ pipeline {
         string(defaultValue: "${env.server1c_release}", description: 'Имя сервера 1с для релизов, по умолчанию localhost', name: 'server1c_release')
         string(defaultValue: "${env.templatebases_release}", description: 'Список баз для тестирования через запятую. Например work_erp,work_upp', name: 'templatebases_release')
         string(defaultValue: "${env.storages1cPath_release}", description: 'Необязательный. Пути к хранилищам 1С для обновления копий баз тестирования через запятую. Число хранилищ (если указаны), должно соответствовать числу баз тестирования. Например D:/temp/storage1c/erp,D:/temp/storage1c/upp', name: 'storages1cPath_release')
-        string(defaultValue: "${env.admin1cPwd_release}", description: 'Пароль администратора базы тестирования 1C для релизных баз. Должен быть одинаковым для всех релизных баз', name: 'admin1cPwd_release')
+       // string(defaultValue: "${env.admin1cPwd_release}", description: 'Пароль администратора базы тестирования 1C для релизных баз. Должен быть одинаковым для всех релизных баз', name: 'admin1cPwd_release')
         string(defaultValue: "${env.agent1cPort_release}", description: 'Порт агента кластера 1с. По умолчанию 1541', name: 'agent1cPort_release')
         string(defaultValue: "${env.pathforrelease}", description: 'Путь к файлу выгрузки из хранилища разработки', name: 'pathforrelease')
         string(defaultValue: "${env.NewVersion}", description: 'Комментарий в хранилище релизов после помещения объектов', name: 'NewVersion')
@@ -61,7 +61,7 @@ pipeline {
         storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
         //переменные для работы с сеансами базы КА_ЛАД
         uccodeString ="--uccode ${env.Uccode}" 
-        rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString}"
+        //rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString}"
         //номер версии для метки в хранилище
         version_number=""
       }
@@ -185,12 +185,17 @@ pipeline {
                             admin1cUsrLine = "--db-user ${admin1cUser}"
                         }
 
-                        admin1cPwdLine_release = ""
-                        if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
-                           admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
+                        //admin1cPwdLine_release = ""
+                        //if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
+                        //    admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
+                        // }
+
+                        admin1cPwdLine = ""
+                        if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
+                            admin1cPwdLine = "--db-pwd ${admin1cPwd}"
                         }
                         // Захват объектов из релизного хранилища , путь к базе в переменной testbaseConnString_release                        
-                        returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release}")
+                        returnCode = utils.cmd("runner lockrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine}")
                         if (returnCode != 0) {
                             utils.raiseError("Ошибка при захвате объектов на сервере ${server1c_release} в базе ${testbase_release}")
                         }
@@ -221,13 +226,17 @@ pipeline {
                             admin1cUsrLine = "--db-user ${admin1cUser}"
                         }
 
-                        admin1cPwdLine_release = ""
-                        if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
-                           admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
-                        }
+                        //admin1cPwdLine_release = ""
+                        //if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
+                        //   admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
+                        //}
                         
+                        admin1cPwdLine = ""
+                        if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
+                            admin1cPwdLine = "--db-pwd ${admin1cPwd}"
+                        }
                         // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString_release                        
-                        returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --out ${pathforrelease}")
+                        returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrelease}")
                          }
                 }
             } 
@@ -326,7 +335,7 @@ pipeline {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
                         }
                         // Сравнение и объединение конфигураций                       
-                        returnCode = utils.cmd("runner merge --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} --src ${pathforrazrab}")
+                        returnCode = utils.cmd("runner merge --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} --src ${pathforrazrab}")
                     }
                 }
             } 
@@ -359,7 +368,7 @@ pipeline {
                             NewVersionLine = "--comment ${NewVersion}"
                         }
                         // Помещение в хранилище, путь к базе в переменной testbaseConnString_release                        
-                        returnCode = utils.cmd("runner commit --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine_release} ${NewVersionLine}")
+                        returnCode = utils.cmd("runner commit --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} ${NewVersionLine}")
                     }
                 }
             } 
