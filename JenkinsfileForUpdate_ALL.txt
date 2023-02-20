@@ -38,8 +38,8 @@ pipeline {
         string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
         string(defaultValue: "${env.ServerPort}", description: 'Порт сервера 1С', name: 'ServerPort')
         string(defaultValue: "${env.BaseName}", description: 'Имя базы данных', name: 'BaseName')
-        string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
-        string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
+        //string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
+        //string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
         string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
         string(defaultValue: "${env.StorageUserKALAD}", description: 'Пользователь хранилища', name: 'StorageUserKALAD') 
         string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass') 
@@ -54,8 +54,8 @@ pipeline {
         //RazrabPath="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/razrab.cf" 
         baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
         //переменные для отмены захвата объектов в КА_ЛАД под Сборкой
-        user ="/N${env.UserName}"
-        pass = "/P${env.Pass}"   
+        user ="/N${env.admin1cUser}"//{env.UserName}
+        pass = "/P${env.admin1cPwd}"//{env.Pass}   
         storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
         storageuserKALAD = "/ConfigurationRepositoryN${env.StorageUserKALAD}"
         storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
