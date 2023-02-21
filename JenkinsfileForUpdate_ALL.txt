@@ -35,12 +35,12 @@ pipeline {
         string(defaultValue: "${env.NewVersion}", description: 'Комментарий в хранилище релизов после помещения объектов', name: 'NewVersion')
 
         //параметры для работы с сеансами базы КА_ЛАД 
-        string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
-        string(defaultValue: "${env.ServerPort}", description: 'Порт сервера 1С', name: 'ServerPort')
+       // string(defaultValue: "${env.Server}", description: 'Сервер 1С', name: 'Server')
+       // string(defaultValue: "${env.ServerPort}", description: 'Порт сервера 1С', name: 'ServerPort')
         string(defaultValue: "${env.BaseName}", description: 'Имя базы данных', name: 'BaseName')
         //string(defaultValue: "${env.UserName}", description: 'Имя пользователя', name: 'UserName')
         //string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
-        string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
+        //string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
         string(defaultValue: "${env.StorageUserKALAD}", description: 'Пользователь хранилища', name: 'StorageUserKALAD') 
         string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass') 
         string(defaultValue: "${env.Path1C}", description: 'Путь к 1С', name: 'Path1C')       
@@ -51,17 +51,16 @@ pipeline {
     }
 
     environment {
-        //RazrabPath="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/razrab.cf" 
-        baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
+        
+        baseconnection ="/S${env.server1c}:${env.agent1cPort}\\${env.BaseName}"  //"/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
         //переменные для отмены захвата объектов в КА_ЛАД под Сборкой
         user ="/N${env.admin1cUser}"//{env.UserName}
         pass = "/P${env.admin1cPwd}"//{env.Pass}   
-        storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
+        storagepath ="/ConfigurationRepositoryF${env.storages1cPath_release}" //{env.StoragePath}
         storageuserKALAD = "/ConfigurationRepositoryN${env.StorageUserKALAD}"
         storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
         //переменные для работы с сеансами базы КА_ЛАД
-        uccodeString ="--uccode ${env.Uccode}" 
-        //rasConnectionString ="--ras ${env.Server}:${env.RasPort} --db ${env.BaseName} --db-user ${env.UserName} --db-pwd ${env.Pass} ${uccodeString}"
+        uccodeString ="--uccode ${env.Uccode}"         
         //номер версии для метки в хранилище
         version_number=""
       }
@@ -185,11 +184,6 @@ pipeline {
                             admin1cUsrLine = "--db-user ${admin1cUser}"
                         }
 
-                        //admin1cPwdLine_release = ""
-                        //if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
-                        //    admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
-                        // }
-
                         admin1cPwdLine = ""
                         if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
@@ -226,11 +220,6 @@ pipeline {
                             admin1cUsrLine = "--db-user ${admin1cUser}"
                         }
 
-                        //admin1cPwdLine_release = ""
-                        //if (admin1cPwd_release != null && !admin1cPwd_release.isEmpty()) {
-                        //   admin1cPwdLine_release = "--db-pwd ${admin1cPwd_release}"
-                        //}
-                        
                         admin1cPwdLine = ""
                         if (admin1cPwd != null && !admin1cPwd.isEmpty()) {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
