@@ -61,7 +61,7 @@ pipeline {
                                 
                                 //def report = readFile(file: 'UpdateSetting.xml')
 		                        def parser = new XmlParser()
-                                def doc = parser.parse("C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\KA_LAD_TEST\\UpdateSetting.xml")  
+                                def doc = parser.parsetext("C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\KA_LAD_TEST\\UpdateSetting.xml")  
                             
                                 echo doc             
                                 //def score=doc.movie.year
