@@ -22,7 +22,7 @@ pipeline {
 
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
-       
+        string(defaultValue: "${env.Path}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'Path')
 
         
     }
@@ -60,7 +60,7 @@ pipeline {
                      //             e.printStackTrace();
                        
                                 echo "test"
-                                def xml = readFile "//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.xml"
+                                def xml = readFile "${env.Path}"
 		                        def parser = new XmlParser()
                                 def doc = parser.parseText(xml)                             
                            
