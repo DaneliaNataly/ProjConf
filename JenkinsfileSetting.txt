@@ -53,8 +53,8 @@ pipeline {
                                 def xml= new File("C:\\Users\\daneliya.n\\ProjConf\\UpdateSetting.XML")
                                 def completeXml= new XmlSlurper()
                                 def doc= completeXml.parseText(xml.text)//completeXml.parseText(xml)
-                                echo "${doc.CustomerQuote[0].ID.text()}"
-                                
+                                //echo "${doc.CustomerQuote[0].ID.text()}" 
+                                echo "${doc.ID.text()}"                           
 
                                 
 
