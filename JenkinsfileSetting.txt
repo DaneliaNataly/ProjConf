@@ -44,7 +44,7 @@ pipeline {
         
      
         
-        stage("Захват объектов в релизном хранилище") {
+        stage("Подготовка") {
             steps {
                 timestamps {
                     script {                  
@@ -52,10 +52,20 @@ pipeline {
                                // def xml="<Collection><CustomerQuote><ID>99988877766</ID><TypeCode>2059</TypeCode><ApprovalStatusCode>4</ApprovalStatusCode></CustomerQuote><CustomerQuote><ID>99988877755</ID><TypeCode>2059</TypeCode><ApprovalStatusCode>4</ApprovalStatusCode></CustomerQuote></Collection>"
                                // def xml= new File("C:\\Users\\daneliya.n\\ProjConf\\UpdateSetting.XML")
                                 def xml= new File("${PathToFileSetting}")
+
+
+                                if(!xml.exists())
+                                           {
+                                            //Display an alert if the file is not found.
+                                            echo "Input File 'DATASHEET.xml' not found!"   
+                                           }
+                                 else
+                                  {
                                 def completeXml= new XmlSlurper()
                                 def doc= completeXml.parseText(xml.text)//completeXml.parseText(xml)
                                 //echo "${doc.CustomerQuote[0].ID.text()}" 
-                                echo "${doc.text()}"                           
+                                echo "${doc.text()}"    
+                                  }                       
 
                                 
 
