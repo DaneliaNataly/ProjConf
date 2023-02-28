@@ -62,9 +62,9 @@ pipeline {
                                 echo "test"
 		                        def parser = new XmlParser()
                                 def doc = parser.parse("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.xml") 
-                                //echo "${doc.Result.text()}"
+                                
                                 doc.movie.each{
-                                     bk->    echo "${bk.Result[0].text()}"   
+                                     bk->    echo "${bk.year[0].text()}"   
                                 } 
 
                     }
