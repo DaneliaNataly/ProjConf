@@ -61,7 +61,7 @@ pipeline {
                                 
                                 //def report = readFile(file: 'UpdateSetting.xml')
 		                        def parser = new XmlParser()
-                                def doc = parser.parse("./.jenkins/workspace/UpdateSetting.xml")  
+                                def doc = parser.parse("./.jenkins/workspace/KA_LAD_TEST/UpdateSetting.xml")  
 
                                 doc.movie.each{
                                                 bk->
