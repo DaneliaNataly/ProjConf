@@ -60,10 +60,11 @@ pipeline {
                      //             e.printStackTrace();                  
                                 
                                 def report = readFile(file: 'UpdateSetting.xml')
-		                        def parser = new XmlSlurper()
+		                        def parser = new XmlParser()
                                 def doc = parser.parsetext(report)                             
                                 def score=doc.movie.year
-                                //echo "test"
+                                echo "${score}"
+                                //double score1 = Double.parseDouble(doc.movie.year[0].value()[0])
                                 
 
                     }
