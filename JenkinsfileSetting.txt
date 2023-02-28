@@ -60,7 +60,7 @@ pipeline {
                      //  } catch (Exception e) {
                      //             e.printStackTrace();
                        
-                        
+                                echo "test"
 		                         
                                  echo "${doc.Result.text()}"
                                       
