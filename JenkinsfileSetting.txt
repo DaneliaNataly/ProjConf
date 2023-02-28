@@ -59,9 +59,9 @@ pipeline {
                      //  } catch (Exception e) {
                      //             e.printStackTrace();                  
                                 
-                                def report = readFile(file: 'UpdateSetting.xml')
+                                //def report = readFile(file: 'UpdateSetting.xml')
 		                        def parser = new XmlParser()
-                                def doc = parser.parse(report)  
+                                def doc = parser.parse("./UpdateSetting.xml")  
 
                                 doc.movie.each{
                                                 bk->
