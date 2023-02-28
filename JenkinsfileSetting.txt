@@ -62,7 +62,7 @@ pipeline {
                        
                        
 		
-                       doc.movie.each{
+                       doc.Result.each{
                                          bk->   
                                          print("Result:")
                                          println "${bk.Result[0].text()}"
