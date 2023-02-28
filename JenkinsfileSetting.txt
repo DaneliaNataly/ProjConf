@@ -63,11 +63,7 @@ pipeline {
 		                        def parser = new XmlParser()
                                 def doc = parser.parse("C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\KA_LAD_TEST\\UpdateSetting.xml")  
 
-                                doc.movie.each{
-                                                bk->
-                                             
-                                               echo "${bk.type[0].text()}"   
-                                }                        
+                                echo doc.movie[0].year.text()              
                                 //def score=doc.movie.year
                                 //echo "${score}"
                                 //double score1 = Double.parseDouble(doc.movie.year[0].value()[0])
