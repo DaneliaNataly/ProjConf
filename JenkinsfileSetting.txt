@@ -4,12 +4,13 @@ import io.libs.ProjectHelpers
 import io.libs.Utils
 
 
-import org.xml.sax.InputSource;
+import org.xml.sax.InputSource
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
-import java.io.FileReader;
-
+import javax.xml.xpath.XPath
+import javax.xml.xpath.XPathFactory
+import java.io.FileReader
+import groovy.xml.MarkupBuilder 
+import groovy.util.*
 def sqlUtils = new SqlUtils()
 def utils = new Utils()
 def projectHelpers = new ProjectHelpers()
@@ -46,16 +47,23 @@ pipeline {
             steps {
                 timestamps {
                     script {
-                       try {
-                       (FileReader fileReader = new FileReader("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"))
+                     //  try {
+                     //  (FileReader fileReader = new FileReader("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"))
              
-                       XPath xPath = XPathFactory.newInstance().newXPath()
-                       echo xPath
-                    String data = xPath.evaluate("//Result", new InputSource(fileReader))
-                       echo data
+                     //  XPath xPath = XPathFactory.newInstance().newXPath()
+                     //  echo xPath
+                   // String data = xPath.evaluate("//Result", new InputSource(fileReader))
+                     //  echo data
              //  System.out.println(data)
-                       } catch (Exception e) {
-                                  e.printStackTrace();
+                     //  } catch (Exception e) {
+                     //             e.printStackTrace();
+                       def parser = new XmlParser()
+                       def doc = parser.parse("\\nn-fs-01\\Obmen_1c\\CF_UPDATE_TEST_КА\\razrab.cf");
+		
+                       doc.movie.each{
+                                         bk->   
+                                         print("Result:")
+                                         println "${bk.Result[0].text()}"
                          }
 
                     }
