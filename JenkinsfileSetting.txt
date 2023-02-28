@@ -61,9 +61,8 @@ pipeline {
                      //             e.printStackTrace();
                        
                         
-		                doc.Result.each{
-                           bk->               
-                                 echo "${bk[0].text()}"
+		                         
+                                 echo "${doc.Result.text()}"
                         }               
 
                     }
