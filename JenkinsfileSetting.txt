@@ -1,0 +1,69 @@
+@Library("shared-libraries")
+import io.libs.SqlUtils
+import io.libs.ProjectHelpers
+import io.libs.Utils
+
+
+import org.xml.sax.InputSource;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathFactory;
+import java.io.FileReader;
+
+def sqlUtils = new SqlUtils()
+def utils = new Utils()
+def projectHelpers = new ProjectHelpers()
+
+def updateDbTasks = [:]
+
+pipeline {
+
+    parameters {
+        string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
+       
+
+        
+    }
+
+    environment {
+        RazrabPath="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/razrab.cf"  
+    
+        
+      }
+
+    agent {
+        label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
+    }
+    options {
+         timeout(time: 8, unit: 'HOURS') 
+         buildDiscarder(logRotator(numToKeepStr:'10'))
+     }
+    stages {
+        
+     
+        
+        stage("Захват объектов в релизном хранилище") {
+            steps {
+                timestamps {
+                    script {
+                       try (FileReader fileReader = new FileReader("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"))
+             {
+               XPath xPath = XPathFactory.newInstance().newXPath()
+               echo xPath
+               String data = xPath.evaluate("//Result", new InputSource(fileReader))
+               echo data
+             //  System.out.println(data)
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+                    }
+                }
+            }
+        }
+
+
+        
+    }   
+}
+
