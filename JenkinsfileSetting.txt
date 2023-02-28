@@ -64,10 +64,13 @@ pipeline {
                                 def completeXml= new XmlSlurper()
                                 def doc= completeXml.parseText(xml.text)//completeXml.parseText(xml)
                                 //echo "${doc.CustomerQuote[0].ID.text()}" 
-                                echo "${doc.text()}"    
+                                echo "${doc.text()}"  
+                                if ("${doc.text()}" != "Update") {
+                                      utils.raiseError("Обновления отменены")         
+                                  }      
                                   }                       
 
-                                
+                                echo "После проверки"
 
                     }
                 }
