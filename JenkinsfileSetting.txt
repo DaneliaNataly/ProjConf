@@ -62,11 +62,8 @@ pipeline {
                        
                        
 		
-                       doc.Result.each{
-                                         bk->   
-                                         print("Result:")
-                                         println "${bk.Result[0].text()}"
-                         }
+                       echo ${doc.Result[0].text()}
+                                        
 
                     }
                 //}
