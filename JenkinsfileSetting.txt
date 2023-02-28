@@ -63,7 +63,7 @@ pipeline {
                                 def xml = readFile "${env.WORKSPACE}/UpdateSetting.xml"
 		                        def parser = new XmlParser()
                                 def doc = parser.parseText(xml)                             
-                                def version =doc.text()
+                                version =doc['@version']
                                 echo "${version}"   
                                 
 
