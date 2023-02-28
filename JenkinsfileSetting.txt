@@ -56,7 +56,7 @@ pipeline {
                                 echo "${doc.CustomerQuote[0].ID.text()}"
                                 
 
-                                def 
+                                
 
                     }
                 }
