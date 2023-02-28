@@ -60,12 +60,12 @@ pipeline {
                      //             e.printStackTrace();
                        
                                 echo "test"
+                                def xml = readFile "//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.xml"
 		                        def parser = new XmlParser()
-                                def doc = parser.parse("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.xml") 
-                                
-                                doc.movie.each{
-                                     bk->    echo "${bk.year[0].text()}"   
-                                } 
+                                def doc = parser.parseText(xml)                             
+                           
+                                echo "${doc.attributes()['version']}"   
+                               
 
                     }
                 }
