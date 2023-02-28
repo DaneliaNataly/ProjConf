@@ -59,11 +59,11 @@ pipeline {
                      //  } catch (Exception e) {
                      //             e.printStackTrace();                  
                                 
-                                
+                                def report = readFile(file: 'UpdateSetting.xml')
 		                        def parser = new XmlSlurper()
-                                def doc = parser.parsetext("${env.WORKSPACE}\\UpdateSetting.xml")                             
+                                def doc = parser.parsetext(report)                             
                                 def score=doc.movie.year
-                                echo "test"
+                                //echo "test"
                                 
 
                     }
