@@ -62,7 +62,7 @@ pipeline {
                        
                                 echo "test"
 		                         
-                                 echo "${doc.Result.text()}"
+                               //  echo "${doc.Result.text()}"
                                       
 
                     }
