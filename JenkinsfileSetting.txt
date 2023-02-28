@@ -61,7 +61,7 @@ pipeline {
                                 
                                 
 		                        def parser = new XmlSlurper()
-                                def doc = parser.parsetext("${env.WORKSPACE}/UpdateSetting.xml")                             
+                                def doc = parser.parsetext("${env.WORKSPACE}\UpdateSetting.xml")                             
                                 def score=doc.movie.year
                                 echo "test"
                                 
