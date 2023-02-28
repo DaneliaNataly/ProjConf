@@ -59,7 +59,7 @@ pipeline {
                      //  } catch (Exception e) {
                      //             e.printStackTrace();
                        
-                        doc = parser.parse("\\nn-fs-01\\Obmen_1c\\CF_UPDATE_TEST_КА\\razrab.cf");
+                       def doc = parser.parse("\\nn-fs-01\\Obmen_1c\\CF_UPDATE_TEST_КА\\razrab.cf");
 		
                        doc.movie.each{
                                          bk->   
