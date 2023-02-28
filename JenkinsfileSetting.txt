@@ -28,7 +28,7 @@ pipeline {
     }
 
     environment {
-        RazrabPath="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/razrab.cf"  
+        Path_="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.xml"  
     
         
       }
@@ -60,7 +60,7 @@ pipeline {
                      //             e.printStackTrace();
                        
                                 echo "test"
-                                def xml = readFile "${env.Path}"
+                                def xml = readFile "${Path_}"
 		                        def parser = new XmlParser()
                                 def doc = parser.parseText(xml)                             
                            
