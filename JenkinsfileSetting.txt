@@ -60,16 +60,10 @@ pipeline {
                      //             e.printStackTrace();                  
                                 
                                 
-		                        def parser = new XmlParser()
-                                def doc = parser.parse("${env.WORKSPACE}/UpdateSetting.xml")                             
-                                doc.movie.each{
-                                             bk->
-                                              print("Movie Name:")
-                                              println "${bk['@title']}"
-			
-                                              print("Movie Type:")
-                                              println "${bk.type[0].text()}"
-                                }
+		                        def parser = new XmlSlurper()
+                                def doc = parser.parsetext("${env.WORKSPACE}/UpdateSetting.xml")                             
+                                def score=doc.movie.year
+                                echo "${score}"
                                 
 
                     }
