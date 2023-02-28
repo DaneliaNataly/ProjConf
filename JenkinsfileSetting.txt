@@ -59,13 +59,13 @@ pipeline {
                      //  } catch (Exception e) {
                      //             e.printStackTrace();
                        
-                                echo "${Path_}"
-                                def xml = readFile "${Path_}"
+                                
+                                def xml = readFile "${env.WORKSPACE}/UpdateSetting.xml"
 		                        def parser = new XmlParser()
                                 def doc = parser.parseText(xml)                             
-                           
-                                echo "${doc.attributes()['version']}"   
-                               
+                                def version =doc.text()
+                                echo "${version}"   
+                                
 
                     }
                 }
