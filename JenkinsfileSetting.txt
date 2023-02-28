@@ -18,6 +18,7 @@ def projectHelpers = new ProjectHelpers()
 def updateDbTasks = [:]
 
 def parser = new XmlParser()
+def doc = parser.parse("\\nn-fs-01\\Obmen_1c\\CF_UPDATE_TEST_КА\\razrab.cf");
 pipeline {
 
     parameters {
@@ -59,7 +60,7 @@ pipeline {
                      //  } catch (Exception e) {
                      //             e.printStackTrace();
                        
-                       def doc = parser.parse("\\nn-fs-01\\Obmen_1c\\CF_UPDATE_TEST_КА\\razrab.cf");
+                       
 		
                        doc.movie.each{
                                          bk->   
