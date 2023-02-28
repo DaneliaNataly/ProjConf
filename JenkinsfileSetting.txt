@@ -57,14 +57,19 @@ pipeline {
                      //  echo data
              //  System.out.println(data)
                      //  } catch (Exception e) {
-                     //             e.printStackTrace();
-                       
+                     //             e.printStackTrace();                  
                                 
-                                def xml = readFile "${env.WORKSPACE}/UpdateSetting.xml"
+                                
 		                        def parser = new XmlParser()
-                                def doc = parser.parseText(xml)                             
-                             //   version =doc.attributes()['version']//['@version']
-                            //    echo "${version}"   
+                                def doc = parser.parse("${env.WORKSPACE}/UpdateSetting.xml")                             
+                                doc.movie.each{
+                                             bk->
+                                              print("Movie Name:")
+                                              println "${bk['@title']}"
+			
+                                              print("Movie Type:")
+                                              println "${bk.type[0].text()}"
+                                }
                                 
 
                     }
