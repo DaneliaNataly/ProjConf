@@ -22,13 +22,13 @@ pipeline {
 
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
-        string(defaultValue: "${env.Path}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'Path')
+        
 
         
     }
 
     environment {
-        Path_="///"+"nn-fs-01\\Obmen_1c\\CF_UPDATE_TEST_КА\\UpdateSetting.xml"  
+        Path_="//nn-fs-01\\Obmen_1c\\CF_UPDATE_TEST_КА\\UpdateSetting.xml"  
     
         
       }
@@ -60,9 +60,9 @@ pipeline {
                      //             e.printStackTrace();                  
                                 
                                 
-		                       // def parser = new XmlSlurper()
-                               // def doc = parser.parsetext("${env.WORKSPACE}/UpdateSetting.xml")                             
-                              //  def score=doc.movie.year
+		                        def parser = new XmlSlurper()
+                                def doc = parser.parsetext("${env.WORKSPACE}/UpdateSetting.xml")                             
+                                def score=doc.movie.year
                                 echo "test"
                                 
 
