@@ -46,16 +46,17 @@ pipeline {
             steps {
                 timestamps {
                     script {
-                       try (FileReader fileReader = new FileReader("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"))
-             {
-               XPath xPath = XPathFactory.newInstance().newXPath()
-               echo xPath
-               String data = xPath.evaluate("//Result", new InputSource(fileReader))
-               echo data
+                       try {
+                       (FileReader fileReader = new FileReader("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"))
+             
+                       XPath xPath = XPathFactory.newInstance().newXPath()
+                       echo xPath
+                    String data = xPath.evaluate("//Result", new InputSource(fileReader))
+                       echo data
              //  System.out.println(data)
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                       } catch (Exception e) {
+                                  e.printStackTrace();
+                         }
 
                     }
                 }
