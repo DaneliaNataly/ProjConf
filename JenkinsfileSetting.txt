@@ -46,7 +46,7 @@ pipeline {
         stage("Захват объектов в релизном хранилище") {
             steps {
                 timestamps {
-                    script {
+                    //script {
                      //  try {
                      //  (FileReader fileReader = new FileReader("//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"))
              
@@ -67,7 +67,7 @@ pipeline {
                          }
 
                     }
-                }
+                //}
             }
         }
 
