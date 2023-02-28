@@ -9,7 +9,7 @@ import org.xml.sax.InputSource
 import javax.xml.xpath.XPath
 import javax.xml.xpath.XPathFactory
 import java.io.FileReader
-import groovy.xml.MarkupBuilder 
+import groovy.xml.* 
 import groovy.util.*
 def sqlUtils = new SqlUtils()
 def utils = new Utils()
@@ -67,7 +67,7 @@ pipeline {
     
                                 def completeXml= new XmlParser()
                                 def doc= completeXml.parseText(xml)
-                                def IDs = doc.CustomerQuote.ID*.text()
+                                echo "${doc.CustomerQuote[0].ID.text()}"
                                 
 
                     }
