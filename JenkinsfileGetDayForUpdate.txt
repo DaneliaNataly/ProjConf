@@ -59,7 +59,7 @@ pipeline {
                     script {                  
                                 env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
                                  echo "${env.Path1C}"                                  
-                                 returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection} ${user} ${pass} ${PathToCmd}")                               
+                                 returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection_ka} ${user} ${pass} ${PathToCmd}")                               
                                  
 
                     }
