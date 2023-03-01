@@ -55,8 +55,7 @@ pipeline {
 
 
                                 if(!xml.exists())
-                                           {
-                                            //Display an alert if the file is not found.
+                                           {                                           
                                             echo "Файл не найден"   
                                            }
                                  else
@@ -73,6 +72,12 @@ pipeline {
                                   }                       
 
                                 echo "После проверки"
+
+                                String fileContents = new File("${PathToFileSetting}").text
+                                firstWord = "<Result>"
+                                secondWord = "</Result>"
+                                needupdate = fileContents.substring(fileContents.indexOf(firstWord) + firstWord.length(), fileContents.indexOf(secondWord))
+                                echo "${needupdate}"
 
                     }
                 }
