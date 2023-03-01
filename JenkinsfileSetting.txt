@@ -22,13 +22,13 @@ pipeline {
 
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
-        
+        string(defaultValue: "${env.PathToFileSetting}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'PathToFileSetting')
 
         
     }
 
     environment {
-        PathToFileSetting="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
+        PathToFileSetting="${env.PathToFileSetting}"//"//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
     
         
     }
