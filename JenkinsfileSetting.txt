@@ -28,7 +28,7 @@ pipeline {
     }
 
     environment {
-        PathToFileSetting="'//'"+"${env.PathToFileSetting}"//"//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
+        PathToFileSetting="//"+"${env.PathToFileSetting}"//"//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
     
         
     }
