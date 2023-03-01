@@ -67,9 +67,9 @@ pipeline {
                                 echo "${doc.text()}"  
                                 rez="${doc.text()}"!= "Update"
                                 echo "${rez}"
-                                //if ("${doc.text()}"!= "Update") {
-                               //       utils.raiseError("Обновления отменены")         
-                                 // }      
+                                if ("${doc.text()}"!= "Update") {
+                                     utils.raiseError("Обновления отменены")         
+                                  }      
                                   }                       
 
                                 echo "После проверки"
