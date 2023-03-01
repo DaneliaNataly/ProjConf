@@ -3,14 +3,6 @@ import io.libs.SqlUtils
 import io.libs.ProjectHelpers
 import io.libs.Utils
 
-
-import org.xml.sax.InputSource
-
-import javax.xml.xpath.XPath
-import javax.xml.xpath.XPathFactory
-import java.io.FileReader
-import groovy.xml.* 
-import groovy.util.*
 def sqlUtils = new SqlUtils()
 def utils = new Utils()
 def projectHelpers = new ProjectHelpers()
@@ -32,14 +24,11 @@ pipeline {
         
     }
 
-    environment {
-        PathToFileSetting="//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
-        baseconnection_ka ="/S${env.server1c_ka}:${env.agent1cPort}\\${env.BaseName_ka}"
-        
+    environment {        
+        baseconnection_ka ="/S${env.server1c_ka}:${env.agent1cPort}\\${env.BaseName_ka}"        
         user ="/N${env.admin1cUser}"
         pass = "/P${env.admin1cPwd}"
-
-        PathToCmd = "/Execute${env.PathToCmd}" //Q:\CF_UPDATE_TEST_КА\GetDayForUpdate\GetDayForUpdate.epf"
+        PathToCmd = "/Execute${env.PathToCmd}"
       }
 
     agent {
@@ -49,19 +38,14 @@ pipeline {
          timeout(time: 8, unit: 'HOURS') 
          buildDiscarder(logRotator(numToKeepStr:'10'))
      }
-    stages {
-        
+    stages {    
      
-        
         stage("Получение данных о рабочем дне") {
             steps {
                 timestamps {
                     script {                  
-                                env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
-                                 echo "${env.Path1C}"                                  
-                                 returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection_ka} ${user} ${pass} ${PathToCmd}")                               
-                                 
-
+                            env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                        
+                            returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection_ka} ${user} ${pass} ${PathToCmd}")                               
                     }
                 }
             }
