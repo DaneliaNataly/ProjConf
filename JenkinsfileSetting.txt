@@ -25,12 +25,33 @@ pipeline {
         string(defaultValue: "${env.PathToFileSetting}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'PathToFileSetting')
 
     }
-
+    
     environment {
        PathToFileSetting="${env.PathToFileSetting}"//"//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
-    
+       TestMessage=""
     }
-    
+    post {
+        always {
+            bat "echo finished"
+           
+        }
+        failure {
+           bat "echo failure"
+           withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
+            script{
+            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_FAILURE*""")
+            }
+            }
+        }
+        success {
+            bat "echo success"
+            withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
+            script{
+            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*${TestMessage}*""")
+            }
+            }
+        }
+    }
     agent {
         label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
     }
@@ -77,7 +98,8 @@ pipeline {
                                 echo "${needupdate}"
                                 if ("${needupdate}"!= "Update") {
                                         echo "На сегодняшний день обновления отменены"
-                                        currentBuild.result = 'UNSTABLE'
+                                        TestMessage="Update_canceled"
+                                        currentBuild.result = 'SUCCESS'
                                         return          
                                       } 
                                 echo "Конец проверки файла"
@@ -94,7 +116,7 @@ pipeline {
                     script {                  
                                
                             echo "${PathToFileSetting}"                           
-                                                             
+                            TestMessage="Update_is_SUCCESS"                                 
                               
 
                     }
