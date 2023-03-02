@@ -29,6 +29,7 @@ pipeline {
     environment {
        PathToFileSetting="${env.PathToFileSetting}"//"//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
        TestMessage=""
+       skipRemainingStages=true
     }
     post {
         always {
@@ -99,8 +100,9 @@ pipeline {
                                 if ("${needupdate}"!= "Update") {
                                         echo "На сегодняшний день обновления отменены"
                                         TestMessage="Update_canceled"
+                                        skipRemainingStages=false
                                         currentBuild.result = 'SUCCESS'
-                                        return          
+                                        //return          
                                       } 
                                 echo "Конец проверки файла"
                                 echo "${TestMessage}"
@@ -112,10 +114,15 @@ pipeline {
 
 
           stage("ТЕСТ") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
             steps {
                 timestamps {
                     script {                  
-                               
+                            
+            }   
                             echo "${PathToFileSetting}"                           
                             TestMessage="Update_is_SUCCESS"                                 
                               
