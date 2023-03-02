@@ -50,12 +50,12 @@ pipeline {
                                 echo "${PathToFileSetting}"
                                 echo "${WORKSPACE}\\${env.PathToFileSetting}"
                                 def xml= readFile "${WORKSPACE}\\${env.PathToFileSetting}"//new File("${PathToFileSetting}")
-                                if(!xml.exists())
-                                           {                                           
-                                            echo "Файл не найден"   
-                                           }
-                                 else
-                                    {
+                               // if(!xml.exists())
+                                        //   {                                           
+                                        //    echo "Файл не найден"   
+                                        //   }
+                               // else
+                                   // {
                                      def completeXml= new XmlSlurper()
                                      def doc= completeXml.parseText(xml.text)//completeXml.parseText(xml)
                                      //echo "${doc.CustomerQuote[0].ID.text()}" 
@@ -66,7 +66,7 @@ pipeline {
                                              utils.raiseError("Обновления отменены")  
 
                                       }      
-                                    }                       
+                                  //  }                       
 
                                 echo "После проверки"
                                 //второй способ
