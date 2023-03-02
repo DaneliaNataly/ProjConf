@@ -103,6 +103,7 @@ pipeline {
                                         return          
                                       } 
                                 echo "Конец проверки файла"
+                                echo "${TestMessage}"
 
                     }
                 }
