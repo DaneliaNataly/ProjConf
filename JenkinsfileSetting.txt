@@ -49,8 +49,9 @@ pipeline {
                                // def xml= new File("C:\\Users\\daneliya.n\\ProjConf\\UpdateSetting.XML")
                                 echo "${PathToFileSetting}"
                                 echo "${WORKSPACE}\\${env.PathToFileSetting}"
-                                def xml= readFile ("${WORKSPACE}\\${env.PathToFileSetting}")//new File("${PathToFileSetting}")
-                                echo "${xml}"
+                               // def 
+                                String fileContents= readFile ("${WORKSPACE}\\${env.PathToFileSetting}")//new File("${PathToFileSetting}")
+                                echo "${fileContents}"
                                // if(!xml.exists())
                                         //   {                                           
                                         //    echo "Файл не найден"   
@@ -71,11 +72,12 @@ pipeline {
 
                                 echo "После проверки"
                                 //второй способ
+                                 String fileContents = xml.text
                                // String fileContents = new File("${PathToFileSetting}").text
-                             //   firstWord = "<Result>"
-                             //   secondWord = "</Result>"
-                             //   needupdate = fileContents.substring(fileContents.indexOf(firstWord) + firstWord.length(), fileContents.indexOf(secondWord))
-                             //   echo "${needupdate}"
+                                firstWord = "<Result>"
+                                secondWord = "</Result>"
+                                needupdate = fileContents.substring(fileContents.indexOf(firstWord) + firstWord.length(), fileContents.indexOf(secondWord))
+                                echo "${needupdate}"
                              //   if ("${needupdate}"!= "Update") {
                              //                utils.raiseError("Обновления отменены")         
                               //        } 
