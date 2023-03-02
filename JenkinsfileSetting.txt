@@ -111,18 +111,17 @@ pipeline {
                 }
             }
         }
-
-
           stage("ТЕСТ") {
-             when {
+            when {
                     expression {
                             !skipRemainingStages
                     }
-            steps {
+                }
+             steps {
                 timestamps {
                     script {                  
                             
-            }   
+               
                             echo "Всем привет"                           
                             TestMessage="Update_is_SUCCESS"                                 
                               
