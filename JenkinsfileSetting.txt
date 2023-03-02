@@ -50,8 +50,8 @@ pipeline {
                                 echo "${PathToFileSetting}"
                                 echo "${WORKSPACE}\\${env.PathToFileSetting}"
                                
-                               //
-                               String def fileContents= readFile ("${WORKSPACE}\\${env.PathToFileSetting}")//new File("${PathToFileSetting}")
+                               //def
+                               String  fileContents= readFile ("${WORKSPACE}\\${env.PathToFileSetting}")//new File("${PathToFileSetting}")
                                 echo "${fileContents}"
                                // if(!xml.exists())
                                         //   {                                           
