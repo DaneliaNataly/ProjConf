@@ -49,8 +49,9 @@ pipeline {
                                // def xml= new File("C:\\Users\\daneliya.n\\ProjConf\\UpdateSetting.XML")
                                 echo "${PathToFileSetting}"
                                 echo "${WORKSPACE}\\${env.PathToFileSetting}"
-                               // def 
-                                String fileContents= readFile ("${WORKSPACE}\\${env.PathToFileSetting}")//new File("${PathToFileSetting}")
+                               
+                               //
+                               String def fileContents= readFile ("${WORKSPACE}\\${env.PathToFileSetting}")//new File("${PathToFileSetting}")
                                 echo "${fileContents}"
                                // if(!xml.exists())
                                         //   {                                           
@@ -72,7 +73,7 @@ pipeline {
 
                                 echo "После проверки"
                                 //второй способ
-                                 String fileContents = xml.text
+                               //  String fileContents = xml.text
                                // String fileContents = new File("${PathToFileSetting}").text
                                 firstWord = "<Result>"
                                 secondWord = "</Result>"
