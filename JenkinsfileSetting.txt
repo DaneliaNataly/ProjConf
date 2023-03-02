@@ -47,11 +47,8 @@ pipeline {
                                //первый способ
                                // def xml="<Collection><CustomerQuote><ID>99988877766</ID><TypeCode>2059</TypeCode><ApprovalStatusCode>4</ApprovalStatusCode></CustomerQuote><CustomerQuote><ID>99988877755</ID><TypeCode>2059</TypeCode><ApprovalStatusCode>4</ApprovalStatusCode></CustomerQuote></Collection>"
                                // def xml= new File("C:\\Users\\daneliya.n\\ProjConf\\UpdateSetting.XML")
-                                echo "${PathToFileSetting}"
-                                echo "${WORKSPACE}\\${env.PathToFileSetting}"
-                               
-                               //def
-                               String  fileContents= readFile ("${env.PathToFileSetting}")//new File("${PathToFileSetting}")
+                                echo "${PathToFileSetting}"                           
+                                String  fileContents= readFile ("${PathToFileSetting}")//new File("${PathToFileSetting}")
                                 echo "${fileContents}"
                                // if(!xml.exists())
                                         //   {                                           
@@ -71,17 +68,34 @@ pipeline {
                                   //    }      
                                   //  }                       
 
-                                echo "После проверки"
-                                //второй способ
-                               //  String fileContents = xml.text
+                                echo "Проверка файла"
+                                //второй способ                               
                                // String fileContents = new File("${PathToFileSetting}").text
                                 firstWord = "<Result>"
                                 secondWord = "</Result>"
                                 needupdate = fileContents.substring(fileContents.indexOf(firstWord) + firstWord.length(), fileContents.indexOf(secondWord))
                                 echo "${needupdate}"
-                             //   if ("${needupdate}"!= "Update") {
-                             //                utils.raiseError("Обновления отменены")         
-                              //        } 
+                                if ("${needupdate}"!= "Update") {
+                                        echo "На сегодняшний день обновления отменены"
+                                        currentBuild.result = 'UNSTABLE'
+                                        return          
+                                      } 
+                                echo "Конец проверки файла"
+
+                    }
+                }
+            }
+        }
+
+
+          stage("ТЕСТ") {
+            steps {
+                timestamps {
+                    script {                  
+                               
+                            echo "${PathToFileSetting}"                           
+                                                             
+                              
 
                     }
                 }
