@@ -49,7 +49,7 @@ pipeline {
                                // def xml= new File("C:\\Users\\daneliya.n\\ProjConf\\UpdateSetting.XML")
                                 echo "${PathToFileSetting}"
                                 echo "${WORKSPACE}\\${env.PathToFileSetting}"
-                                def xml= new File("${WORKSPACE}\\${env.PathToFileSetting}")//new File("${PathToFileSetting}")
+                                def xml= readFile "${WORKSPACE}\\${env.PathToFileSetting}"//new File("${PathToFileSetting}")
                                 if(!xml.exists())
                                            {                                           
                                             echo "Файл не найден"   
