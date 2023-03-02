@@ -48,7 +48,8 @@ pipeline {
                                // def xml="<Collection><CustomerQuote><ID>99988877766</ID><TypeCode>2059</TypeCode><ApprovalStatusCode>4</ApprovalStatusCode></CustomerQuote><CustomerQuote><ID>99988877755</ID><TypeCode>2059</TypeCode><ApprovalStatusCode>4</ApprovalStatusCode></CustomerQuote></Collection>"
                                // def xml= new File("C:\\Users\\daneliya.n\\ProjConf\\UpdateSetting.XML")
                                 echo "${PathToFileSetting}"
-                                def xml= new File("${PathToFileSetting}")
+                                String xml= readFile("${PathToFileSetting}")
+                                //def xml= new File("${PathToFileSetting}")
                                 if(!xml.exists())
                                            {                                           
                                             echo "Файл не найден"   
