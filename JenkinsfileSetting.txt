@@ -23,13 +23,13 @@ pipeline {
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
         string(defaultValue: "${env.PathToFileSetting}", description: 'Путь к файлу xml с ответом по старту обновлений', name: 'PathToFileSetting')
-    //    booleanParam(defaultValue: "${env.skipRemainingStages}", description: 'flag', name: 'skipRemainingStages')
+    
     }
     
     environment {
        PathToFileSetting="${env.PathToFileSetting}"
-       TestMessage=""
-      // Boolean skipRemainingStages=false//"${env.skipRemainingStages}"
+       TestMessage="Attention!_Check_the_build_result"
+      
     }
     post {
         always {
@@ -99,7 +99,7 @@ pipeline {
                                 echo "${needupdate}"
                                 if ("${needupdate}"!= "Update") {
                                         echo "На сегодняшний день обновления отменены"
-                                        TestMessage="Update_canceled"
+                                        //TestMessage="Update_canceled"
                                         skipRemainingStages=true
                                         currentBuild.result = 'SUCCESS' 
                                         echo "Сообщение в телеграмм: " + "${TestMessage}"
