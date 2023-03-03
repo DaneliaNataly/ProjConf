@@ -99,7 +99,7 @@ pipeline {
                                 echo "${needupdate}"
                                 if ("${needupdate}"!= "Update") {
                                         echo "На сегодняшний день обновления отменены"
-                                        //TestMessage="Update_canceled"
+                                        TestMessage="Update_canceled"
                                         skipRemainingStages=true
                                         currentBuild.result = 'SUCCESS' 
                                         echo "Сообщение в телеграмм: " + "${TestMessage}"
