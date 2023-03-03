@@ -112,7 +112,7 @@ pipeline {
                 }
             }
         }
-          stage("ТЕСТ") {
+          stage("ТЕСТ1") {
             when {
                     expression {
                             !skipRemainingStages
@@ -123,7 +123,7 @@ pipeline {
                     script {                  
                             
                
-                            echo "Всем привет"                           
+                            echo "Всем привет 1"                           
                             TestMessage="Update_is_SUCCESS"                                 
                               
 
@@ -131,7 +131,25 @@ pipeline {
                 }
             }
         }
+        stage("ТЕСТ2") {
+            when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
+             steps {
+                timestamps {
+                    script {                  
+                            
+               
+                            echo "Всем привет 2"                           
+                            TestMessage="Update_is_SUCCESS"                                 
+                              
 
+                    }
+                }
+            }
+        }
 
         
     }   
