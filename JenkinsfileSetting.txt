@@ -23,13 +23,13 @@ pipeline {
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
         string(defaultValue: "${env.PathToFileSetting}", description: 'Путь к файлу xml с ответом по старту обновлений', name: 'PathToFileSetting')
-
+        booleanParam(defaultValue: "${env.skipRemainingStages}", description: 'flag', name: 'skipRemainingStages')
     }
     
     environment {
        PathToFileSetting="${env.PathToFileSetting}"
        TestMessage=""
-       def skipRemainingStages=false
+       skipRemainingStages="${env.skipRemainingStages}"
     }
     post {
         always {
@@ -116,7 +116,7 @@ pipeline {
           stage("ТЕСТ1") {
             when {
                     expression {
-                            return !skipRemainingStages
+                            return skipRemainingStages
                     }
                 }
              steps {
