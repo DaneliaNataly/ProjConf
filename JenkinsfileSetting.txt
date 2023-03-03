@@ -119,7 +119,7 @@ pipeline {
           stage("ТЕСТ1") {
             when {
                     expression {
-                        skipRemainingStages=="false"
+                        !skipRemainingStages
                     }
                 }
              steps {
