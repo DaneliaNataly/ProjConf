@@ -115,9 +115,9 @@ pipeline {
         }
           stage("ТЕСТ1") {
             when {
-                  //  expression {
-                        skipRemainingStages==false
-                  //  }
+                    expression {
+                        skipRemainingStages=="false"
+                    }
                 }
              steps {
                 timestamps {
