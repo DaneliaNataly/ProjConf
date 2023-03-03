@@ -77,7 +77,7 @@ pipeline {
 
         PathToFileSetting="${env.PathToFileSetting}"
         TestMessage=""
-        skipRemainingStages=false
+        
 
       }
     post {
@@ -126,11 +126,15 @@ pipeline {
                                         echo "На сегодняшний день обновления отменены"
                                         TestMessage="Update_canceled"
                                         skipRemainingStages=true
-                                        currentBuild.result = 'SUCCESS'                                                
+                                        currentBuild.result = 'SUCCESS' 
+                                        echo "Сообщение в телеграмм: " + "${TestMessage}"                                               
                                     } 
+                                else {
+                                        skipRemainingStages=false
+                                    }
                                 echo "Конец проверки файла"                               
                                 echo "Отменить обновления?: Ответ - " + "${skipRemainingStages}"
-                                echo "Сообщение в телеграмм: " + "${TestMessage}"
+                                
 
                     }
                 }
