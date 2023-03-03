@@ -116,7 +116,7 @@ pipeline {
           stage("ТЕСТ1") {
             when {
                     expression {
-                            skipRemainingStages
+                            return skipRemainingStages
                     }
                 }
              steps {
