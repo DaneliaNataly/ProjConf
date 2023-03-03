@@ -23,13 +23,13 @@ pipeline {
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
         string(defaultValue: "${env.PathToFileSetting}", description: 'Путь к файлу xml с ответом по старту обновлений', name: 'PathToFileSetting')
-        booleanParam(defaultValue: "${env.skipRemainingStages}", description: 'flag', name: 'skipRemainingStages')
+    //    booleanParam(defaultValue: "${env.skipRemainingStages}", description: 'flag', name: 'skipRemainingStages')
     }
     
     environment {
        PathToFileSetting="${env.PathToFileSetting}"
        TestMessage=""
-       //skipRemainingStages="${env.skipRemainingStages}"
+       Boolean skipRemainingStages=false//"${env.skipRemainingStages}"
     }
     post {
         always {
