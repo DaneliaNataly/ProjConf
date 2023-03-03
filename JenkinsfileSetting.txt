@@ -105,6 +105,9 @@ pipeline {
                                         echo "Сообщение в телеграмм: " + "${TestMessage}"
                                         //return          
                                       } 
+                                    else {
+                                        skipRemainingStages=false
+                                    }
                                 echo "Конец проверки файла"
                                 echo "Отменить обновления?: Ответ - " + "${skipRemainingStages}"
                                
