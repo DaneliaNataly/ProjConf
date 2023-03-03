@@ -29,7 +29,7 @@ pipeline {
     environment {
        PathToFileSetting="${env.PathToFileSetting}"
        TestMessage=""
-       skipRemainingStages=false
+       def skipRemainingStages=false
     }
     post {
         always {
