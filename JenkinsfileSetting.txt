@@ -22,14 +22,14 @@ pipeline {
 
     parameters {
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
-        string(defaultValue: "${env.PathToFileSetting}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'PathToFileSetting')
+        string(defaultValue: "${env.PathToFileSetting}", description: 'Путь к файлу xml с ответом по старту обновлений', name: 'PathToFileSetting')
 
     }
     
     environment {
-       PathToFileSetting="${env.PathToFileSetting}"//"//nn-fs-01/Obmen_1c/CF_UPDATE_TEST_КА/UpdateSetting.XML"  
+       PathToFileSetting="${env.PathToFileSetting}"
        TestMessage=""
-       skipRemainingStages=true
+       skipRemainingStages=false
     }
     post {
         always {
@@ -105,8 +105,8 @@ pipeline {
                                         //return          
                                       } 
                                 echo "Конец проверки файла"
-                                echo "${TestMessage}"
-                                echo "${skipRemainingStages}"
+                                echo "Отменить обновления?: Ответ - " + "${skipRemainingStages}"
+                                echo "Сообщение в телеграмм: " + "${TestMessage}"
 
                     }
                 }

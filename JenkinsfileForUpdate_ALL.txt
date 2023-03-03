@@ -3,6 +3,15 @@ import io.libs.SqlUtils
 import io.libs.ProjectHelpers
 import io.libs.Utils
 
+
+import org.xml.sax.InputSource
+
+import javax.xml.xpath.XPath
+import javax.xml.xpath.XPathFactory
+import java.io.FileReader
+import groovy.xml.* 
+import groovy.util.*
+
 def sqlUtils = new SqlUtils()
 def utils = new Utils()
 def projectHelpers = new ProjectHelpers()
@@ -48,6 +57,8 @@ pipeline {
         string(defaultValue: "${env.PathRAC}", description: 'RAC', name: 'PathRAC')
         string(defaultValue: "${env.Uccode}", description: 'Код разблокировки', name: 'Uccode')        
         string(defaultValue: "${env.RasPort}", description: 'RAS', name: 'RasPort')
+        //путь к файлу с настройками старта обновлений
+        string(defaultValue: "${env.PathToFileSetting}", description: 'Путь к файлу xml с ответом по старту обновлений', name: 'PathToFileSetting')
     }
 
     environment {
@@ -63,6 +74,11 @@ pipeline {
         uccodeString ="--uccode ${env.Uccode}"         
         //номер версии для метки в хранилище
         version_number=""
+
+        PathToFileSetting="${env.PathToFileSetting}"
+        TestMessage=""
+        skipRemainingStages=false
+
       }
     post {
         always {
@@ -81,7 +97,7 @@ pipeline {
             bat "echo success"
             withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
             script{
-            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_SUCCESS*""")
+            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*${TestMessage}*""")
             }
             }
         }
@@ -94,7 +110,39 @@ pipeline {
          buildDiscarder(logRotator(numToKeepStr:'10'))
      }
     stages {
+        stage("Проверка на запуск обновлений") {
+            steps {
+                timestamps {
+                    script {                  
+                                echo "${PathToFileSetting}"                           
+                                String  fileContents= readFile ("${PathToFileSetting}")
+                                echo "${fileContents}"                              
+                                echo "Проверка файла"                               
+                                firstWord = "<Result>"
+                                secondWord = "</Result>"
+                                needupdate = fileContents.substring(fileContents.indexOf(firstWord) + firstWord.length(), fileContents.indexOf(secondWord))
+                                echo "${needupdate}"
+                                if ("${needupdate}"!= "Update") {
+                                        echo "На сегодняшний день обновления отменены"
+                                        TestMessage="Update_canceled"
+                                        skipRemainingStages=true
+                                        currentBuild.result = 'SUCCESS'                                                
+                                    } 
+                                echo "Конец проверки файла"                               
+                                echo "Отменить обновления?: Ответ - " + "${skipRemainingStages}"
+                                echo "Сообщение в телеграмм: " + "${TestMessage}"
+
+                    }
+                }
+            }
+        }
+
          stage ('Отмена захвата в КА_ЛАД под Сборка ') {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
                     steps {
                           timestamps {
                             script {
@@ -114,6 +162,11 @@ pipeline {
                     }
         }
         stage("Подготовка") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
             steps {
                 timestamps {
                     script {
@@ -148,6 +201,11 @@ pipeline {
             }
         }
         stage("Подготовка данных (продолжение)- релизное хранилище") {
+            when {
+                expression {
+                        !skipRemainingStages
+                }
+             }
            steps {
                 timestamps {
                     script {
@@ -166,6 +224,11 @@ pipeline {
         }
         
         stage("Захват объектов в релизном хранилище") {
+            when {
+                    expression {
+                            !skipRemainingStages
+                    }
+             }
             steps {
                 timestamps {
                     script {
@@ -202,6 +265,11 @@ pipeline {
 
 
          stage("Выгрузка последней версии конфигурации из релизного хранилища") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
             steps {
                 timestamps {
                     script {
@@ -231,6 +299,11 @@ pipeline {
             } 
         }
         stage("Обновление базы из хранилища разработки") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
             steps {
                 timestamps {
                     script {
@@ -259,6 +332,11 @@ pipeline {
             }       
         }        
            stage("Выгрузка последней версии из хранилища разработки") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
             steps {
                 timestamps {
                     script {
@@ -300,7 +378,12 @@ pipeline {
                 }
             } 
         } 
-            stage("Сравнение и объединение конфигурации разработки с конфигурацией релиза ") {
+        stage("Сравнение и объединение конфигурации разработки с конфигурацией релиза ") {
+                when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
             steps {
                 timestamps {
                     script {
@@ -330,6 +413,11 @@ pipeline {
             } 
         } 
            stage("Помещение объектов после сравнения и объединения в релизное хранилище") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
             steps {
                 timestamps {
                     script {
@@ -363,6 +451,11 @@ pipeline {
             } 
         }  
          stage ('Принятие изменений в КА_ЛАД') {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
                     steps {
                           timestamps {
                             script {
@@ -378,7 +471,7 @@ pipeline {
                                  label_text = '"Актуализация версией разработки ' + "${version_number}" + '"'                           
                                                              
                                  returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuserKALAD} ${storageuserpass} /ConfigurationRepositorySetLabel -name ${label_text}")        
-                                 
+                                 TestMessage="Update_is_SUCCESS"
                             }
                          }
                     }
