@@ -51,7 +51,8 @@ pipeline {
         //string(defaultValue: "${env.Pass}", description: 'Пароль', name: 'Pass')
         //string(defaultValue: "${env.StoragePath}", description: 'Путь к хранилищу', name: 'StoragePath')        
         string(defaultValue: "${env.StorageUserKALAD}", description: 'Пользователь хранилища', name: 'StorageUserKALAD') 
-        string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass') 
+        string(defaultValue: "${env.StorageUserPass}", description: 'Пароль пользователя хранилища', name: 'StorageUserPass')       
+
         string(defaultValue: "${env.Path1C}", description: 'Путь к 1С', name: 'Path1C')       
         
         string(defaultValue: "${env.PathRAC}", description: 'RAC', name: 'PathRAC')
@@ -71,7 +72,8 @@ pipeline {
         storageuserKALAD = "/ConfigurationRepositoryN${env.StorageUserKALAD}"
         storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
         //переменные для работы с сеансами базы КА_ЛАД
-        uccodeString ="--uccode ${env.Uccode}"         
+        uccodeString ="--uccode ${env.Uccode}" 
+        uccode_cmd = "/UC${env.Uccode}"        
         //номер версии для метки в хранилище
         version_number=""
 
@@ -152,11 +154,11 @@ pipeline {
                             script {
                                  env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
                                  echo "${env.PathRAC}"
-                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer --with-nolock")
+                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer")
                                  //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
                                  env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
                                  echo "${env.Path1C}"                                  
-                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuserKALAD} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
+                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuserKALAD} ${storageuserpass} ${uccode_cmd} /ConfigurationRepositoryUnLock -force true")                               
                                   if (returnCode != 0) {
                                       utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
                                   }                       
@@ -378,6 +380,9 @@ pipeline {
                         version_number=response.substring(response.indexOf(firstWord) + firstWord.length(), response.indexOf(secondWord)) 
                         // Выгрузка последней версии из хранилища , путь к базе в переменной testbaseConnString                        
                         returnCode = utils.cmd("runner unloadcfrepo --settings tools/json/vrunner_razrab.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine} --out ${pathforrazrab}")
+                        if (returnCode != 0) {
+                            utils.raiseError("Ошибка при выгрузке конфигурации из хранилища разработки")
+                        }
                          }
                 }
             } 
@@ -468,13 +473,17 @@ pipeline {
                                  utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")                               
                                  utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")
                                  utils.cmd("runner loadrepo --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")
-                                 utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")                
-                                 utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}") 
-                                 //метка в хранилище
-                                                        
-                                 label_text = '"Актуализация версией разработки ' + "${version_number}" + '"'                           
+                                 utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}") 
+
+                                //метка в хранилище
+                                 label_text = '"Актуализация версией разработки ' + "${version_number}" + '"'                        
                                                              
-                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuserKALAD} ${storageuserpass} /ConfigurationRepositorySetLabel -name ${label_text}")        
+                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuserKALAD} ${storageuserpass} ${uccode_cmd} /ConfigurationRepositorySetLabel -name ${label_text}")   
+
+                                 utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}") 
+                                 
+                                                        
+                                      
                                  TestMessage="Update_is_SUCCESS"
                             }
                          }
