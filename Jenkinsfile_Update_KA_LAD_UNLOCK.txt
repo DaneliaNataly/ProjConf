@@ -78,7 +78,8 @@ pipeline {
                                  returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} ${uccode} /ConfigurationRepositoryUnLock -force true")                               
                                  if (returnCode != 0) {
                                       utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")  
-                                 }       
+                                 }  
+                                 utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")       
                                 // utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
                                 //метка в хранилище
                                 
