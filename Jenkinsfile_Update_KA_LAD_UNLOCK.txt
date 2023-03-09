@@ -21,38 +21,41 @@ pipeline {
         string(defaultValue: "${env.Path1C}", description: 'Путь к 1С', name: 'Path1C')
         string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
         string(defaultValue: "${env.PathRAC}", description: 'RAC', name: 'PathRAC')
+
+        string(defaultValue: "${env.PassUC}", description: 'ПарольUC', name: 'PassUC')
     }
 
     environment {
        baseconnection ="/S${env.Server}:${env.ServerPort}\\${env.BaseName}"
        user ="/N${env.UserName}"
-      // pass = "/P${env.Pass}"   
-       //storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
+       pass = "/P${env.Pass}"   
+       storagepath ="/ConfigurationRepositoryF${env.StoragePath}"
        storageuser = "/ConfigurationRepositoryN${env.StorageUser}"
-       //storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
+       storageuserpass ="/ConfigurationRepositoryP${env.StorageUserPass}"
+       uccode = "/UC${env.PassUC}" 
     }
-    post {
-        always {
-            bat "echo always"
+    // post {
+    //     always {
+    //         bat "echo always"
            
-        }
-        failure {
-           // bat "echo failure"
-           withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
-            script{
-            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_FAILURE*""")
-            }
-            }
-        }
-        success {
-            //bat "echo success"
-            withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
-            script{
-            utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_SUCCESS*""")
-            }
-            }
-        }
-    }
+    //     }
+    //     failure {
+    //        // bat "echo failure"
+    //        withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
+    //         script{
+    //         utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_FAILURE*""")
+    //         }
+    //         }
+    //     }
+    //     success {
+    //         //bat "echo success"
+    //         withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
+    //         script{
+    //         utils.cmd("""curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text=*Update_is_SUCCESS*""")
+    //         }
+    //         }
+    //     }
+    // }
     agent {
         label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
     }
@@ -66,15 +69,15 @@ pipeline {
                     steps {
                           timestamps {
                             script {
-                                 //env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
-                                 //echo "${env.PathRAC}"
-                                 //utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer --with-nolock")
+                                 env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
+                                 echo "${env.PathRAC}"
+                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer")
                                  ////"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
-                                 //env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
-                                 //echo "${env.Path1C}"                                  
-                                 //returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} /ConfigurationRepositoryUnLock -force true")                               
-                                 // if (returnCode != 0) {
-                                  //    utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
+                                 env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
+                                 echo "${env.Path1C}"                                  
+                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} ${uccode}/ConfigurationRepositoryUnLock -force true")                               
+                                 if (returnCode != 0) {
+                                      utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")         
                                 // utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
                                 //метка в хранилище
                                 
