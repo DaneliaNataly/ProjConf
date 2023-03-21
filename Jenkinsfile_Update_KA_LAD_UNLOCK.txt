@@ -69,17 +69,17 @@ pipeline {
                     steps {
                           timestamps {
                             script {
-                                 env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
-                                 echo "${env.PathRAC}"
-                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer")
-                                 ////"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
-                                 env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
-                                 echo "${env.Path1C}"                                  
-                                 returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} ${uccode} /ConfigurationRepositoryUnLock -force true")                               
-                                 if (returnCode != 0) {
-                                      utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")  
-                                 }  
-                                 utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")       
+                                //  env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
+                                //  echo "${env.PathRAC}"
+                                //  utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer")
+                                //  ////"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
+                                //  env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
+                                //  echo "${env.Path1C}"                                  
+                                //  returnCode=utils.cmd("${env.Path1C} DESIGNER /DisableStartupDialogs ${baseconnection} ${user} ${pass} ${storagepath} ${storageuser} ${storageuserpass} ${uccode} /ConfigurationRepositoryUnLock -force true")                               
+                                //  if (returnCode != 0) {
+                                //       utils.raiseError("Ошибка при отмене захвата объектов на сервере в базе ${env.BaseName}")  
+                                //  }  
+                                //  utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")       
                                 // utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
                                 //метка в хранилище
                                 
