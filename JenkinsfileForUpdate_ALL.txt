@@ -472,8 +472,15 @@ pipeline {
                                  //echo "${env.PathRAC}"
                                  utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")                               
                                  utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")
-                                 utils.cmd("runner loadrepo --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")
-                                 utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}") 
+                                 
+                                 returnCode=utils.cmd("runner loadrepo --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")
+                                 if (returnCode != 0) {
+                                    utils.raiseError("Ошибка при получении данных из хранилища в базе КА_ЛАД")
+                                } 
+                                 returnCode=utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")
+                                 if (returnCode != 0) {
+                                    utils.raiseError("Ошибка при попытке обновления базы КА_ЛАД (F7)")
+                                } 
 
                                 //метка в хранилище
                                  label_text = '"Актуализация версией разработки ' + "${version_number}" + '"'                        
