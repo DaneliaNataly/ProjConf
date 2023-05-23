@@ -417,6 +417,9 @@ pipeline {
                         }
                         // Сравнение и объединение конфигураций                       
                         returnCode = utils.cmd("runner merge --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} --src ${pathforrazrab}")
+                        if (returnCode != 0) {
+                                    utils.raiseError("Ошибка при сравнении конфигураций")
+                                }
                     }
                 }
             } 
@@ -455,6 +458,9 @@ pipeline {
                         }
                         // Помещение в хранилище, путь к базе в переменной testbaseConnString_release                        
                         returnCode = utils.cmd("runner commit --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString_release}\" ${admin1cUsrLine} ${admin1cPwdLine} ${NewVersionLine}")
+                        if (returnCode != 0) {
+                                    utils.raiseError("Ошибка при помещении объектов в релизное хранилище")
+                                }
                     }
                 }
             } 
