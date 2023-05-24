@@ -44,7 +44,7 @@ pipeline {
             steps {
                 timestamps {
                     script {                  
-                            env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv82\\8.2.19.130\\bin\\1cv8.exe\""   //C:\Program Files (x86)\1cv82\8.2.19.130\bin\1cv8.exe                     
+                            env.Path1C=env.Path1C +"\"%ProgramFiles(x86)%\\1cv82\\8.2.19.130\\bin\\1cv8.exe\""   //C:\Program Files (x86)\1cv82\8.2.19.130\bin\1cv8.exe                     
                             returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection_ka} ${user} ${pass} ${PathToCmd}")                               
                     }
                 }
