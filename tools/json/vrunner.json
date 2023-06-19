@@ -45,7 +45,8 @@
     "updatedb": {
         "--ibconnection":  "/Sdb\\ka25",//"/Snn-1cdev-01:3541\\ka_danelia","/FC:/Users/daneliya.n/Documents/InfoBase1",
         "--db-user": "Данелия_Наталья",//"Администратор",
-        "--uccode": "godModeOn"
+        "--uccode": "",
+        "--force": true
     },
     "compile": {
         "inputPath": "./src",
