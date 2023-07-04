@@ -44,7 +44,7 @@ pipeline {
              withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannelDND', variable: 'CHAT_ID')]) {
              script{
              utils.cmd("""
-             curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*KA_LAD:_${TestMessage}*'
+             curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d text='*Калад :_${TestMessage}*'
              """)
             }
             }
