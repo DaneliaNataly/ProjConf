@@ -38,7 +38,7 @@ pipeline {
      post {
         agent {
                     label "jenkins"
-                }  
+                  
         always {
               
              bat "echo always"
@@ -47,6 +47,7 @@ pipeline {
              utils.cmd("""
              curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d text='*Калад :_${TestMessage}*'
              """)
+            }
             }
             }
          }
