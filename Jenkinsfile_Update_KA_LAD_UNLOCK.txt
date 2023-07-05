@@ -41,6 +41,7 @@ pipeline {
         always {
              
              bat "echo always"
+            TestMessage ="\"Опять ошибка при копировнии файла бэкапа УПП\""
              sendTelegram(TestMessage)
 
 
@@ -132,7 +133,7 @@ def cmd_m(command) {
 
 
 def sendTelegram(message) {
-        //def encodedMessage = URLEncoder.encode(message, "UTF-8")
+        
         def encodedMessage = new String(message.getBytes("UTF-8"), "windows-1251")
 
         withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'),
