@@ -89,7 +89,7 @@ pipeline {
         }
         failure {
            bat "echo failure"
-           TestMessage ="\"Ошибки при обновлении КА_ЛАД\"" 
+           
            sendTelegram(TestMessage)
         //    withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannel', variable: 'CHAT_ID')]) {
         //     script{
