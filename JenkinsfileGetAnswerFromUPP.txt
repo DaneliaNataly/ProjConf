@@ -35,12 +35,12 @@ pipeline {
         label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
     }
     options {
-         timeout(time: 8, unit: 'HOURS') 
+         timeout(time: 2, unit: 'HOURS') 
          buildDiscarder(logRotator(numToKeepStr:'10'))
      }
     stages {    
      
-        stage("Получение ответа о загрузке данных из УПП") {
+        stage("Получение ответа от УПП (загрузка в УПП, корректировка номеров сообщений)") {
             steps {
                 timestamps {
                     script {                  

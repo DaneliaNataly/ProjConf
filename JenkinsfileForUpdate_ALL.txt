@@ -78,7 +78,7 @@ pipeline {
         version_number=""
 
         PathToFileSetting="${env.PathToFileSetting}"
-        TestMessage=""
+        TestMessage ="\"Ошибки при обновлении КА_ЛАД\"" 
         
 
       }
