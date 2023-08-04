@@ -2,6 +2,13 @@
 import io.libs.SqlUtils
 import io.libs.ProjectHelpers
 import io.libs.Utils
+import org.xml.sax.InputSource
+
+import javax.xml.xpath.XPath
+import javax.xml.xpath.XPathFactory
+import java.io.FileReader
+import groovy.xml.* 
+import groovy.util.*
 
 def sqlUtils = new SqlUtils()
 def utils = new Utils()
@@ -21,7 +28,8 @@ pipeline {
         string(defaultValue: "${env.BaseName_upp}", description: 'Имя базы данных', name: 'BaseName_upp')
         string(defaultValue: "${env.server1c_upp}", description: 'Имя сервера 1с, по умолчанию localhost', name: 'server1c_upp')
         string(defaultValue: "${env.PathToCmd}", description: 'Путь к обработке для определения рабочего дня', name: 'PathToCmd')
-        
+        //путь к файлу с настройками старта обновлений
+        string(defaultValue: "${env.PathToFileSetting}", description: 'Путь к файлу xml с ответом по старту обновлений', name: 'PathToFileSetting')
     }
 
     environment {        
@@ -29,6 +37,7 @@ pipeline {
         user ="/N${env.admin1cUser}"
         pass = "/P${env.admin1cPwd}"
         PathToCmd = "/Execute${env.PathToCmd}"
+        PathToFileSetting="${env.PathToFileSetting}"
       }
 
     agent {
@@ -39,8 +48,42 @@ pipeline {
          buildDiscarder(logRotator(numToKeepStr:'10'))
      }
     stages {    
-     
-        stage("Получение ответа от УПП (загрузка в УПП, корректировка номеров сообщений)") {
+         stage("Проверка на запуск тестирования") {
+            steps {
+                timestamps {
+                    script {                  
+                                echo "${PathToFileSetting}"                           
+                                String  fileContents= readFile ("${PathToFileSetting}")
+                                echo "${fileContents}"                              
+                                echo "Проверка файла"                               
+                                firstWord = "<Result>"
+                                secondWord = "</Result>"
+                                needupdate = fileContents.substring(fileContents.indexOf(firstWord) + firstWord.length(), fileContents.indexOf(secondWord))
+                                echo "${needupdate}"
+                                if ("${needupdate}"!= "Update") {
+                                        echo "На сегодняшний день обновления отменены"
+                                        
+                                        skipRemainingStages=true
+                                        currentBuild.result = 'SUCCESS' 
+                                                                                       
+                                    } 
+                                else {
+                                        skipRemainingStages=false
+                                    }
+                                echo "Конец проверки файла"                               
+                                echo "Отменить тестирование обменов?: Ответ - " + "${skipRemainingStages}"
+                                
+
+                    }
+                }
+            }
+        }
+        stage("Получение ответа от УПП (загрузка в УПП, корректировка номеров сообщений, выгрузка из УПП)") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
             steps {
                 timestamps {
                     script {                  

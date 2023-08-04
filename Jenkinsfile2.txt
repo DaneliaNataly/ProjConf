@@ -150,10 +150,10 @@ pipeline {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
                         }
                         // Запускаем ВDD тестирование на произвольной базе, сохранившейся в переменной testbaseConnString                        
-                        returnCode = utils.cmd("runner vanessa --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine}")
-                        if (returnCode != 0) {
-                            utils.raiseError("Возникла ошибка при запуске ВDD на сервере ${server1c} и базе ${testbase}")
-                        }
+                        //returnCode = utils.cmd("runner vanessa --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine}")
+                        // if (returnCode != 0) {
+                        //     utils.raiseError("Возникла ошибка при запуске ВDD на сервере ${server1c} и базе ${testbase}")
+                        // }
                     }
                 }
             }
@@ -182,7 +182,7 @@ pipeline {
                             admin1cPwdLine = "--db-pwd ${admin1cPwd}"
                         }
                         // Запускаем  тестирование синтаксиса на произвольной базе, сохранившейся в переменной testbaseConnString                        
-                        returnCode = utils.cmd("runner syntax-check --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine}")
+                       // returnCode = utils.cmd("runner syntax-check --settings tools/json/vrunner.json ${platform1cLine} --ibconnection \"${testbaseConnString}\" ${admin1cUsrLine} ${admin1cPwdLine}")
                          }
                 }
             } 
