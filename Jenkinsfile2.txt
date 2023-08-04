@@ -73,20 +73,10 @@ pipeline {
                             testbase = "${templateDb}"
                             testbaseConnString = projectHelpers.getConnString(server1c, testbase, agent1cPort)
                            
-                            // 1. Обновляем тестовую базу из хранилища 1С 
-                            updateDbTasks["${testbase}"] = updateDbTask(
-                                platform1c,
-                                testbase, 
-                                storage1cPath, 
-                                storageUser, 
-                                storagePwd, 
-                                testbaseConnString, 
-                                admin1cUser, 
-                                admin1cPwd
-                            )
+                            
                            
                         }
-                    parallel updateDbTasks
+                    
                         
                                                
                     }
