@@ -157,7 +157,10 @@ pipeline {
                             script {
                                  env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
                                  echo "${env.PathRAC}"
-                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer")
+                                 returnCode = utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer")
+                                 if (returnCode != 0) {
+                                      utils.raiseError("Ошибка при отмене сеансов в базе ${env.BaseName}")         
+                                  } 
                                  //"C:\Program Files\1cv8\common\1cestart.exe" DESIGNER /S"nn-1cdev-01\ka_lad" /N"Данелия_Наталья" /P"K*/7Vr9v7pdr" /ConfigurationRepositoryF"tcp://nn-sql-01/ka_proverka" /ConfigurationRepositoryN"Сборка" /ConfigurationRepositoryP "" /ConfigurationRepositoryUnLock -force true
                                  env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                                 
                                  echo "${env.Path1C}"                                  
@@ -316,7 +319,8 @@ pipeline {
             steps {
                 timestamps {
                     script {
-
+                                                       
+                        utils.cmd("runner session kill --settings tools/json/vrunner_razrab.json --rac ${env.PathRAC} --with-nolock")
                         for (i = 0;  i < templatebasesList.size(); i++) {
                             templateDb = templatebasesList[i]
                             storage1cPath = storages1cPathList[i]
@@ -349,7 +353,7 @@ pipeline {
             steps {
                 timestamps {
                     script {
-
+                         
                         if (templatebasesList.size() == 0) {
                             return
                         }

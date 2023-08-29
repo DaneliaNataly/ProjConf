@@ -59,8 +59,14 @@ pipeline {
                             script {
                                  env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
                                  //echo "${env.PathRAC}"
-                                 utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer --with-nolock")     
-                                 utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json")                                        
+                                 returnCode = utils.cmd("runner session kill --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC} --filter appid=Designer --with-nolock")
+                                 if (returnCode != 0) {
+                                      utils.raiseError("Ошибка при отмене сеансов в базе КА_ЛАД")         
+                                  }     
+                                 returnCode = utils.cmd("runner bindrepo ${env.StoragePath} ${env.UserName} ${env.Pass} --settings tools/json/vrunner_KA_LAD.json") 
+                                 if (returnCode != 0) {
+                                      utils.raiseError("Ошибка при подключению к хранилищу базы КА_ЛАД")         
+                                  }                                       
                                              
                             }                           
                            

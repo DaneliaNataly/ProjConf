@@ -1,0 +1,102 @@
+@Library("shared-libraries")
+import io.libs.SqlUtils
+import io.libs.ProjectHelpers
+import io.libs.Utils
+import org.xml.sax.InputSource
+
+import javax.xml.xpath.XPath
+import javax.xml.xpath.XPathFactory
+import java.io.FileReader
+import groovy.xml.* 
+import groovy.util.*
+
+def sqlUtils = new SqlUtils()
+def utils = new Utils()
+def projectHelpers = new ProjectHelpers()
+
+def updateDbTasks = [:]
+
+
+pipeline {
+
+    parameters {
+        string(defaultValue: "${env.jenkinsAgent}", description: 'Нода дженкинса, на которой запускать пайплайн. По умолчанию master', name: 'jenkinsAgent')
+        string(defaultValue: "${env.agent1cPort}", description: 'По умолчанию 1541.', name: 'agent1cPort')        
+        string(defaultValue: "${env.admin1cUser}", description: 'Имя администратора с правом открытия вншних обработок (!) для базы тестирования 1с Должен быть одинаковым для всех баз', name: 'admin1cUser')
+        string(defaultValue: "${env.admin1cPwd}", description: 'Пароль администратора базы тестирования 1C. Должен быть одинаковым для всех баз', name: 'admin1cPwd')
+        string(defaultValue: "${env.Path1C}", description: 'Путь к 1С', name: 'Path1C')  
+        string(defaultValue: "${env.BaseName_upp}", description: 'Имя базы данных', name: 'BaseName_upp')
+        string(defaultValue: "${env.server1c_upp}", description: 'Имя сервера 1с, по умолчанию localhost', name: 'server1c_upp')
+        string(defaultValue: "${env.PathToCmd}", description: 'Путь к обработке для определения рабочего дня', name: 'PathToCmd')
+        //путь к файлу с настройками старта обновлений
+        string(defaultValue: "${env.PathToFileSetting}", description: 'Путь к файлу xml с ответом по старту обновлений', name: 'PathToFileSetting')
+    }
+
+    environment {        
+        baseconnection_ka ="/S${env.server1c_upp}:${env.agent1cPort}\\${env.BaseName_upp}"        
+        user ="/N${env.admin1cUser}"
+        pass = "/P${env.admin1cPwd}"
+        PathToCmd = "/Execute${env.PathToCmd}"
+        PathToFileSetting="${env.PathToFileSetting}"
+        Param = "/C"Справочник""
+      }
+
+    agent {
+        label "${(env.jenkinsAgent == null || env.jenkinsAgent == 'null') ? "master" : env.jenkinsAgent}"
+    }
+    options {
+         timeout(time: 2, unit: 'HOURS') 
+         buildDiscarder(logRotator(numToKeepStr:'10'))
+     }
+    stages {    
+         stage("Проверка на запуск тестирования") {
+            steps {
+                timestamps {
+                    script {                  
+                                echo "${PathToFileSetting}"                           
+                                String  fileContents= readFile ("${PathToFileSetting}")
+                                echo "${fileContents}"                              
+                                echo "Проверка файла"                               
+                                firstWord = "<Result>"
+                                secondWord = "</Result>"
+                                needupdate = fileContents.substring(fileContents.indexOf(firstWord) + firstWord.length(), fileContents.indexOf(secondWord))
+                                echo "${needupdate}"
+                                if ("${needupdate}"!= "Update") {
+                                        echo "На сегодняшний день обновления отменены"
+                                        
+                                        skipRemainingStages=true
+                                        currentBuild.result = 'SUCCESS' 
+                                                                                       
+                                    } 
+                                else {
+                                        skipRemainingStages=false
+                                    }
+                                echo "Конец проверки файла"                               
+                                echo "Отменить тестирование обменов?: Ответ - " + "${skipRemainingStages}"
+                                
+
+                    }
+                }
+            }
+        }
+        stage("Получение ответа от УПП (загрузка в УПП, корректировка номеров сообщений, выгрузка из УПП)") {
+             when {
+                    expression {
+                            !skipRemainingStages
+                    }
+                }
+            steps {
+                timestamps {
+                    script {                  
+                            env.Path1C=env.Path1C +"\"%ProgramFiles(x86)%\\1cv82\\8.2.19.130\\bin\\1cv8.exe\""   //C:\Program Files (x86)\1cv82\8.2.19.130\bin\1cv8.exe                     
+                            returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection_ka} ${user} ${pass} ${PathToCmd} ${Param}")                               
+                    }
+                }
+            }
+        }
+
+
+        
+    }   
+}
+

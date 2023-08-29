@@ -45,7 +45,10 @@ pipeline {
                 timestamps {
                     script {                  
                             env.Path1C=env.Path1C +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\1cv8.exe\""                        
-                            returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection_ka} ${user} ${pass} ${PathToCmd}")                               
+                            returnCode=utils.cmd("${env.Path1C} ENTERPRISE /DisableStartupDialogs /DisableStartupMessages ${baseconnection_ka} ${user} ${pass} ${PathToCmd}") 
+                            if (returnCode != 0) {
+                                      utils.raiseError("Ошибка при получении ответа от КА о рабочем дне")         
+                                  }                               
                     }
                 }
             }
