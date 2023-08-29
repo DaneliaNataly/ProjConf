@@ -84,5 +84,17 @@
         "--out": "Q:/CF_UPDATE_TEST_КА/razrab.cf",
         "--debuglogfile": "./logs/unloadrepo/logs_unloadrepo.log"
 
-    }    
+    } ,
+    "session": {
+        "Действие": "kill, lock, unlock", 
+        "--ras": "nn-1cdev-01:1545",
+        "--rac": "",//"C:/Program Files/1cv8/8.3.22.1704/bin/rac.exe",
+        "--ibconnection": "/Snn-1cdev-01:3541\\ka_danelia",
+        "--db": "ka_danelia",
+        "--db-user": "Данелия_Наталья", 
+        "--db-pwd": "K*/7Vr9v7pdr",
+        "--uccode": "123",
+        "--lockmessage": "Обновление базы" ,
+        "--debuglogfile": "./logs/kill/logs_kill.log"  
+    }   
 }
