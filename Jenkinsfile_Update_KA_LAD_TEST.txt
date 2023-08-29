@@ -45,7 +45,7 @@ pipeline {
                                  env.PathRAC=env.PathRAC +"\"%ProgramFiles%\\1cv8\\8.3.22.1704\\bin\\rac.exe\""                                 
                                  echo "${env.PathRAC}"
                                  //utils.cmd("runner session lock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")                               
-                                 utils.cmd("runner session kill --settings tools/json/vrunner_razrab.json --rac ${env.PathRAC}")
+                                 utils.cmd("runner session kill --settings tools/json/vrunner_razrab.json --with-nolock --rac ${env.PathRAC}")
                                  //utils.cmd("runner loadrepo --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}")
                                  //utils.cmd("runner updatedb --settings tools/json/vrunner_KA_LAD.json --ibconnection ${baseConnection} ${uccodeString}") 
                                  //utils.cmd("runner session unlock --settings tools/json/vrunner_KA_LAD.json --rac ${env.PathRAC}")          
