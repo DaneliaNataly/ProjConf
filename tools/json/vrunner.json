@@ -1,7 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/vanessa-opensource/vanessa-runner/develop/vanessa-runner-schema.json",
     "default": {
-        "--ibconnection":"/Snn-1cdev-01:3541\\ka_lad",//"/Sdb\\ka25",////"/FC:/Users/daneliya.n/Documents/InfoBase1",
+        "--ibconnection":"/Snn-1cdev-01:3541\\ka_danelia",//"/Sdb\\ka25",////"/FC:/Users/daneliya.n/Documents/InfoBase1",
         "--db-user": "Данелия_Наталья", //"Администратор",
         "--db-pwd": "K*/7Vr9v7pdr", //"2",
         "--v8version": "8.3.22"

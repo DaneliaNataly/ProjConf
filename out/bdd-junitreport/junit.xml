@@ -1,6 +1,2 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<testsuites>
-	<testsuite name="test" errors="0" skipped="0" tests="1" failures="0" time="17.764">
-		<testcase name="Проверка создания номенклатуры в ERP" classname="test" time="17.764"/>
-	</testsuite>
-</testsuites>
+<testsuites/>
