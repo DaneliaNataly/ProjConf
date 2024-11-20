@@ -154,7 +154,7 @@ def sendLOOP(message) {
        
         
 
-        bat ("""curl -i -X POST -H 'Content-Type: application/json' -d "{\"channel_id\":$CHAT_ID, \"message\":\"This is a message from a bot\", \"props\":"{\"attachments\": ["{\"pretext\": \"Look some text\",\"text\": \"This is text\"}"]}"}" -H 'Authorization: Bearer $TOKEN' https://toledo.loop.ru/api/v4/posts""")
+        bat ("""curl -i -X POST -H 'Content-Type: application/json' -d '{\"channel_id\":$CHAT_ID, \"message\":\"This is a message from a bot\", \"props\":"{\"attachments\": [{\"pretext\": \"Look some text\",\"text\": \"This is text\"}]}"}' -H 'Authorization: Bearer $TOKEN' https://toledo.loop.ru/api/v4/posts""")
         }
         return encodedMessage
     }
