@@ -44,7 +44,7 @@ pipeline {
              bat "echo always"
             
              //sendTelegram("\"Тест при передачи строковой константы в функцию\"")
-             sendLOOP("\"Test\"")
+             sendLOOP("\"пкупв\"")
 
             //  withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannelDND', variable: 'CHAT_ID')]) {
             //  script{
@@ -147,8 +147,7 @@ def sendTelegram(message) {
 
 def sendLOOP(message) {
         
-        def encodedMessage = message
-//new String(message.getBytes("UTF-8"), "windows-1251")
+        def encodedMessage = new String(message.getBytes("windows-1251"), "UTF-8")
         echo encodedMessage
        
        withCredentials([string(credentialsId: 'LOOPBOTID', variable: 'TOKEN'), 
@@ -159,7 +158,7 @@ def sendLOOP(message) {
         props: [
         attachments:[
                 [
-                pretext: "" ,
+                pretext: "пыпап" ,
                 text : "${encodedMessage}"               
                 ]
                     ]
