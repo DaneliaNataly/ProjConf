@@ -159,7 +159,7 @@ def sendLOOP(message) {
         props: [
         attachments:[
                 [
-                pretext: "${encodedMessage},
+                pretext: "${encodedMessage}",
                 text : "КA_LAD is update"               
                 ]
                     ]
