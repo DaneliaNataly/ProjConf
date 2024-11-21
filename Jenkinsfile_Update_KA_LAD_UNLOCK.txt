@@ -2,6 +2,7 @@
 import io.libs.SqlUtils
 import io.libs.ProjectHelpers
 import io.libs.Utils
+import groovy.json.JsonOutput
 
 def sqlUtils = new SqlUtils()
 def utils = new Utils()
@@ -147,13 +148,15 @@ def sendTelegram(message) {
 def sendLOOP(message) {
         
         def encodedMessage = new String(message.getBytes("UTF-8"), "windows-1251")
-
-       withCredentials([string(credentialsId: 'LOOPBOTID', variable: 'TOKEN'),
+        def body = [{\"pretext\": $encodedMessage,\"text\": $encodedMessage}]
+        body = JsonOutput.toJson(body)
+        echo body
+       withCredentials([string(credentialsId: 'LOOPBOTID', variable: 'TOKEN'), 
        string(credentialsId: 'LOOPChannelID', variable: 'CHAT_ID')]) { 
-        script {
+       
 
-        utils.cmd ("""curl -i -X POST -H "Content-Type: application/json" -d '"{\"channel_id\":$CHAT_ID, \"message\":$encodedMessage, \"props\":{\"attachments\": [{\"pretext\": $encodedMessage,\"text\": $encodedMessage}]}}"' -H "Authorization: Bearer $TOKEN" https://toledo.loop.ru/api/v4/posts""")
-        }
+       // bat("""curl -i -X POST -H "Content-Type: application/json" -d '"{\"channel_id\":$CHAT_ID, \"message\":$encodedMessage, \"props\":{\"attachments\": [{\"pretext\": $encodedMessage,\"text\": $encodedMessage}]}}"' -H "Authorization: Bearer $TOKEN" https://toledo.loop.ru/api/v4/posts""")
+       bat("""curl -i -X POST -H "Content-Type: application/json" -d '"{\"channel_id\":$CHAT_ID, \"message\":$encodedMessage, \"props\":{\"attachments\": $body}}"' -H "Authorization: Bearer $TOKEN" https://toledo.loop.ru/api/v4/posts""") 
 }
         return encodedMessage
     }
