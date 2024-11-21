@@ -154,12 +154,12 @@ def sendLOOP(message, status) {
        string(credentialsId: 'LOOPChannelID', variable: 'CHAT_ID')]) { 
         def data = [
         channel_id: "${CHAT_ID}",
-        message: ${status},
+        message: "${status}",
         props: [
         attachments:[
                 [
                 pretext: "" ,
-                text : ${encodedMessage}               
+                text : "${encodedMessage}"               
                 ]
                     ]
             ]
@@ -169,7 +169,7 @@ echo json
 json = JsonOutput.toJson(json)
 echo json
         
-       // bat("""curl -i -X POST -H "Content-Type: application/json" -d '"{\"channel_id\":$CHAT_ID, \"message\":$encodedMessage, \"props\":{\"attachments\": [{\"pretext\": $encodedMessage,\"text\": $encodedMessage}]}}"' -H "Authorization: Bearer $TOKEN" https://toledo.loop.ru/api/v4/posts""")
+      
        bat("""chcp 65001\n curl -i -X POST -H "Content-Type: application/json" -d $json -H "Authorization: Bearer $TOKEN" https://toledo.loop.ru/api/v4/posts""") 
     json = JsonOutput.prettyPrint(json)
 echo json
