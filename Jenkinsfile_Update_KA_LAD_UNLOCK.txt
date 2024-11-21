@@ -147,7 +147,8 @@ def sendTelegram(message) {
 
 def sendLOOP(message) {
         
-        def encodedMessage = new String(message.getBytes("UTF-8"), "windows-1251")
+        def encodedMessage = message
+//new String(message.getBytes("UTF-8"), "windows-1251")
         echo encodedMessage
        
        withCredentials([string(credentialsId: 'LOOPBOTID', variable: 'TOKEN'), 
