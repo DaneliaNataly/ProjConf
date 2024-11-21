@@ -44,7 +44,7 @@ pipeline {
              bat "echo always"
             
              //sendTelegram("\"Тест при передачи строковой константы в функцию\"")
-             sendLOOP("\"KA_LAD is update\"")
+             sendLOOP("\"Test\"")
 
             //  withCredentials([string(credentialsId: 'JenkinsBotID', variable: 'TOKEN'), string(credentialsId: 'JenkinsChannelDND', variable: 'CHAT_ID')]) {
             //  script{
