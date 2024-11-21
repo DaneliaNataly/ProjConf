@@ -155,12 +155,12 @@ def sendLOOP(message) {
        string(credentialsId: 'LOOPChannelID', variable: 'CHAT_ID')]) { 
         def data = [
         channel_id: "${CHAT_ID}",
-        message: "${encodedMessage}",
+        message: "SUCCESS:",
         props: [
         attachments:[
                 [
-                pretext: "АААА",
-                text : "ВВВ"               
+                pretext: "${encodedMessage},
+                text : "КA_LAD is update"               
                 ]
                     ]
             ]
