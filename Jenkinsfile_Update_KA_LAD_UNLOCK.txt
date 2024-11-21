@@ -148,7 +148,7 @@ def sendTelegram(message) {
 def sendLOOP(message) {
         
         def encodedMessage = new String(message.getBytes("UTF-8"), "windows-1251")
-        def body = [{\"pretext\": $encodedMessage,\"text\": $encodedMessage}]
+        def body = [{"pretext": $encodedMessage,"text": $encodedMessage}]
         body = JsonOutput.toJson(body)
         echo body
        withCredentials([string(credentialsId: 'LOOPBOTID', variable: 'TOKEN'), 
